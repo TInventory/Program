@@ -2,6 +2,16 @@
 
 Our Inventory Management Program for Team Software Project
 
+## Table of Contents
+- [Building the Project](#building-the-project)
+- [Setting up Development Environment](#setting-up-development-environment)
+    - [Eclipse](#eclipse)
+        - [GUI](#method-1-importing-the-gradle-project-into-eclipse)
+        - [CLI](#method-2-using-the-cli-to-generate-the-project-files)
+    - [IntelliJ IDEA](#intellij-idea)
+        - [GUI](#method-1-importing-the-gradle-project-into-intellij)
+        - [CLI](#method-2-using-the-cli-to-generate-the-project-files-1)
+
 ## Building the Project
 We utilize the Gradle build system for our project.
 The benefit of using Gradle is the only prerequisite needed is Java. No other tools need to be manually installed by the user before using Gradle.
