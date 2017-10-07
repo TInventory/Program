@@ -9,8 +9,8 @@ Upon running Gradle for the first time, some files will need to be downloaded. T
 
 1. Clone the repo and open a Command Prompt/Terminal window in the root directory
 2. Run the following command
-    2. Windows: `gradlew.bat build`
-    2. macOS/Linux: `./gradlew build`
+    - Windows: `gradlew.bat build`
+    - macOS/Linux: `./gradlew build`
 3. Upon completion, the JAR file should be in `/build/libs`.
 
 ## Setting up Development Environment
@@ -36,8 +36,8 @@ If you're more versed in command-line, or your version of Eclipse doesn't have n
 
 1. Clone the repo and open a Command Prompt/Terminal window in the root directory
 2. Run the following command
-    2. Windows: `gradlew.bat eclipse`
-    2. macOS/Linux: `./gradlew eclipse`
+    - Windows: `gradlew.bat eclipse`
+    - macOS/Linux: `./gradlew eclipse`
 3. After Gradle is done, close the window and open Eclipse (The location of the workspace should not matter)
 4. Choose File -> Import...
 5. Under General, choose Existing Projects into Workspace
@@ -63,8 +63,8 @@ If you're more versed in command-line, or your version of IntelliJ doesn't have 
 
 1. Clone the repo and open a Command Prompt/Terminal window in the root directory
 2. Run the following command
-    2. Windows: `gradlew.bat idea`
-    2. macOS/Linux: `./gradlew idea`
+    - Windows: `gradlew.bat idea`
+    - macOS/Linux: `./gradlew idea`
 3. After Gradle is done, close the window and open IntelliJ
 4. From the home screen, choose Open
 5. Navigate to the root directory of the project, and choose the `.ipr` file.
