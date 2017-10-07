@@ -1,0 +1,16 @@
+plugins {
+    id 'java'
+    id 'eclipse'
+    id 'idea'
+}
+
+version = 'v1'
+archivesBaseName = 'InventoryProgram'
+
+repositories {
+    jcenter()
+}
+
+dependencies {
+    testCompile 'junit:junit:4.12'
+}
