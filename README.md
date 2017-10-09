@@ -1,4 +1,5 @@
 # TInventory
+[![Documentation Status](https://readthedocs.org/projects/tinventory/badge/?version=latest)](http://tinventory.readthedocs.io/en/latest/?badge=latest)
 
 Our Inventory Management Program for Team Software Project
 
