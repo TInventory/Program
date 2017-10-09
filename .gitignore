@@ -17,3 +17,6 @@
 
 # Mac Specific
 .DS_Store
+
+# MkDocs
+/site

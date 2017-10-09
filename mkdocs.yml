@@ -1,0 +1,14 @@
+# Whenever you add a page to the docs folder, add it here too so it will be included in the final product.
+# Format is "- Display Name: 'path/file.md'"
+# It is already assumed that you are in the docs folder when specifying the path, so no need to preface the path with docs
+# Use a hierarchial structure to specify pages in a subsection
+# For example:
+# - Getting Started:
+#     - Installing: 'gettingstarted/intalling.md'
+pages:
+    - Home: 'index.md'
+
+# Everything below this line should not need to be changed
+site_name: TInventory User Manual
+repo_url: https://github.com/TInventory/Program
+theme: readthedocs
