@@ -1,27 +1,32 @@
 package edu.mtu.tinventory.data;
-/**
- *
- * @author bjpaupor
- *
- */
+
+import edu.mtu.tinventory.state.StateQtyMap;
+
 public class Product {
+	// The Model # / SKU / Unique Identifier
+	private String id;
+	// The human-friendly name
 	private String name;
-	private State state;
+	// The quantity of items in each state
+	// TODO: Create proxy methods in this class? Something to get qtys.
+	private final StateQtyMap quantities;
+
+	public Product(String id, String name) {
+		this.id = id;
+		this.name = name;
+		this.quantities = new StateQtyMap();
+	}
+
+	public String getID() {
+		return id;
+	}
+
 	public String getName() {
 		return name;
 	}
+
+	//NOTE: Will need to update database after this call.
 	public void setName(String name) {
 		this.name = name;
-	}
-	public State getState() {
-		return state;
-	}
-	public void setState(State state) {
-		this.state = state;
-	}
-	
-	public Product(String name, State state) {
-		this.name = name;
-		this.state = state;
 	}
 }
