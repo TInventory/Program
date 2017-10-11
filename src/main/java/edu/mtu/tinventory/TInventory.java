@@ -1,5 +1,6 @@
 package edu.mtu.tinventory;
 
+import edu.mtu.tinventory.database.Database;
 import edu.mtu.tinventory.gui.MainController;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -9,9 +10,12 @@ import javafx.stage.Stage;
 
 public class TInventory extends Application {
 	private MainController controller;
-
+	private Database database;
+	
 	@Override
 	public void start(Stage stage) throws Exception {
+		database = Database.getInstance();
+		
 		FXMLLoader loader = new FXMLLoader(TInventory.class.getResource("fxml/main.fxml"));
 		BorderPane root = loader.load();
 		controller = loader.getController();

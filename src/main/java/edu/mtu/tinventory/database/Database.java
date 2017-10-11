@@ -5,7 +5,7 @@ import edu.mtu.tinventory.data.Product;
 public class Database {
 
 	// Creates a single instance of the database interface
-	private Database instance = new Database();
+	private static Database instance = new Database();
 
 	// Empty constructor for now
 	private Database() {
@@ -18,7 +18,7 @@ public class Database {
 	 * 
 	 * @return an Instance of the databaseInterface
 	 */
-	public Database getInstance() {
+	public static Database getInstance() {
 		return instance;
 	}
 
