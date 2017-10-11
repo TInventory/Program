@@ -60,4 +60,12 @@ public class Database {
 	public boolean updateItem(Product product) {
 		return false;
 	}
+	/**
+	 * Gets a particular product from the database
+	 * @param productID the unique product ID to find product in database
+	 * @return Product in the database
+	 */
+	public Product getProduct(String productID) {
+		return null;
+	}
 }
