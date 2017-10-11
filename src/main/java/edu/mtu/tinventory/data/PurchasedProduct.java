@@ -1,0 +1,35 @@
+package edu.mtu.tinventory.data;
+
+import java.math.BigDecimal;
+
+/**
+ * Wrapper around Product to specify quantity purchased and the unit price.
+ * This allows us to apply a one-time discount to an item.
+ */
+public class PurchasedProduct {
+	private Product product;
+	private int quantity;
+	private BigDecimal unitPrice;
+
+	public PurchasedProduct(Product product, int quantity, BigDecimal unitPrice) {
+		this.product = product;
+		this.quantity = quantity;
+		this.unitPrice = unitPrice;
+	}
+
+	public String getProductName() {
+		return product.getName();
+	}
+
+	public int getQuantity() {
+		return quantity;
+	}
+
+	public BigDecimal getUnitPrice() {
+		return unitPrice;
+	}
+
+	public String getDisplayUnitPrice() {
+		return Product.PRICE_FORMAT.format(unitPrice);
+	}
+}
