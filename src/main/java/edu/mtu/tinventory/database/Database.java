@@ -50,29 +50,14 @@ public class Database {
 	}
 
 	/**
-	 * Increments the amount of items that are in stock in the inventory
-	 * 
-	 * @param product Product: The product to increase the amount in stock
-	 * @param amountToAddToInventory Integer: The amount to increase the in stock by
-	 * 
-	 * @return Returns true if the action is successful and the item is
-	 *         completely removed from the database, otherwise returns false
+	 * Updates the Product in the database with the information in this instance of Product.
+	 * This method takes the ProductID from the passed-in product instance, and then compares the
+	 * information on this object with the information in the database. Anything that's different,
+	 * the database gets updated with the new information.
+	 * @param product The product to have its information updated in the server database
+	 * @return true if the update was successful, false otherwise.
 	 */
-	public boolean addInventory(Product product, int amountToAddToInventory) {
-		return true;
+	public boolean updateItem(Product product) {
+		return false;
 	}
-
-	/**
-	 * Increments the amount of items that are in stock in the inventory
-	 * 
-	 * @param product Product: The product to increase the amount in stock
-	 * @param amountToAddToInventory Integer: The amount to increase the in stock by
-	 * 
-	 * @return Returns true if the action is successful and the item is
-	 *         completely removed from the database, otherwise returns false
-	 */
-	public boolean removeInventory(Product product, int amountToRemoveFromInventory) {
-		return true;
-	}
-	
 }
