@@ -3,11 +3,24 @@ package edu.mtu.tinventory.database;
 import java.io.File;
 import java.io.IOException;
 
+/**
+ * 
+ * @author James Helm
+ * @since 10/12/2017
+ * 
+ *        Used to access local file I/O stuff to store local database configuration data
+ */
+
 public class DatabaseConfig {
 
 	private File file;
 
-	private static final DatabaseConfig sqlConfig = new DatabaseConfig("sqlConfig"), test = new DatabaseConfig("test");
+	// Suppression again because the yellow tick annoys me
+	@SuppressWarnings("unused")
+    private static final DatabaseConfig 
+    // These are equivalent to seperate variables
+	        sqlConfig = new DatabaseConfig("sqlConfig"), 
+	        test = new DatabaseConfig("test");
 
 	/**
 	 * Constructor for config file class/classes
