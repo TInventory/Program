@@ -6,6 +6,8 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
+import javafx.scene.control.Tab;
+import javafx.scene.control.TabPane;
 import javafx.scene.layout.BorderPane;
 
 import java.io.IOException;
@@ -15,17 +17,17 @@ import java.io.IOException;
  */
 public class MainController {
 	@FXML
-	private BorderPane root;
+	private TabPane tabs;
 
 	@FXML
-	public void close(ActionEvent event) {
+	private void close() {
 		Platform.exit();
 	}
 
 	@FXML
-	public void viewInventory() {
+	private void viewInventory() {
 		try {
-			loadView("inventoryView.fxml");
+			loadView("View Inventory", "inventoryView.fxml");
 		} catch(IOException e) {
 			//TODO: Have a better error handler
 			e.printStackTrace();
@@ -33,13 +35,13 @@ public class MainController {
 	}
 
 	@FXML
-	public void createNewProduct() {
+	private void createNewProduct() {
 		
 	}
 
-	private void loadView(String filename) throws IOException {
+	private void loadView(String tabName, String filename) throws IOException {
 		FXMLLoader loader = new FXMLLoader(TInventory.class.getResource("fxml/" + filename));
 		Node node = loader.load();
-		root.setCenter(node);
+		tabs.getTabs().add(new Tab(tabName, node));
 	}
 }
