@@ -23,6 +23,7 @@ public class TInventory extends Application {
 
 		stage.setTitle("TInventory");
 		stage.setScene(scene);
+		stage.setMaximized(true);
 		stage.show();
 	}
 
