@@ -16,4 +16,12 @@ public class MainController {
 	public void close(ActionEvent event) {
 		Platform.exit();
 	}
+	
+	public void viewInvetory() {
+		
+	}
+	
+	public void createNewProducts() {
+		
+	}
 }
