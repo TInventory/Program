@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Menu?>
 <?import javafx.scene.control.MenuBar?>
 <?import javafx.scene.control.MenuItem?>
@@ -12,14 +11,20 @@
         <menus>
           <Menu mnemonicParsing="false" text="File">
             <items>
-              <MenuItem mnemonicParsing="false" text="Close" />
+              <MenuItem mnemonicParsing="false" onAction="#close" text="Close" />
             </items>
           </Menu>
           <Menu mnemonicParsing="false" text="Edit">
             <items>
-              <MenuItem mnemonicParsing="false" text="Delete" />
+              <MenuItem mnemonicParsing="false" text="Placeholder" />
             </items>
           </Menu>
+            <Menu mnemonicParsing="false" text="Actions">
+              <items>
+                <MenuItem mnemonicParsing="false" text="View Inventory" />
+                  <MenuItem mnemonicParsing="false" text="Create New Products" />
+              </items>
+            </Menu>
           <Menu mnemonicParsing="false" text="Help">
             <items>
               <MenuItem mnemonicParsing="false" text="About" />
@@ -28,10 +33,4 @@
         </menus>
       </MenuBar>
    </top>
-   <left>
-      <Button mnemonicParsing="false" text="View Inventory" BorderPane.alignment="CENTER" />
-   </left>
-   <right>
-      <Button mnemonicParsing="false" text="Create New Products" BorderPane.alignment="CENTER" />
-   </right>
 </BorderPane>

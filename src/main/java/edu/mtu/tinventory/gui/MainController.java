@@ -1,5 +1,7 @@
 package edu.mtu.tinventory.gui;
 
+import javafx.application.Platform;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.layout.BorderPane;
 
@@ -9,4 +11,9 @@ import javafx.scene.layout.BorderPane;
 public class MainController {
 	@FXML
 	private BorderPane root;
+
+	@FXML
+	public void close(ActionEvent event) {
+		Platform.exit();
+	}
 }
