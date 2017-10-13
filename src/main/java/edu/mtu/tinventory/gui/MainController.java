@@ -16,11 +16,13 @@ public class MainController {
 	public void close(ActionEvent event) {
 		Platform.exit();
 	}
-	
+
+	@FXML
 	public void viewInvetory() {
 		
 	}
-	
+
+	@FXML
 	public void createNewProducts() {
 		
 	}
