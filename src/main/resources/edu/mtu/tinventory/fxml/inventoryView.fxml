@@ -8,5 +8,6 @@
       <TableColumn editable="false" prefWidth="75.0" text="ID" />
       <TableColumn editable="false" prefWidth="75.0" text="Name" />
       <TableColumn editable="false" prefWidth="75.0" text="Price" />
+      <TableColumn editable="false" prefWidth="75.0" text="Quantity" />
    </columns>
 </TableView>
