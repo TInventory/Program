@@ -4,6 +4,7 @@ import edu.mtu.tinventory.TInventory;
 import java.io.IOException;
 import java.util.EnumMap;
 import javafx.application.Platform;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Tab;
@@ -38,6 +39,11 @@ public class MainController {
 	@FXML
 	private void createNewProduct() {
 		openTab(View.CREATE_PRODUCT);
+	}
+
+	@FXML
+	private void openSellTab() {
+		openTab(View.SELL_INV);
 	}
 
 	private void openTab(View view) {
