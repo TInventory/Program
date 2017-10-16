@@ -15,14 +15,13 @@ public class TInventory extends Application {
 	@Override
 	public void start(Stage stage) throws Exception {
 		database = DatabaseInterface.getInstance();
-		
 		FXMLLoader loader = new FXMLLoader(TInventory.class.getResource("fxml/main.fxml"));
 		BorderPane root = loader.load();
 		controller = loader.getController();
 		Scene scene = new Scene(root);
-
 		stage.setTitle("TInventory");
 		stage.setScene(scene);
+		stage.setMaximized(true);
 		stage.show();
 	}
 
