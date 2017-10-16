@@ -21,9 +21,9 @@ public class InvViewController {
 	 * 
 	 */
 	private void viewInventory() {
-		if (localCache.isEmpty()) {               //localCache is placeholder name for cached database list
-			getInventory();
-		}
-		
+//		if (localCache.isEmpty()) {               //localCache is placeholder name for cached database list
+//			getInventory();
+//		}
+//		
 	}
 }
