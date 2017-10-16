@@ -1,6 +1,7 @@
 package edu.mtu.tinventory.database;
 
 import edu.mtu.tinventory.data.Product;
+import java.util.List;
 
 /**
  * 
@@ -103,6 +104,14 @@ public class DatabaseInterface {
     public Product getProduct(String productID) {
         return null;
     }
+
+	/**
+	 * Fetches a list of all products currently registered in the database
+	 * @return A List of all registered products
+	 */
+	public List<Product> getProducts() {
+    	return null;
+	}
     
     private void connectTo() {
     	if (!sql.connect()) {
