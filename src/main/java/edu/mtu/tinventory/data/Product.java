@@ -51,4 +51,8 @@ public class Product {
 	public String toString() {
 		return "Name:" + name + " ID:" + id + " Price:" + price;
 	}
+	
+	public StateQtyMap getQuanity() {
+		return quantities;
+	}
 }
