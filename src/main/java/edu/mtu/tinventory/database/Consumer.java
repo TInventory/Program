@@ -4,7 +4,10 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.Queue;
+import java.util.concurrent.Executors;
 import java.util.concurrent.LinkedBlockingQueue;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.TimeUnit;
 
 import edu.mtu.tinventory.database.query.ExecuteQuery;
 import edu.mtu.tinventory.database.query.Query;
@@ -17,6 +20,8 @@ import edu.mtu.tinventory.database.query.Query;
  *        Used to establish regular queue commands Likely will be used to auto
  *        update inventory
  */
+
+// TODO: Not needed for sprint 1, avoiding for now, need to do as task scheduler 
 public class Consumer implements Runnable {
 
 	/**
@@ -30,12 +35,9 @@ public class Consumer implements Runnable {
 	private static Consumer instance;
 
 	/**
-	 * Will need to be replaced with scheduler
+	 * Task used as a pool of seperate threads to handle queued quarries
 	 */
-	// TODO: Replace with scheduler
-	// Remove suppression later, just used for now because it annoys me
-	@SuppressWarnings("unused")
-	private Object task;
+	private final ScheduledExecutorService task;
 
 	private Queue<Query> queries;
 
@@ -83,8 +85,17 @@ public class Consumer implements Runnable {
 		// Creates the Linked Queue to hold Statements
 		this.queries = new LinkedBlockingQueue<Query>();
 
-		// TODO: Need to replace with task scheduler
-		this.task = null;
+		// Creates a new pool of threads to handle query system
+		this.task = Executors.newScheduledThreadPool(1);
+		
+				//TODO: Currently hard coded, need to be added as a config via config SQL table
+		final long initialDelay = 10;
+				//TODO: Currently hard coded, need to be added as a config via config SQL table
+		final long period = 5 * 60; // convert from minutes to seconds
+		
+		// Runs task at run() , starting after initial Delay of config file and repeats this action for every period
+// TODO: Needs to be outside of the class.
+		//task.scheduleAtFixedRate(run(), initialDelay, period, TimeUnit.SECONDS);
 	}
 
 	/**
@@ -92,11 +103,12 @@ public class Consumer implements Runnable {
 	 * automatically
 	 */
 	public void stop() {
-		// TODO: Cancel the scheduler
+		
 	}
 
 	/**
-	 * Takes all the Statements in the linked queue, and sends them to the database
+	 * Takes all the Statements in the linked queue, and sends them to the
+	 * database
 	 */
 	@Override
 	public void run() {
@@ -109,7 +121,7 @@ public class Consumer implements Runnable {
 					try {
 						// Ensure the query is in a proper form
 						if (query instanceof ExecuteQuery) {
-							
+
 							ExecuteQuery executeQuery = (ExecuteQuery) query;
 
 							// Creates the statement to send
@@ -127,7 +139,7 @@ public class Consumer implements Runnable {
 						} else {
 							// Retrieve statement
 							String q = query.getQuery();
-							
+
 							if (q != null) {
 								Statement statement = db.createStatement();
 								// Send out the statement

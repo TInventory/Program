@@ -17,11 +17,24 @@ public class DatabaseInterface {
     private static DatabaseInterface instance = new DatabaseInterface();
 
     /**
+     * 
+     */
+    private MySQL sql;
+    /**
+     * 
+     */
+    private Consumer consumer;
+    /**
      * Empty constructor for now
      */
     private DatabaseInterface() {
 
+    	//TODO: Populate from config file
+    	//sql = new MySQL(username, password, database, host, port);
+    	connectTo();
+    	
     }
+    
 
     /**
      * Retrieves a singleton instances of the Database class to be used to
@@ -43,6 +56,7 @@ public class DatabaseInterface {
      *         registered properly into the database, otherwise returns false
      */
     public boolean registerNewItem(Product product) {
+    		
         return false;
     }
 
@@ -88,5 +102,16 @@ public class DatabaseInterface {
      */
     public Product getProduct(String productID) {
         return null;
+    }
+    
+    private void connectTo() {
+    	if (!sql.connect()) {
+    		System.out.println("Couldn't connect to database!");
+    	}
+    	else {
+    		System.out.println("Connected to Database");
+    		consumer = new Consumer(sql);
+    		
+    	}
     }
 }
