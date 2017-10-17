@@ -34,7 +34,7 @@ public class Invoice {
 		this.products = products;
 		this.total = BigDecimal.ZERO;
 		for(PurchasedProduct p : products) {
-			total = total.add(p.getUnitPrice().multiply(new BigDecimal(p.getQuantity())));
+			total = total.add(p.getTotalPrice());
 		}
 	}
 

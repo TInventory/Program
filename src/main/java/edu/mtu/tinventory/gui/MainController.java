@@ -62,8 +62,8 @@ public class MainController {
 	private Tab loadTab(View view) throws IOException {
 		FXMLLoader loader = new FXMLLoader(TInventory.class.getResource("fxml/" + view.getFxmlName() + ".fxml"));
 		Region node = loader.load();
-		node.prefHeightProperty().bind(tabs.heightProperty()); // Makes the loaded region take up the whole TabView.
-		node.prefWidthProperty().bind(tabs.widthProperty());   // Have to do it programmatically due to communication between FXMLs.
+		node.prefHeightProperty().bind(tabs.heightProperty().subtract(30)); // Makes the loaded region take up the whole TabView, minus the space for the tabs themselves.
+		node.prefWidthProperty().bind(tabs.widthProperty());   					  // Have to do it programmatically due to communication between FXMLs.
 		Tab tab = new Tab(view.getTabName(), node);
 		tab.setOnClosed(event -> activeTabs.remove(view));
 		tabs.getTabs().add(tab);
