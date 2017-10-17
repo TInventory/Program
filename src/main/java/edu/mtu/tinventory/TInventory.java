@@ -20,6 +20,8 @@ public class TInventory extends Application {
 		controller = loader.getController();
 		Scene scene = new Scene(root);
 		stage.setTitle("TInventory");
+		stage.setMinWidth(root.getMinWidth());
+		stage.setMinHeight(root.getMinHeight());
 		stage.setScene(scene);
 		stage.setMaximized(true);
 		stage.show();

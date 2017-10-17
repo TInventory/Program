@@ -1,5 +1,6 @@
 package edu.mtu.tinventory.database;
 
+import edu.mtu.tinventory.data.Invoice;
 import edu.mtu.tinventory.data.Product;
 import java.util.List;
 
@@ -32,7 +33,7 @@ public class DatabaseInterface {
 
     	//TODO: Populate from config file
     	//sql = new MySQL(username, password, database, host, port);
-    	connectTo();
+    	//connectTo();
     	
     }
     
@@ -99,7 +100,7 @@ public class DatabaseInterface {
      * 
      * @param productID
      *            the unique product ID to find product in database
-     * @return Product in the database
+     * @return Product in the database if it exists, null otherwise.
      */
     public Product getProduct(String productID) {
         return null;
@@ -111,6 +112,15 @@ public class DatabaseInterface {
 	 */
 	public List<Product> getProducts() {
     	return null;
+	}
+
+	/**
+	 * Saves Store a completed invoice in the database.
+	 * @param invoice The invoice to store in the database.
+	 * @return true if it was successfully saved, false otherwise.
+	 */
+	public boolean saveInvoice(Invoice invoice) {
+		return false;
 	}
     
     private void connectTo() {

@@ -10,7 +10,7 @@
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.RowConstraints?>
 
-<GridPane hgap="10.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8.0.141" fx:controller="edu.mtu.tinventory.gui.SellController">
+<GridPane hgap="10.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.mtu.tinventory.gui.SellController">
   <columnConstraints>
     <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
     <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
@@ -22,24 +22,24 @@
     <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
   </rowConstraints>
    <children>
-      <TableView prefHeight="200.0" prefWidth="63.0" GridPane.columnSpan="3" GridPane.rowIndex="1" GridPane.vgrow="ALWAYS">
+      <TableView fx:id="items" prefHeight="200.0" prefWidth="63.0" GridPane.columnSpan="3" GridPane.rowIndex="1" GridPane.vgrow="ALWAYS">
         <columns>
-          <TableColumn editable="false" prefWidth="75.0" text="Qty" />
-            <TableColumn editable="false" prefWidth="75.0" text="ID" />
-            <TableColumn editable="false" prefWidth="75.0" text="Name" />
-            <TableColumn editable="false" prefWidth="85.0" text="Unit Price" />
-            <TableColumn editable="false" prefWidth="90.0" text="Total Price" />
+          <TableColumn fx:id="qtyColumn" editable="false" prefWidth="75.0" text="Qty" />
+            <TableColumn fx:id="idColumn" editable="false" prefWidth="75.0" text="ID" />
+            <TableColumn fx:id="nameColumn" editable="false" prefWidth="75.0" text="Name" />
+            <TableColumn fx:id="uPriceColumn" editable="false" prefWidth="85.0" text="Unit Price" />
+            <TableColumn fx:id="tPriceColumn" editable="false" prefWidth="90.0" text="Total Price" />
         </columns>
          <GridPane.margin>
             <Insets bottom="10.0" top="10.0" />
          </GridPane.margin>
       </TableView>
-      <TextField promptText="Qty" />
-      <TextField promptText="ID" GridPane.columnIndex="1" />
-      <Button mnemonicParsing="false" text="Add Item" GridPane.columnIndex="2" />
+      <TextField fx:id="qty" promptText="Qty" />
+      <TextField fx:id="productID" promptText="ID" GridPane.columnIndex="1" />
+      <Button mnemonicParsing="false" onAction="#addItemToOrder" text="Add Item" GridPane.columnIndex="2" />
       <Label text="Total:" GridPane.rowIndex="2" />
-      <TextField editable="false" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-      <Button mnemonicParsing="false" text="Complete Order" GridPane.columnIndex="2" GridPane.rowIndex="2" />
+      <TextField fx:id="total" editable="false" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+      <Button mnemonicParsing="false" onAction="#completeOrder" text="Complete Order" GridPane.columnIndex="2" GridPane.rowIndex="2" />
    </children>
    <padding>
       <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
