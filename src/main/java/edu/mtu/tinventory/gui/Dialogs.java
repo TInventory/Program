@@ -1,6 +1,7 @@
 package edu.mtu.tinventory.gui;
 
 import javafx.scene.control.Alert;
+import javafx.scene.layout.Region;
 import javafx.stage.StageStyle;
 
 /**
@@ -35,6 +36,7 @@ public class Dialogs {
 		alert.setTitle(type.getTitle() + " - TInventory");
 		alert.setHeaderText(heading);
 		alert.setContentText(message);
+		alert.getDialogPane().setMinHeight(Region.USE_PREF_SIZE); // Fixes edge case sizing problems
 		alert.showAndWait();
 	}
 }

@@ -14,4 +14,18 @@ public class StringUtils {
 	public static boolean isNullOrEmpty(String s) {
 		return s == null || s.isEmpty();
 	}
+
+	/**
+	 * Checks if the following string is a number.
+	 * @param s The string to check
+	 * @return true if the string is a number, false otherwise.
+	 */
+	public static boolean isNumber(String s) {
+		try {
+			Double.parseDouble(s);
+			return true;
+		} catch(NumberFormatException e) {
+			return false;
+		}
+	}
 }
