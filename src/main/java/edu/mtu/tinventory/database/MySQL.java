@@ -29,6 +29,13 @@ public class MySQL extends Database {
      * @param port Port associated with the URL of the MySQL Database
      */
     public MySQL(String username, String password, String database, String host, int port) {
+    	//TODO: Temporary hard coded
+    	username = "tinventory";
+    	password = "taco";
+    	database = "tinventory";
+    	host = "kiro47.ddns.net";
+    	port = 9998;
+    	
         this.username = username;
         this.password = password;
         connectionURL = "jdbc:mysql://" + host + ":" + port + "/" + database;
