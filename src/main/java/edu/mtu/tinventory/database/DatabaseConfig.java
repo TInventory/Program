@@ -21,7 +21,7 @@ public class DatabaseConfig {
     // These are equivalent to seperate variables
 	        sqlConfig = new DatabaseConfig("sqlConfig"), 
 	        test = new DatabaseConfig("test");
-
+	
 	/**
 	 * Constructor for config file class/classes
 	 * 
