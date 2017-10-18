@@ -1,5 +1,6 @@
 package edu.mtu.tinventory.gui;
 
+import edu.mtu.tinventory.data.Invoice;
 import edu.mtu.tinventory.data.Product;
 import edu.mtu.tinventory.data.PurchasedProduct;
 import edu.mtu.tinventory.util.StringUtils;
@@ -40,6 +41,8 @@ public class SellController {
 			Dialogs.showDialog(Dialogs.Type.ERROR, "No quantity specified", "You must specify a quantity for each product.");
 		} else if(StringUtils.isNullOrEmpty(productID.getText())) {
 			Dialogs.showDialog(Dialogs.Type.ERROR, "No product specified", "You must specify a Product ID for each product.");
+		} else if (!StringUtils.isNumber(qty.getText())) {
+			Dialogs.showDialog(Dialogs.Type.ERROR, "Invalid quantity specified", "Quantity must be a valid number");
 		} else if(Integer.parseInt(qty.getText()) <= 0) {
 			Dialogs.showDialog(Dialogs.Type.ERROR, "Invalid quantity specified", "Quantity must be greater than 0");
 		} else { //TODO: Add a check later to see if the specified product is already in the list
@@ -65,6 +68,16 @@ public class SellController {
 
 	@FXML
 	private void completeOrder() {
-		//TODO
+		if(items.getItems().isEmpty()) {
+			Dialogs.showDialog(Dialogs.Type.ERROR, "No products specified", "Must specify at least one item");
+		} else {
+			Invoice i = Invoice.createNewInvoice(items.getItems());
+			if(i == null) {
+				Dialogs.showDialog(Dialogs.Type.ERROR, "Invoice could not be created", "Problem communicating with Database. Please try again.");
+			} else {
+				items.getItems().clear();
+				Dialogs.showDialog(Dialogs.Type.INFO, "Invoice successfully created", "Invoice No: " + i.getId());
+			}
+		}
 	}
 }
