@@ -45,6 +45,10 @@ public class MainController {
 		openTab(View.SELL_INV);
 	}
 
+	@FXML
+	private void updateInventory() {
+		openTab(View.UPDATE_PRODUCT);
+	}
 	private void openTab(View view) {
 		Tab tab = activeTabs.get(view);
 		if(tab == null) { // The tab is currently not open. Load it.

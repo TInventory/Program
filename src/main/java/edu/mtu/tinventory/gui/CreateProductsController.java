@@ -9,6 +9,8 @@ import javafx.scene.control.TextField;
  * @author Brandon Paupore
  */
 public class CreateProductsController {
+	DatabaseInterface database;
+	
 	@FXML TextField productName;
 	@FXML TextField productID;
 	@FXML TextField productPrice;
@@ -24,18 +26,18 @@ public class CreateProductsController {
 		try {
 			Double.valueOf(productPrice.getText());
 		} catch (NumberFormatException ex) {
-			errorDisplay.setText("Price must be valid");
+			errorDisplay.setText("Price must be valid");//dialogs instead maybe?
 			productPrice.setText("");
 			return;
 		}
 		Product product = new Product(productID.getText(), productName.getText(), productPrice.getText());
-		DatabaseInterface database = DatabaseInterface.getInstance();
+		database = DatabaseInterface.getInstance();
 		//Attempt to register product in database
 		if (database.registerNewItem(product)) {
-			errorDisplay.setText("Product successfully created and registered to database!");
+			errorDisplay.setText("Product successfully created and registered to database!");//dialogs instead maybe?
 		}
 		else {
-			errorDisplay.setText("Something went wrong, product may already exist in database.");
+			errorDisplay.setText("Something went wrong, product may already exist in database.");//dialogs instead maybe?
 		}
 	}
 }
