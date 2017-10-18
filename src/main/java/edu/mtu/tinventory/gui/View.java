@@ -3,8 +3,9 @@ package edu.mtu.tinventory.gui;
 public enum View {
 	VIEW_INV("View Inventory", "inventoryView"),
 	CREATE_PRODUCT("Create New Products", "createProducts"),
-	SELL_INV("Sell Inventory", "sell");
-
+	SELL_INV("Sell Inventory", "sell"),
+	UPDATE_PRODUCT("Update Products", "updateProducts");
+	
 	private String tabName;
 	private String fxmlName;
 

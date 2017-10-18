@@ -25,6 +25,7 @@
                 <MenuItem mnemonicParsing="false" onAction="#viewInventory" text="View Inventory" />
                   <MenuItem mnemonicParsing="false" onAction="#openSellTab" text="Sell Inventory" />
                   <MenuItem mnemonicParsing="false" onAction="#createNewProduct" text="Create New Products" />
+                  <MenuItem mnemonicParsing="false" onAction="#updateInventory" text="Update/Recieve Inventory" />
               </items>
             </Menu>
           <Menu mnemonicParsing="false" text="Help">
