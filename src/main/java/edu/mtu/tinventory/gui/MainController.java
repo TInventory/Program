@@ -14,8 +14,7 @@ import javafx.scene.layout.Region;
  * Controller class for the main window of the program
  */
 public class MainController {
-	@FXML
-	private TabPane tabs;
+	@FXML private TabPane tabs;
 
 	private EnumMap<View, Tab> activeTabs;
 
@@ -49,6 +48,7 @@ public class MainController {
 	private void updateInventory() {
 		openTab(View.UPDATE_PRODUCT);
 	}
+
 	private void openTab(View view) {
 		Tab tab = activeTabs.get(view);
 		if(tab == null) { // The tab is currently not open. Load it.

@@ -45,12 +45,14 @@ public class SellController {
 			Dialogs.showDialog(Dialogs.Type.ERROR, "Invalid quantity specified", "Quantity must be a valid number");
 		} else if(Integer.parseInt(qty.getText()) <= 0) {
 			Dialogs.showDialog(Dialogs.Type.ERROR, "Invalid quantity specified", "Quantity must be greater than 0");
-		} else { //TODO: Add a check later to see if the specified product is already in the list
+		} else {
 			//Product p = DatabaseInterface.getInstance().getProduct(productID.getText()); //TODO: Use this line when Database is implemented
 			Product p = new Product(productID.getText(), productID.getText(), Double.toString(Math.random() * 100)); // ONLY FOR TESTING
 			if (p == null) { // Product does not exist in the database.
 				Dialogs.showDialog(Dialogs.Type.ERROR, "Product does not exist", String.format("%s is not a valid Product ID", productID.getText()));
 				productID.clear();
+			} else if(contains(productID.getText())) {
+				Dialogs.showDialog(Dialogs.Type.ERROR, "Product already in order", String.format("%s is already in the order.", productID.getText()));
 			} else {
 				PurchasedProduct pp = new PurchasedProduct(p, Integer.parseInt(qty.getText()), p.getPrice());
 				items.getItems().add(pp);
@@ -79,5 +81,14 @@ public class SellController {
 				Dialogs.showDialog(Dialogs.Type.INFO, "Invoice successfully created", "Invoice No: " + i.getId());
 			}
 		}
+	}
+
+	private boolean contains(String productID) {
+		for(PurchasedProduct pp : items.getItems()) {
+			if(pp.getProductID().equals(productID)) {
+				return true;
+			}
+		}
+		return false;
 	}
 }
