@@ -1,11 +1,10 @@
 package edu.mtu.tinventory.gui;
-import java.io.IOException;
 
 import edu.mtu.tinventory.TInventory;
 import edu.mtu.tinventory.database.DatabaseInterface;
+import java.io.IOException;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.BorderPane;
 /**

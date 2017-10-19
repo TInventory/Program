@@ -47,7 +47,8 @@ public class Product {
 	public String getDisplayPrice() {
 		return PRICE_FORMAT.format(price);
 	}
-	
+
+	@Override
 	public String toString() {
 		return "Name:" + name + " ID:" + id + " Price:" + price;
 	}
