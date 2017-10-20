@@ -12,12 +12,41 @@ repositories {
 }
 
 dependencies {
+    // All dependencies for our main program are declared here
+    // Format is "compile 'group:artifact:version'
+    // Use search.maven.org to see if the library is in the central repo for us to use
+    compile 'mysql:mysql-connector-java:5.1.44'
+
+    // All dependencies for our test cases to compile are declared here.
+    // This already contains our main compile dependencies
     testCompile 'junit:junit:4.12'
-    compile 'mysql:mysql-connector-java:8.0.8-dmr'
+}
+
+// Creates the manifest in one place, to
+def commonManifest = {
+    attributes 'Main-Class': 'edu.mtu.tinventory.TInventory',
+            'Implementation-Title': 'TInventory',
+            'Implementation-Version': project.version,
+            'Build-With': 'Gradle v' + project.getGradle().getGradleVersion()
 }
 
 jar {
-    manifest {
-        attributes 'Main-Class': 'edu.mtu.tinventory.TInventory'
+    manifest commonManifest
+    classifier 'bin'
+}
+
+// This task will include all compile dependencies in a single JAR file, so we don't have to do any linking manually
+task fatJar(type: Jar, dependsOn: 'jar') {
+    doFirst {
+        from zipTree(jar.archivePath)
     }
+    inputs.file jar.archivePath
+    from(configurations.compile.collect { zipTree(it).matching { exclude 'META-INF/**' } })
+    manifest commonManifest
+    classifier 'all'
+}
+
+// This declares it as an artifact to build when 'build' is run
+artifacts {
+    archives fatJar
 }
