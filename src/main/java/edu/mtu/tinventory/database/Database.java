@@ -42,7 +42,7 @@ public abstract class Database {
 
         try {
             // attempt to connect, has 10 second til timeout
-            return !(connection == null || !connection.isValid(10));
+            return !(connection == null || !connection.isValid(100));
         } catch (SQLException e) {
             e.printStackTrace();
         }

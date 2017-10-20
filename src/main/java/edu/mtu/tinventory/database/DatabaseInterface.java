@@ -1,18 +1,31 @@
 package edu.mtu.tinventory.database;
 
+import java.util.List;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.ScheduledFuture;
+import java.util.concurrent.TimeUnit;
+
 import edu.mtu.tinventory.data.Invoice;
 import edu.mtu.tinventory.data.Product;
-import java.util.List;
+import edu.mtu.tinventory.database.query.Query;
 
 /**
  * 
  * @author James Helm
  * @since 10/12/2017
  * 
- *        Used as a simple interface between most of the inventory system and the SQL database
+ *        Used as a simple interface between most of the inventory system and
+ *        the SQL database
  */
 public class DatabaseInterface {
 
+    /**
+     * Name of the table that the main data is stored in
+     */
+    private String dataTable = "inventory";
+    
+    
     /**
      * Creates a single instance of the database interface
      */
@@ -21,22 +34,54 @@ public class DatabaseInterface {
     /**
      * 
      */
-    private MySQL sql;
+  private  DatabaseSetup setup = new DatabaseSetup();
     /**
      * 
      */
+    private MySQL sqlConnection;
+
+    /**
+     * 
+     */
+
     private Consumer consumer;
+
+    /**
+     * Creates a new pool of threads to handle query system
+     */
+    // Maybe not hard code? could go either way
+    ScheduledExecutorService executors = Executors.newScheduledThreadPool(5);
+
+    /**
+     * Task used as a pool of seperate threads to handle queued quarries
+     */
+    private ScheduledFuture<?> task;
+
     /**
      * Empty constructor for now
      */
     private DatabaseInterface() {
+        // TODO: Change to actual config, currently is harcodes
+        sqlConnection = new MySQL(null, null, null, null, 0);
 
-    	//TODO: Populate from config file
-    	//sql = new MySQL(username, password, database, host, port);
-    	//connectTo();
-    	
+        connectTo();
+
+        // TODO: Populate from config file
+        // sqlConnection = new MySQL(username, password, database, host, port);
+
+        // TODO: Currently hard coded, need to be added as a config via config
+        // SQL table
+        final long initialDelay = 10;
+        // TODO: Currently hard coded, need to be added as a config via config
+        // SQL table
+        final long period = 5 * 60; // convert from minutes to seconds
+
+        // Runs task at run() , starting after initial Delay of config file and
+        // repeats this action for every period
+        // TODO: Needs to be outside of the class.
+        // task.scheduleAtFixedRate(run(), initialDelay, period,
+        // TimeUnit.SECONDS);
     }
-    
 
     /**
      * Retrieves a singleton instances of the Database class to be used to
@@ -58,8 +103,24 @@ public class DatabaseInterface {
      *         registered properly into the database, otherwise returns false
      */
     public boolean registerNewItem(Product product) {
-    		
+       // sendSingleCommand();
         return false;
+    }
+
+    /**
+     * Creates a new table in the database
+     * 
+     * @return Returns true if the action is successful and the table is created
+     *         in the database, otherwise returns false
+     */
+    public boolean setupDataTable() {
+        try {
+        sendSingleCommand(setup.setupDataTable(dataTable));
+            return true;
+        }
+        catch (Exception exception) {
+            return false;
+        }
     }
 
     /**
@@ -106,31 +167,40 @@ public class DatabaseInterface {
         return null;
     }
 
-	/**
-	 * Fetches a list of all products currently registered in the database
-	 * @return A List of all registered products
-	 */
-	public List<Product> getProducts() {
-    	return null;
-	}
+    /**
+     * Fetches a list of all products currently registered in the database
+     * 
+     * @return A List of all registered products
+     */
+    public List<Product> getProducts() {
 
-	/**
-	 * Saves Store a completed invoice in the database.
-	 * @param invoice The invoice to store in the database.
-	 * @return true if it was successfully saved, false otherwise.
-	 */
-	public boolean saveInvoice(Invoice invoice) {
-		return false;
-	}
-    
+        return null;
+    }
+
+    /**
+     * Saves Store a completed invoice in the database.
+     * 
+     * @param invoice
+     *            The invoice to store in the database.
+     * @return true if it was successfully saved, false otherwise.
+     */
+    public boolean saveInvoice(Invoice invoice) {
+        return false;
+    }
+
     private void connectTo() {
-    	if (!sql.connect()) {
-    		System.out.println("Couldn't connect to database!");
-    	}
-    	else {
-    		System.out.println("Connected to Database");
-    		consumer = new Consumer(sql);
-    		
-    	}
+        if (!sqlConnection.connect()) {
+            System.out.println("Couldn't connect to database!");
+        } else {
+            System.out.println("Connected to Database");
+            consumer = new Consumer(sqlConnection);
+
+        }
+    }
+
+    private ScheduledFuture<?> sendSingleCommand(Query query) {
+        consumer.queue(query);
+        task = executors.schedule(consumer, 1, TimeUnit.MILLISECONDS);
+        return task;
     }
 }
