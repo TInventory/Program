@@ -1,7 +1,8 @@
 package edu.mtu.tinventory.database;
 
 import edu.mtu.tinventory.database.query.Query;
-import edu.mtu.tinventory.database.query.queries.createDataTable;
+import edu.mtu.tinventory.database.query.queries.CreateDataTable;
+import edu.mtu.tinventory.database.query.queries.DropTable;
 
 public class DatabaseSetup {
 	// TODO: may be stored in config table eventually?
@@ -34,7 +35,7 @@ public class DatabaseSetup {
 	 * @return The Statement that executes the instruction
 	 */
 	public Query setupDataTable(String dataTable) {
-		return new createDataTable(dataTable);
+		return new CreateDataTable(dataTable);
 	}
 
 	/**
@@ -51,8 +52,8 @@ public class DatabaseSetup {
 	 * 
 	 * @return The Statement that executes the instruction
 	 */
-	public String deleteTable(String dataTable) {
-		return "DROP TABLE IF EXISTS" + dataTable + ";";
+	public Query deleteTable(String dataTable) {
+		return new DropTable(dataTable);
 	}
 
 	/**
