@@ -9,6 +9,7 @@ import java.util.concurrent.TimeUnit;
 import edu.mtu.tinventory.data.Invoice;
 import edu.mtu.tinventory.data.Product;
 import edu.mtu.tinventory.database.query.Query;
+import edu.mtu.tinventory.database.query.queries.RegisterNewItem;
 
 /**
  * 
@@ -23,7 +24,7 @@ public class DatabaseInterface {
     /**
      * Name of the table that the main data is stored in
      */
-    private String dataTable = "inventory";
+    public String dataTable = "inventory";
     
     
     /**
@@ -102,9 +103,15 @@ public class DatabaseInterface {
      * @return Returns true if the action is successful and the item is
      *         registered properly into the database, otherwise returns false
      */
-    public boolean registerNewItem(Product product) {
-       // sendSingleCommand();
-        return false;
+    public boolean registerNewItem(Product product, String dataTable) {
+        try {
+            // Send command through query 
+        sendSingleCommand(new RegisterNewItem(dataTable, product));
+            return true;
+        }
+        catch (Exception exception) {
+            return false;
+        }
     }
 
     /**
@@ -116,6 +123,22 @@ public class DatabaseInterface {
     public boolean setupDataTable() {
         try {
         sendSingleCommand(setup.setupDataTable(dataTable));
+            return true;
+        }
+        catch (Exception exception) {
+            return false;
+        }
+    }
+    
+    /**
+     * Creates a new table in the database
+     * 
+     * @return Returns true if the action is successful and the table is created
+     *         in the database, otherwise returns false
+     */
+    private boolean deleteDataTable() {
+        try {
+        sendSingleCommand(setup.deleteTable(dataTable));
             return true;
         }
         catch (Exception exception) {

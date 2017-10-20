@@ -80,4 +80,13 @@ public class StateQtyMap {
 		}
 		return ret;
 	}
+	
+	/**
+	 * Getter method for HashMap of StateQtyMap
+	 * 
+	 * @return HashMap of type <State, Integer>
+	 */
+	public HashMap<State, Integer> getMap() {
+	    return map;
+	}
 }

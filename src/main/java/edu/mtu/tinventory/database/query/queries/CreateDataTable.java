@@ -2,19 +2,20 @@ package edu.mtu.tinventory.database.query.queries;
 
 import edu.mtu.tinventory.database.query.Query;
 
-public class createDataTable implements Query {
+public class CreateDataTable implements Query {
 
     private String table;
 
-    public createDataTable(String tableName) {
+    public CreateDataTable(String tableName) {
         this.table = tableName;
     }
 
     @Override
     public String getQuery() {
         // TODO: Test to see if the table already exists
+        // Upgrade quantities
         return String.format(
-                "CREATE TABLE %s (id VARCHAR(120) , name VARCHAR(120) , price VARCHAR(120), currency VARCHAR(5), quantity VARCHAR(128));",
+                "CREATE TABLE %s (id NVARCHAR(120) , name NVARCHAR(120) , price NVARCHAR(120), displayprice NVARCHAR(120), currency NVARCHAR(10), quantity NVARCHAR(6000) );",
                 table);
     }
 

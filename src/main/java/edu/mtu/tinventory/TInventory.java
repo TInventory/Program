@@ -1,5 +1,6 @@
 package edu.mtu.tinventory;
 
+import edu.mtu.tinventory.data.Product;
 import edu.mtu.tinventory.database.DatabaseInterface;
 import edu.mtu.tinventory.gui.MainController;
 import javafx.application.Application;
@@ -41,5 +42,10 @@ public class TInventory extends Application {
 	private void initialDatabaseSetup() {
 	    //TODO: Perhaps if one of these turns up false make error popup window
 	    database.setupDataTable();
+	    
+	    // TODO: Remove, is quick testing method
+	    Product product = new Product("K240", "AKG Studios", "70.00");
+	   // product.getQuanity().changeQty("Sold", 10);
+	    database.registerNewItem(product, database.dataTable);
 	}
 }
