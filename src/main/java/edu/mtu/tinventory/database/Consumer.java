@@ -4,10 +4,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.Queue;
-import java.util.concurrent.Executors;
 import java.util.concurrent.LinkedBlockingQueue;
-import java.util.concurrent.ScheduledExecutorService;
-import java.util.concurrent.TimeUnit;
 
 import edu.mtu.tinventory.database.query.ExecuteQuery;
 import edu.mtu.tinventory.database.query.Query;
@@ -76,7 +73,7 @@ public class Consumer implements Runnable {
 		// Link to class variable
 		this.db = db;
 		// assign this instance of the class as the local instance
-		this.instance = this;
+		instance = this;
 
 		// Creates the Linked Queue to hold Statements
 		this.queries = new LinkedBlockingQueue<Query>();

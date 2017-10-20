@@ -1,8 +1,5 @@
 package edu.mtu.tinventory.database.query.queries;
 
-import java.sql.ResultSet;
-
-import edu.mtu.tinventory.database.query.ExecuteQuery;
 import edu.mtu.tinventory.database.query.Query;
 
 public class createDataTable implements Query {
