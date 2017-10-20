@@ -44,7 +44,7 @@ public class DatabaseInterface {
      * 
      */
 
-    private Consumer consumer;
+    private static Consumer consumer;
 
     /**
      * Creates a new pool of threads to handle query system
@@ -68,13 +68,13 @@ public class DatabaseInterface {
 
         // TODO: Populate from config file
         // sqlConnection = new MySQL(username, password, database, host, port);
-
+        //TODO: start auto refreshing method
         // TODO: Currently hard coded, need to be added as a config via config
         // SQL table
-        final long initialDelay = 10;
+       // final long initialDelay = 10;
         // TODO: Currently hard coded, need to be added as a config via config
         // SQL table
-        final long period = 5 * 60; // convert from minutes to seconds
+        //final long period = 5 * 60; // convert from minutes to seconds
 
         // Runs task at run() , starting after initial Delay of config file and
         // repeats this action for every period
@@ -199,7 +199,7 @@ public class DatabaseInterface {
     }
 
     private ScheduledFuture<?> sendSingleCommand(Query query) {
-        consumer.queue(query);
+        Consumer.queue(query);
         task = executors.schedule(consumer, 1, TimeUnit.MILLISECONDS);
         return task;
     }
