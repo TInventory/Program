@@ -20,10 +20,10 @@ public class UpdateProductsController {
 	@FXML
 	public void initialize() {
 		try {
-		borderPane.setLeft( new FXMLLoader(TInventory.class.getResource("fxml/inventoryView.fxml")).load());
+			borderPane.setLeft(new FXMLLoader(TInventory.class.getResource("fxml/inventoryView.fxml")).load());
 		}
 		catch (Exception e) {
-			return;
+			e.printStackTrace();
 		}
 	}
 	/**
