@@ -3,6 +3,7 @@ package edu.mtu.tinventory.gui;
 import edu.mtu.tinventory.data.Invoice;
 import edu.mtu.tinventory.data.Product;
 import edu.mtu.tinventory.data.PurchasedProduct;
+import edu.mtu.tinventory.database.DatabaseInterface;
 import edu.mtu.tinventory.util.StringUtils;
 import java.math.BigDecimal;
 import javafx.beans.property.ReadOnlyIntegerWrapper;
@@ -46,8 +47,8 @@ public class SellController {
 		} else if(Integer.parseInt(qty.getText()) <= 0) {
 			Dialogs.showDialog(Dialogs.Type.ERROR, "Invalid quantity specified", "Quantity must be greater than 0");
 		} else {
-			//Product p = DatabaseInterface.getInstance().getProduct(productID.getText()); //TODO: Use this line when Database is implemented
-			Product p = new Product(productID.getText(), productID.getText(), Double.toString(Math.random() * 100)); // ONLY FOR TESTING
+			Product p = DatabaseInterface.getInstance().getProduct(productID.getText()); //Use this line when Database is implemented
+			//Product p = new Product(productID.getText(), productID.getText(), Double.toString(Math.random() * 100)); // ONLY FOR TESTING
 			if (p == null) { // Product does not exist in the database.
 				Dialogs.showDialog(Dialogs.Type.ERROR, "Product does not exist", String.format("%s is not a valid Product ID", productID.getText()));
 				productID.clear();
@@ -61,7 +62,7 @@ public class SellController {
 				if (StringUtils.isNullOrEmpty(total.getText())) {
 					total.setText(pp.getDisplayTotalPrice());
 				} else {
-					BigDecimal newTotal = new BigDecimal(total.getText().substring(1)).add(pp.getTotalPrice());
+					BigDecimal newTotal = new BigDecimal(total.getText().substring(1).replace(",", "")).add(pp.getTotalPrice());
 					total.setText(Product.PRICE_FORMAT.format(newTotal));
 				}
 			}
@@ -77,7 +78,11 @@ public class SellController {
 			if(i == null) {
 				Dialogs.showDialog(Dialogs.Type.ERROR, "Invoice could not be created", "Problem communicating with Database. Please try again.");
 			} else {
+				for(PurchasedProduct pp : i.getProducts()) {
+					pp.getProduct().getQuanity().changeQty("DEFAULT", -(pp.getQuantity()));
+				}
 				items.getItems().clear();
+				total.clear();
 				Dialogs.showDialog(Dialogs.Type.INFO, "Invoice successfully created", "Invoice No: " + i.getId());
 			}
 		}

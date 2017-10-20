@@ -16,8 +16,8 @@
    <right>
       <VBox BorderPane.alignment="CENTER">
          <children>
-            <TextField />
-            <TextField fx:id="quantity" promptText="Quantity in State" />
+            <TextField fx:id="productID" promptText="Product ID" />
+            <TextField fx:id="quantity" onAction="#updateProduct" promptText="Qty to Add" />
          </children>
       </VBox>
    </right>
