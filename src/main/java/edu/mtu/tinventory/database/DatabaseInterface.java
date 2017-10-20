@@ -1,5 +1,7 @@
 package edu.mtu.tinventory.database;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
@@ -58,6 +60,9 @@ public class DatabaseInterface {
      */
     private ScheduledFuture<?> task;
 
+    //TODO: REMOVE. Using for the Presentation only
+    private List<Product> tmpProducts;
+
     /**
      * Empty constructor for now
      */
@@ -65,7 +70,18 @@ public class DatabaseInterface {
         // TODO: Change to actual config, currently is harcodes
         sqlConnection = new MySQL(null, null, null, null, 0);
 
-        connectTo();
+        //TODO: REINSTATE after Presentation
+        //connectTo();
+
+        //TODO: REMOVE after Presentation
+        tmpProducts = new ArrayList<>();
+        Product p1 = new Product("TEST", "Test Product", "148.50");
+        Product p2 = new Product("TESTTWO", "Another Test Product", "1.99");
+        Product p3 = new Product("WOW", "Look at this cool product", "587.40");
+        tmpProducts.addAll(Arrays.asList(p1, p2, p3));
+        p1.getQuanity().changeQty("DEFAULT", 10);
+        p2.getQuanity().changeQty("DEFAULT", 10);
+        p3.getQuanity().changeQty("DEFAULT", 10);
 
         // TODO: Populate from config file
         // sqlConnection = new MySQL(username, password, database, host, port);
@@ -104,14 +120,15 @@ public class DatabaseInterface {
      *         registered properly into the database, otherwise returns false
      */
     public boolean registerNewItem(Product product, String dataTable) {
-        try {
+        /*try { //TODO: Reinstate after presentation
             // Send command through query 
         sendSingleCommand(new RegisterNewItem(dataTable, product));
             return true;
         }
         catch (Exception exception) {
             return false;
-        }
+        }*/
+        return tmpProducts.add(product);
     }
 
     /**
@@ -187,6 +204,12 @@ public class DatabaseInterface {
      * @return Product in the database if it exists, null otherwise.
      */
     public Product getProduct(String productID) {
+        //TODO: REMOVE after Presentation
+        for (Product p : tmpProducts) {
+            if(p.getID().equals(productID)) {
+                return p;
+            }
+        }
         return null;
     }
 
@@ -196,8 +219,8 @@ public class DatabaseInterface {
      * @return A List of all registered products
      */
     public List<Product> getProducts() {
-
-        return null;
+        //TODO: REMOVE after Presentation
+        return tmpProducts;
     }
 
     /**
@@ -208,7 +231,7 @@ public class DatabaseInterface {
      * @return true if it was successfully saved, false otherwise.
      */
     public boolean saveInvoice(Invoice invoice) {
-        return false;
+        return true; //TODO: REVERT after Presentation
     }
 
     private void connectTo() {

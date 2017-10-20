@@ -19,6 +19,10 @@ public class PurchasedProduct {
 		this.totalPrice = unitPrice.multiply(new BigDecimal(quantity));
 	}
 
+	public Product getProduct() {
+		return product;
+	}
+
 	public String getProductID() {
 		return product.getID();
 	}

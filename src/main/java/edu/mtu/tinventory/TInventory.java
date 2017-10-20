@@ -15,9 +15,9 @@ public class TInventory extends Application {
 	
 	@Override
 	public void start(Stage stage) throws Exception {
-	    
+
 		database = DatabaseInterface.getInstance();
-		initialDatabaseSetup();
+		//initialDatabaseSetup(); //TODO: REINSTATE after Presentation
 		
 		FXMLLoader loader = new FXMLLoader(TInventory.class.getResource("fxml/main.fxml"));
 		BorderPane root = loader.load();
@@ -43,9 +43,9 @@ public class TInventory extends Application {
 	    //TODO: Perhaps if one of these turns up false make error popup window
 	    database.setupDataTable();
 	    
-	    // TODO: Remove, is quick testing method
-	    Product product = new Product("K240", "AKG Studios", "70.00");
-	   // product.getQuanity().changeQty("Sold", 10);
-	    database.registerNewItem(product, database.dataTable);
+//	    // TODO: Remove, is quick testing method
+//	    Product product = new Product("K240", "AKG Studios", "70.00");
+//	   // product.getQuanity().changeQty("Sold", 10);
+//	    database.registerNewItem(product, database.dataTable);
 	}
 }
