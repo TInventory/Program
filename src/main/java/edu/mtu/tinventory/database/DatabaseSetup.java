@@ -1,15 +1,14 @@
 package edu.mtu.tinventory.database;
 
+import edu.mtu.tinventory.database.query.Query;
+import edu.mtu.tinventory.database.query.queries.createDataTable;
+
 public class DatabaseSetup {
 	// TODO: may be stored in config table eventually?
 	/**
 	 * Name of the database that information is stored in
 	 */
 	String database = "tinventory";
-	/**
-	 * Name of the table that the main data is stored in
-	 */
-	String dataTable = "inventory";
 
 	/**
 	 * Returns MySQL STATEMENT to create the database
@@ -34,9 +33,8 @@ public class DatabaseSetup {
 	 * 
 	 * @return The Statement that executes the instruction
 	 */
-	public String setupDataTable() {
-		return "CREATE TABLE " + dataTable
-				+ " (id VARCHAR(120) , name VARCHAR(120), price VARCHAR(120), currency VARCHAR(5), quantity VARCHAR(128)  );";
+	public Query setupDataTable(String dataTable) {
+		return new createDataTable(dataTable);
 	}
 
 	/**
@@ -53,7 +51,7 @@ public class DatabaseSetup {
 	 * 
 	 * @return The Statement that executes the instruction
 	 */
-	private String deleteTable() {
+	public String deleteTable(String dataTable) {
 		return "DROP TABLE IF EXISTS" + dataTable + ";";
 	}
 
@@ -68,7 +66,7 @@ public class DatabaseSetup {
 	 * @return The Statement that executes the instruction
 	 */
 	// TODO: Change data type to an enum of acceptable values
-	private String addColumnToData(String columnName, String dataType) {
+	private String addColumnToData(String columnName, String dataType, String dataTable) {
 		return "ALTER TABLE " + dataTable + " ADD" + columnName + " " + dataType + ";";
 	}
 
@@ -80,7 +78,7 @@ public class DatabaseSetup {
 	 *            Name of the column to be deleted
 	 * @return The Statement that executes the instruction
 	 */
-	private String deleteColum(String columnName) {
+	private String deleteColum(String columnName,String dataTable) {
 		return "ALTER TABLE " + dataTable + " DROP COLUMN" + columnName + ";";
 	}
 

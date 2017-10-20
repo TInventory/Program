@@ -14,7 +14,10 @@ public class TInventory extends Application {
 	
 	@Override
 	public void start(Stage stage) throws Exception {
+	    
 		database = DatabaseInterface.getInstance();
+		initialDatabaseSetup();
+		
 		FXMLLoader loader = new FXMLLoader(TInventory.class.getResource("fxml/main.fxml"));
 		BorderPane root = loader.load();
 		controller = loader.getController();
@@ -33,5 +36,10 @@ public class TInventory extends Application {
 
 	public static void main(String[] args) {
 		launch(args);
+	}
+	
+	private void initialDatabaseSetup() {
+	    //TODO: Perhaps if one of these turns up false make error popup window
+	    database.setupDataTable();
 	}
 }

@@ -34,10 +34,6 @@ public class Consumer implements Runnable {
 	 */
 	private static Consumer instance;
 
-	/**
-	 * Task used as a pool of seperate threads to handle queued quarries
-	 */
-	private final ScheduledExecutorService task;
 
 	private Queue<Query> queries;
 
@@ -55,7 +51,7 @@ public class Consumer implements Runnable {
 			getInstance().queries.add(query);
 		} else {
 			// maybe make some form of custom exception for here?
-			System.out.println("Error ---- ");
+			System.out.println("Error ---- NO CONNECTION");
 		}
 	}
 
@@ -80,22 +76,11 @@ public class Consumer implements Runnable {
 		// Link to class variable
 		this.db = db;
 		// assign this instance of the class as the local instance
-		instance = this;
+		this.instance = this;
 
 		// Creates the Linked Queue to hold Statements
 		this.queries = new LinkedBlockingQueue<Query>();
-
-		// Creates a new pool of threads to handle query system
-		this.task = Executors.newScheduledThreadPool(1);
 		
-				//TODO: Currently hard coded, need to be added as a config via config SQL table
-		final long initialDelay = 10;
-				//TODO: Currently hard coded, need to be added as a config via config SQL table
-		final long period = 5 * 60; // convert from minutes to seconds
-		
-		// Runs task at run() , starting after initial Delay of config file and repeats this action for every period
-// TODO: Needs to be outside of the class.
-		//task.scheduleAtFixedRate(run(), initialDelay, period, TimeUnit.SECONDS);
 	}
 
 	/**
