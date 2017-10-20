@@ -1,10 +1,12 @@
 package edu.mtu.tinventory.gui;
 
+
 import edu.mtu.tinventory.data.Product;
+import edu.mtu.tinventory.database.DatabaseInterface;
+import javafx.beans.property.ReadOnlyStringWrapper;
 import javafx.fxml.FXML;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
-import javafx.scene.control.cell.PropertyValueFactory;
 
 /**
  * Controller class for the inventory view
@@ -15,31 +17,31 @@ public class InvViewController {
 	@FXML private TableColumn<Product, String> ID;
 	@FXML private TableColumn<Product, String> Price;
 	@FXML private TableColumn<Product, String> Quantity;
+	DatabaseInterface db;
 
-
-	public void initialize() {
-	  Name.setCellValueFactory(new PropertyValueFactory<Product, String>("Product Name"));
-	  ID.setCellValueFactory(new PropertyValueFactory<Product, String>("Product ID"));
-	  Price.setCellValueFactory(new PropertyValueFactory<Product, String>("Product Price"));
-	  Quantity.setCellValueFactory(new PropertyValueFactory<Product, String>("Product Quantity"));
-	  
-	 // table.getItems().setAll(localCache);      Assuming local data is passed in a list
-	}
-	
-	/** Call when table is empty in local cache, pull from database
+	/**Initializes the table, labels columns, gets any values the database may have.
 	 * 
 	 */
-	private void getInventory() {
-		
+	public void initialize() {
+		Name.setCellValueFactory(data -> new ReadOnlyStringWrapper("Name"));
+		ID.setCellValueFactory(data -> new ReadOnlyStringWrapper("ID"));
+		Price.setCellValueFactory(data -> new ReadOnlyStringWrapper("Price"));
+		Quantity.setCellValueFactory(data -> new ReadOnlyStringWrapper("ID"));
+		db = DatabaseInterface.getInstance();
+		table.getItems().setAll(db.getProducts());      //Assuming local data is passed in a list
 	}
-	
-	/* Call to get the data from the local cache, or database if empty.
+
+
+	/* Initializes if table has not been initialized yet, else will update. 
 	 * 
 	 */
 	private void viewInventory() {
-//		if (localCache.isEmpty()) {               //localCache is placeholder name for cached database list
-//			getInventory();
-//		}
-//		
+		if (db != null) {               
+			db = DatabaseInterface.getInstance();
+			table.getItems().setAll(db.getProducts());
+		} else {
+			initialize();
+		}
+
 	}
 }
