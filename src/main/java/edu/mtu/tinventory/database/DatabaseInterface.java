@@ -27,26 +27,27 @@ public class DatabaseInterface {
      * Name of the table that the main data is stored in
      */
     public String dataTable = "inventory";
-    
-    
+
     /**
      * Creates a single instance of the database interface
      */
     private static DatabaseInterface instance = new DatabaseInterface();
 
     /**
-     * 
+     * Instance of the setup class that should be run at start time
      */
-  private  DatabaseSetup setup = new DatabaseSetup();
+    private DatabaseSetup setup = new DatabaseSetup();
+
     /**
-     * 
+     * Instance of the information needed to establish the connection to the
+     * MySQL Database
      */
     private MySQL sqlConnection;
 
     /**
-     * 
+     * Instance of consumer, class which handles the main interaction to and
+     * from the MySQL database as a runnable
      */
-
     private static Consumer consumer;
 
     /**
@@ -60,7 +61,7 @@ public class DatabaseInterface {
      */
     private ScheduledFuture<?> task;
 
-    //TODO: REMOVE. Using for the Presentation only
+    // TODO: REMOVE. Using for the Presentation only
     private List<Product> tmpProducts;
 
     /**
@@ -70,10 +71,10 @@ public class DatabaseInterface {
         // TODO: Change to actual config, currently is harcodes
         sqlConnection = new MySQL(null, null, null, null, 0);
 
-        //TODO: REINSTATE after Presentation
-        //connectTo();
+        // TODO: REINSTATE after Presentation
+        // connectTo();
 
-        //TODO: REMOVE after Presentation
+        // TODO: REMOVE after Presentation
         tmpProducts = new ArrayList<>();
         Product p1 = new Product("TEST", "Test Product", "148.50");
         Product p2 = new Product("TESTTWO", "Another Test Product", "1.99");
@@ -85,13 +86,13 @@ public class DatabaseInterface {
 
         // TODO: Populate from config file
         // sqlConnection = new MySQL(username, password, database, host, port);
-        //TODO: start auto refreshing method
+        // TODO: start auto refreshing method
         // TODO: Currently hard coded, need to be added as a config via config
         // SQL table
-       // final long initialDelay = 10;
+        // final long initialDelay = 10;
         // TODO: Currently hard coded, need to be added as a config via config
         // SQL table
-        //final long period = 5 * 60; // convert from minutes to seconds
+        // final long period = 5 * 60; // convert from minutes to seconds
 
         // Runs task at run() , starting after initial Delay of config file and
         // repeats this action for every period
@@ -120,14 +121,16 @@ public class DatabaseInterface {
      *         registered properly into the database, otherwise returns false
      */
     public boolean registerNewItem(Product product, String dataTable) {
-        /*try { //TODO: Reinstate after presentation
-            // Send command through query 
-        sendSingleCommand(new RegisterNewItem(dataTable, product));
-            return true;
-        }
-        catch (Exception exception) {
-            return false;
-        }*/
+        /*
+         * try { //TODO: Reinstate after presentation
+         * // Send command through query
+         * sendSingleCommand(new RegisterNewItem(dataTable, product));
+         * return true;
+         * }
+         * catch (Exception exception) {
+         * return false;
+         * }
+         */
         return tmpProducts.add(product);
     }
 
@@ -139,14 +142,13 @@ public class DatabaseInterface {
      */
     public boolean setupDataTable() {
         try {
-        sendSingleCommand(setup.setupDataTable(dataTable));
+            sendSingleCommand(setup.setupDataTable(dataTable));
             return true;
-        }
-        catch (Exception exception) {
+        } catch (Exception exception) {
             return false;
         }
     }
-    
+
     /**
      * Creates a new table in the database
      * 
@@ -155,10 +157,9 @@ public class DatabaseInterface {
      */
     private boolean deleteDataTable() {
         try {
-        sendSingleCommand(setup.deleteTable(dataTable));
+            sendSingleCommand(setup.deleteTable(dataTable));
             return true;
-        }
-        catch (Exception exception) {
+        } catch (Exception exception) {
             return false;
         }
     }
@@ -204,9 +205,9 @@ public class DatabaseInterface {
      * @return Product in the database if it exists, null otherwise.
      */
     public Product getProduct(String productID) {
-        //TODO: REMOVE after Presentation
+        // TODO: REMOVE after Presentation
         for (Product p : tmpProducts) {
-            if(p.getID().equals(productID)) {
+            if (p.getID().equals(productID)) {
                 return p;
             }
         }
@@ -219,7 +220,7 @@ public class DatabaseInterface {
      * @return A List of all registered products
      */
     public List<Product> getProducts() {
-        //TODO: REMOVE after Presentation
+        // TODO: REMOVE after Presentation
         return tmpProducts;
     }
 
@@ -231,7 +232,7 @@ public class DatabaseInterface {
      * @return true if it was successfully saved, false otherwise.
      */
     public boolean saveInvoice(Invoice invoice) {
-        return true; //TODO: REVERT after Presentation
+        return true; // TODO: REVERT after Presentation
     }
 
     private void connectTo() {
