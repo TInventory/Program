@@ -48,16 +48,6 @@ public class DatabaseUtils {
 	}
 
 	/**
-	 * Just here for testing
-	 * 
-	 * @param args
-	 */
-	/*
-	 * public static void main(String[] args) {
-	 * System.out.println(getTimeString(128060230, true)); }
-	 */
-
-	/**
 	 * Converts a ResultSet into a mutable List<Object>
 	 * 
 	 * @param set
@@ -144,7 +134,7 @@ public class DatabaseUtils {
 					break;
 				}
 			}
-			// If data is true, handle it
+			// If data is true, turn it into unix time
 			if (!flag) {
 				final long time = DatabaseUtils.getTime(stored.toString(), c);
 				if (time == -1) {

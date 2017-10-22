@@ -44,7 +44,10 @@ public class RegisterNewItem implements Query {
                 "INSERT INTO '%s' SET id='%s', name='%s', price='%s', displayprice='%s', currency='%s', quantity='%s' ;",
                 table, iD, name, price, displayPrice, currency, quantityToString());
         */
-        return String.format("INSERT INTO %s VALUES ('1' , '2', '3', '4', '5', '6') ", table,iD,name,price,displayPrice,currency,quantityToString());
+        //INSERT INTO inventory VALUES ('id', 'name', 'price', 'display', 'currency', 'quantity');
+        //INSERT INTO inventory VALUES ('id', 'name', 'price', 'display', 'currency', 'quant');
+        return String.format("INSERT INTO inventory VALUES ('id', 'name', 'price', 'display', 'currency', 'quantity');"
+                , iD,name,price,displayPrice,currency,quantityToString());
     }
 
     /**
