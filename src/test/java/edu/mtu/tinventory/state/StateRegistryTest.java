@@ -1,10 +1,16 @@
 package edu.mtu.tinventory.state;
+import org.junit.Before;
 import org.junit.Test;
 import static org.junit.Assert.*;
 
 import java.util.Collection;
 
 public class StateRegistryTest {
+
+	@Before
+	public void beforeEach() {
+		StateRegistry.removeAllStates(); //Allows for a clean slate for each test.
+	}
 
 	@Test
 	public void testRegisterState() {
@@ -26,8 +32,7 @@ public class StateRegistryTest {
 		State test2 = new State("1232", "Test2");
 		StateRegistry.registerState(test);
 		StateRegistry.registerState(test2);
-		Collection<State> states = StateRegistry.getStates();
-		assertEquals(states.contains(test), true);
-		assertEquals(states.contains(test2), true);
+		assertEquals(StateRegistry.getState(test.getID()), test);
+		assertEquals(StateRegistry.getState(test2.getID()), test2);
 	}
 }

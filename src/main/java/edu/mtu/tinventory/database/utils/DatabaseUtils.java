@@ -224,7 +224,7 @@ public class DatabaseUtils {
 			str.append(seconds).append(getTruncatedStamps ? " s " : " Seconds ");
 		}
 
-		return str.toString();
+		return str.toString().trim();
 	}
 
 }
