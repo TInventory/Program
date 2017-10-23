@@ -79,7 +79,7 @@ public class DatabaseUtils {
 	 *            Unique ID to be stripped of hyphens
 	 * @return Returns a String version of the UUID without hyphens
 	 */
-	public static String strip(UUID uuid) {
+	public String strip(UUID uuid) {
 		return COMPILE.matcher(uuid.toString()).replaceAll("");
 	}
 
@@ -120,7 +120,7 @@ public class DatabaseUtils {
 	 *            Timestamp to be converted
 	 * @return The timestamp in current milliseconds since the Unix Epoch
 	 */
-	public static long getTime(final String in) {
+	public long getTime(final String in) {
 		long total = 0;
 		final StringBuilder stored = new StringBuilder();
 		final char[] chars = in.toCharArray();
@@ -195,7 +195,7 @@ public class DatabaseUtils {
 	 * @return A string time stamp in format of ("[days] Days [hours] Hours
 	 *         [minutes] Minutes [seconds] Seconds") or their truncated form
 	 */
-	public static String getTimeString(long time, boolean getTruncatedStamps) {
+	public String getTimeString(long time, boolean getTruncatedStamps) {
 		final StringBuilder str = new StringBuilder();
 
 		final long days = time / (1000 * 60 * 60 * 24);
