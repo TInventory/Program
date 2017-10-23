@@ -17,7 +17,7 @@ public class MySQLTest {
         sql = new MySQL("tinventory", "taco", "tinventory", "kiro47.ddns.net", 9998);
     }
 
-    @Test
+    //@Test
     public void retrieveConnection() {
 
         if (!(sql.getConnection() instanceof Connection)) {

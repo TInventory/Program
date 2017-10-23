@@ -6,6 +6,7 @@ import org.junit.Test;
 
 public class ConsumerTest {
 
+    //TODO: Can't be used until DatabaseInterface is finished
     Consumer consumer;
     
     @Before
