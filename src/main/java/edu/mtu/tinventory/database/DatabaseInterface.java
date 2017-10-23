@@ -155,7 +155,7 @@ public class DatabaseInterface {
      * @return Returns true if the action is successful and the table is created
      *         in the database, otherwise returns false
      */
-    private boolean deleteDataTable() {
+    public boolean deleteDataTable(String dataTable) {
         try {
             sendSingleCommand(setup.deleteTable(dataTable));
             return true;
@@ -249,5 +249,15 @@ public class DatabaseInterface {
         Consumer.queue(query);
         task = executors.schedule(consumer, 1, TimeUnit.MILLISECONDS);
         return task;
+    }
+
+    /***
+     * Creates a database in the SQL server
+     * 
+     * @param string String: Name of the database to be created
+     */
+    public boolean setupDatabase(String string) {
+        return false;
+        
     }
 }
