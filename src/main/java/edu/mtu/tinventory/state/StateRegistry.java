@@ -47,4 +47,12 @@ public class StateRegistry {
 	public static Collection<State> getStates() {
 		return map.values();
 	}
+
+	/**
+	 * Removes all states registered.
+	 * NOTE: ONLY SHOULD BE USED IN JUNIT TESTS.
+	 */
+	public static void removeAllStates() {
+		map.clear();
+	}
 }

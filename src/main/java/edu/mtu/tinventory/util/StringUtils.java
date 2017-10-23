@@ -21,11 +21,15 @@ public class StringUtils {
 	 * @return true if the string is a number, false otherwise.
 	 */
 	public static boolean isNumber(String s) {
-		try {
-			Double.parseDouble(s);
-			return true;
-		} catch(NumberFormatException e) {
+		if(isNullOrEmpty(s)) {
 			return false;
+		} else {
+			try {
+				Double.parseDouble(s);
+				return true;
+			} catch (NumberFormatException e) {
+				return false;
+			}
 		}
 	}
 }

@@ -30,6 +30,6 @@ public class InvoiceTest {
 		products.add(testPurchasedProduct);
 		products.add(testPurchasedProduct2);
 		Invoice test = Invoice.createNewInvoice(products);
-		assertEquals(test.getTotal(), "2262.4");
+		assertEquals(test.getTotal(), new BigDecimal("2262.4"));
 	}
 }

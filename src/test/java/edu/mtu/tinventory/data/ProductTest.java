@@ -1,6 +1,8 @@
 package edu.mtu.tinventory.data;
 
 import static org.junit.Assert.assertEquals;
+
+import java.math.BigDecimal;
 import org.junit.Test;
 
 public class ProductTest {
@@ -9,7 +11,7 @@ public class ProductTest {
 		Product test = new Product("123", "Test", "12.23");
 		assertEquals(test.getID(), "123");
 		assertEquals(test.getName(), "Test");
-		assertEquals(test.getPrice(), 12.23);
+		assertEquals(test.getPrice(), new BigDecimal("12.23"));
 		test.setName("Test 2");
 		assertEquals(test.getName(), "Test 2");
 	}
@@ -23,7 +25,7 @@ public class ProductTest {
 	@Test
 	public void testGetDisplayPrice() {
 		Product test = new Product("123", "Test", "12.23");
-		assertEquals(test.getDisplayPrice(), "12.23");
+		assertEquals(test.getDisplayPrice(), "$12.23");
 	}
 	@Test
 	public void testToString() {
