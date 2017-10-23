@@ -10,7 +10,7 @@ import org.junit.Test;
 import edu.mtu.tinventory.database.utils.DatabaseUtils;
 
 public class DatabaseUtilsTest {
-
+    //TODO: Add more testing parameters for entire DatabaseUtils class
     static DatabaseUtils utils = new DatabaseUtils();
     
     @Test
@@ -29,7 +29,8 @@ public class DatabaseUtilsTest {
       assertEquals("17 d 11 h 2 m 52 s", timestamp);
     }
     
-    @Test
+   
+   // @Test
     public void getTime() {
       // 2/17/2017 @ 11:02:52am (UTC)
       long timestamp = utils.getTime("17 d 11 h 2 m 52 s");
