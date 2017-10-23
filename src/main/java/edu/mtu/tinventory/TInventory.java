@@ -17,11 +17,10 @@ public class TInventory extends Application {
 	@Override
 	public void start(Stage stage) throws Exception {
 	    DatabaseUtils utils = new DatabaseUtils();
-	    System.out.println(utils.getTimeString(1508572800, true));
 	    
 		database = DatabaseInterface.getInstance();
 		//initialDatabaseSetup(); //TODO: REINSTATE after Presentation
-		/*
+		
 		FXMLLoader loader = new FXMLLoader(TInventory.class.getResource("fxml/main.fxml"));
 		BorderPane root = loader.load();
 		controller = loader.getController();
@@ -33,7 +32,7 @@ public class TInventory extends Application {
 		stage.setMaximized(true);
 		stage.show();
 		
-		*/
+		
 	}
 
 	public MainController getController() {
