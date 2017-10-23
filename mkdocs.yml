@@ -3,10 +3,17 @@
 # It is already assumed that you are in the docs folder when specifying the path, so no need to preface the path with docs
 # Use a hierarchial structure to specify pages in a subsection
 # For example:
-# - Getting Started:
-#     - Installing: 'gettingstarted/intalling.md'
+# - Views:
+#     - View Inventory: 'views/intalling.md'
 pages:
     - Home: 'index.md'
+    - Getting Started: 'gettingstarted.md'
+    - Basic Usage: 'basicuse.md'
+    - Views:
+        - View Inventory: 'views/viewinv.md'
+        - Sell Inventory: 'views/sellinv.md'
+        - Create New Products: 'views/createproducts.md'
+        - Update/Receive Inventory: 'views/receiveinv.md'
 
 # Everything below this line should not need to be changed
 site_name: TInventory User Manual
