@@ -31,8 +31,6 @@ public class TInventory extends Application {
 		stage.setScene(scene);
 		stage.setMaximized(true);
 		stage.show();
-		
-		
 	}
 
 	public MainController getController() {
