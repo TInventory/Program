@@ -1,5 +1,6 @@
 package edu.mtu.tinventory.database.utils;
 
+import edu.mtu.tinventory.logging.LocalLog;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.DataInputStream;
@@ -65,7 +66,7 @@ public class DatabaseUtils {
 				}
 			}
 		} catch (Exception e) {
-			e.printStackTrace();
+			LocalLog.exception(e);
 		}
 
 		return data;

@@ -1,5 +1,6 @@
 package edu.mtu.tinventory.database;
 
+import edu.mtu.tinventory.logging.LocalLog;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
@@ -64,7 +65,7 @@ public abstract class Database {
                 // make the statement
                 return connection.createStatement();
             } catch (SQLException e) {
-                e.printStackTrace();
+                LocalLog.exception(e);
             }
         }
         // statement failed, return null
@@ -90,7 +91,7 @@ public abstract class Database {
                 // prep the statement and return it
                 return connection.prepareStatement(sql);
             } catch (SQLException e) {
-                e.printStackTrace();
+                LocalLog.exception(e);
             }
         }
         // something went wrong, so returning null

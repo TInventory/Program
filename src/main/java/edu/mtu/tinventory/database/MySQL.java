@@ -1,5 +1,6 @@
 package edu.mtu.tinventory.database;
 
+import edu.mtu.tinventory.logging.LocalLog;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
@@ -60,11 +61,11 @@ public class MySQL extends Database {
         } 
         catch (ClassNotFoundException e) {
             // No SQL driver is found, abort the mission
-            System.out.println("JDBC Driver not found!");
+            LocalLog.exception("JDBC Driver not found", e);
         } 
         catch (SQLException e) {
             // Couldn't connect so the server, time to debug
-            System.out.println("Could not connect to MySQL! " + e.getMessage());
+            LocalLog.exception("Could not connect to MySQL!", e);
         }
         // Find why it could not connection
         return false;

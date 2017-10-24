@@ -3,6 +3,7 @@ package edu.mtu.tinventory.gui;
 import edu.mtu.tinventory.TInventory;
 import edu.mtu.tinventory.data.Product;
 import edu.mtu.tinventory.database.DatabaseInterface;
+import edu.mtu.tinventory.logging.LocalLog;
 import edu.mtu.tinventory.util.StringUtils;
 import java.io.IOException;
 import javafx.fxml.FXML;
@@ -27,7 +28,7 @@ public class UpdateProductsController {
 			borderPane.setLeft(new FXMLLoader(TInventory.class.getResource("fxml/inventoryView.fxml")).load());
 		}
 		catch (Exception e) {
-			e.printStackTrace();
+			LocalLog.exception(e);
 		}
 	}
 	/**

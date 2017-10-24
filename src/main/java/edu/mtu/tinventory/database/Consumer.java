@@ -1,5 +1,6 @@
 package edu.mtu.tinventory.database;
 
+import edu.mtu.tinventory.logging.LocalLog;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -48,7 +49,7 @@ public class Consumer implements Runnable {
 			getInstance().queries.add(query);
 		} else {
 			// maybe make some form of custom exception for here?
-			System.out.println("Error ---- NO CONNECTION");
+			LocalLog.error("NO DATABASE CONNECTION ESTABLISHED");
 		}
 	}
 
@@ -131,7 +132,7 @@ public class Consumer implements Runnable {
 					}
 					// catch the exceptions
 					catch (SQLException e) {
-						e.printStackTrace();
+						LocalLog.exception(e);
 					}
 				}
 			}

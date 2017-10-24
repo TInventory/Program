@@ -1,5 +1,6 @@
 package edu.mtu.tinventory.database;
 
+import edu.mtu.tinventory.logging.LocalLog;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -237,9 +238,9 @@ public class DatabaseInterface {
 
     private void connectTo() {
         if (!sqlConnection.connect()) {
-            System.out.println("Couldn't connect to database!");
+            LocalLog.error("Couldn't connect to database!");
         } else {
-            System.out.println("Connected to Database");
+            LocalLog.info("Connected to Database"); // May want a different log level later...
             consumer = new Consumer(sqlConnection);
 
         }

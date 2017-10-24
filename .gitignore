@@ -20,3 +20,6 @@
 
 # MkDocs
 /site
+
+# Project-Specific
+/tinventory-logs

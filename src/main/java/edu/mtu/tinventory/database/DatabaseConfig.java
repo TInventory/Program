@@ -1,5 +1,6 @@
 package edu.mtu.tinventory.database;
 
+import edu.mtu.tinventory.logging.LocalLog;
 import java.io.File;
 import java.io.IOException;
 
@@ -39,8 +40,7 @@ public class DatabaseConfig {
 		} 
 		// Catch exceptions
 		catch (IOException exception) {
-			System.out.println("Failed to create new file " + filename);
-			exception.getStackTrace();
+			LocalLog.exception("Failed to create new file " + filename, exception);
 		}
 	}
 
@@ -53,8 +53,7 @@ public class DatabaseConfig {
 		try {
 
 		} catch (Exception exception) {
-			System.out.println("File " + file + " could not be saved");
-			exception.printStackTrace();
+			LocalLog.exception("File " + file.getName() + " could not be saved.", exception);
 			return false;
 		}
 		return true;

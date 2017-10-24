@@ -1,9 +1,10 @@
 package edu.mtu.tinventory;
 
-import edu.mtu.tinventory.data.Product;
 import edu.mtu.tinventory.database.DatabaseInterface;
 import edu.mtu.tinventory.database.utils.DatabaseUtils;
 import edu.mtu.tinventory.gui.MainController;
+import edu.mtu.tinventory.logging.LocalLog;
+import java.util.logging.Level;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -16,6 +17,7 @@ public class TInventory extends Application {
 	
 	@Override
 	public void start(Stage stage) throws Exception {
+		setupLog();
 	    DatabaseUtils utils = new DatabaseUtils();
 	    
 		database = DatabaseInterface.getInstance();
@@ -49,5 +51,15 @@ public class TInventory extends Application {
 //	    Product product = new Product("K240", "AKG Studios", "70.00");
 //	   // product.getQuanity().changeQty("Sold", 10);
 //	    database.registerNewItem(product, database.dataTable);
+	}
+
+	private void setupLog() {
+		if(getParameters().getRaw().contains("-trace")) {
+			LocalLog.setupLog(Level.FINER);
+		} else if(getParameters().getRaw().contains("-debug")) {
+			LocalLog.setupLog(Level.FINE);
+		} else {
+			LocalLog.setupLog(Level.INFO);
+		}
 	}
 }

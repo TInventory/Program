@@ -1,6 +1,7 @@
 package edu.mtu.tinventory.gui;
 
 import edu.mtu.tinventory.TInventory;
+import edu.mtu.tinventory.logging.LocalLog;
 import java.io.IOException;
 import java.util.EnumMap;
 import javafx.application.Platform;
@@ -56,8 +57,8 @@ public class MainController {
 				tab = loadTab(view);
 				activeTabs.put(view, tab);
 			} catch(IOException e) {
-				//TODO: Have a better error handler
-				e.printStackTrace();
+				//TODO: Have a better error handler (Maybe with a Dialog box?)
+				LocalLog.exception(e);
 			}
 		}
 		tabs.getSelectionModel().select(activeTabs.get(view));
