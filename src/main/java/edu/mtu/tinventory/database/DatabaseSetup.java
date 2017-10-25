@@ -1,7 +1,5 @@
 package edu.mtu.tinventory.database;
 
-import java.util.List;
-
 import edu.mtu.tinventory.database.query.Query;
 import edu.mtu.tinventory.database.query.queries.CreateDataTable;
 import edu.mtu.tinventory.database.query.queries.DropTable;

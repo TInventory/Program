@@ -15,7 +15,7 @@ public class ConsumerTest {
        DatabaseSetup setup = new DatabaseSetup();
        setup.createDatabase("JunitTesting");
        setup.setupDataTable("JUnit");
-        consumer = new Consumer(sql);
+        consumer = new Consumer(sql, null);
     }
     
     @Test

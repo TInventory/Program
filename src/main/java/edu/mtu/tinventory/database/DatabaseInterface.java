@@ -55,7 +55,7 @@ public class DatabaseInterface {
      * Creates a new pool of threads to handle query system
      */
     // Maybe not hard code? could go either way
-    ScheduledExecutorService executors = Executors.newScheduledThreadPool(5);
+    ScheduledExecutorService executors = Executors.newScheduledThreadPool(20);
 
     /**
      * Task used as a pool of seperate threads to handle queued quarries
@@ -73,7 +73,7 @@ public class DatabaseInterface {
         sqlConnection = new MySQL(null, null, null, null, 0);
 
         // TODO: REINSTATE after Presentation
-        // connectTo();
+         connectTo();
 
         // TODO: REMOVE after Presentation
         tmpProducts = new ArrayList<>();
@@ -117,31 +117,40 @@ public class DatabaseInterface {
      * 
      * @param product
      *            Product: The product object to be inserted into the database
+     * @param dataTable
+     *             String: Name of the table to register the item into, inserts into default table if null
      * 
      * @return Returns true if the action is successful and the item is
      *         registered properly into the database, otherwise returns false
      */
     public boolean registerNewItem(Product product, String dataTable) {
-        /*
-         * try { //TODO: Reinstate after presentation
-         * // Send command through query
-         * sendSingleCommand(new RegisterNewItem(dataTable, product));
-         * return true;
-         * }
-         * catch (Exception exception) {
-         * return false;
-         * }
-         */
-        return tmpProducts.add(product);
+        if (dataTable == null) {
+            dataTable = this.dataTable;
+        }
+        
+        try { 
+            Query query = new RegisterNewItem(dataTable, product);
+            sendSingleCommand(query);
+            return true;
+        } catch (Exception exception) {
+            exception.printStackTrace();
+            return false;
+        }
     }
 
     /**
      * Creates a new table in the database
      * 
+     * @param dataTable 
+     *          String: Name of the inventory table to be created, if null is set to default.
+     * 
      * @return Returns true if the action is successful and the table is created
      *         in the database, otherwise returns false
      */
-    public boolean setupDataTable() {
+    public boolean setupDataTable(String dataTable) {
+        if (dataTable == null) {
+            dataTable = this.dataTable;
+        }
         try {
             sendSingleCommand(setup.setupDataTable(dataTable));
             return true;
@@ -240,13 +249,15 @@ public class DatabaseInterface {
         if (!sqlConnection.connect()) {
             LocalLog.error("Couldn't connect to database!");
         } else {
-            LocalLog.info("Connected to Database"); // May want a different log level later...
-            consumer = new Consumer(sqlConnection);
+            LocalLog.info("Connected to Database"); // May want a different log
+                                                    // level later...
+            consumer = new Consumer(sqlConnection, task);
 
         }
     }
 
     private ScheduledFuture<?> sendSingleCommand(Query query) {
+        
         Consumer.queue(query);
         task = executors.schedule(consumer, 1, TimeUnit.MILLISECONDS);
         return task;
@@ -255,10 +266,11 @@ public class DatabaseInterface {
     /***
      * Creates a database in the SQL server
      * 
-     * @param string String: Name of the database to be created
+     * @param string
+     *            String: Name of the database to be created
      */
     public boolean setupDatabase(String string) {
         return false;
-        
+
     }
 }

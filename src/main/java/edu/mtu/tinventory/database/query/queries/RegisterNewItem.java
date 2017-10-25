@@ -18,7 +18,7 @@ public class RegisterNewItem implements Query {
 
     private String table;
     // TODO : Replace from configurations
-    private String currency = "$";
+    private String currency = "'$'";
 
     /**
      * Query for inserting product into database
@@ -27,10 +27,10 @@ public class RegisterNewItem implements Query {
      *            Product: product to be inserted into the database
      */
     public RegisterNewItem(String table, Product product) {
-        name = product.getName();
-        displayPrice = product.getDisplayPrice();
-        iD = product.getID();
-        price = product.getPrice().toPlainString();
+        name = "'" + product.getName() + "'";
+        displayPrice = "'" + product.getDisplayPrice() + "'";
+        iD = "'" + product.getID() + "'";
+        price = "'" + product.getPrice().toPlainString() + "'";
         quantity = product.getQuanity();
 
         this.table = table;
@@ -39,15 +39,9 @@ public class RegisterNewItem implements Query {
     @Override
     public String getQuery() {
         // SQL Statement
-       /*
-        return String.format(
-                "INSERT INTO '%s' SET id='%s', name='%s', price='%s', displayprice='%s', currency='%s', quantity='%s' ;",
-                table, iD, name, price, displayPrice, currency, quantityToString());
-        */
-        //INSERT INTO inventory VALUES ('id', 'name', 'price', 'display', 'currency', 'quantity');
-        //INSERT INTO inventory VALUES ('id', 'name', 'price', 'display', 'currency', 'quant');
-        return String.format("INSERT INTO inventory VALUES ('id', 'name', 'price', 'display', 'currency', 'quantity');"
-                , iD,name,price,displayPrice,currency,quantityToString());
+        String string = String.format("INSERT INTO %s VALUES (%s , %s , %s , %s , %s , %s);", table, iD, name, price,
+                displayPrice, currency, "'" + quantityToString() + "'");
+        return string;
     }
 
     /**
@@ -77,6 +71,10 @@ public class RegisterNewItem implements Query {
             quantityString = quantityString + entry.getKey().toString() + ":" + entry.getValue() + ";";
         }
 
+        // exception for empty quantities
+        if (quantityString.equals("")) {
+            return quantityString;
+        }
         // Removes the extra semicolon
         return quantityString.substring(0, quantityString.length() - 1);
     }
