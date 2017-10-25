@@ -10,11 +10,6 @@ import java.util.HashMap;
 public class StateRegistry {
 	private static final HashMap<String, State> map = new HashMap<>(); //TODO: Serialize this somehow...
 
-	//TODO: REMOVE after Presentation
-	static {
-		registerState(new State("DEFAULT", "Default"));
-	}
-
 	private StateRegistry() {} // Singleton
 
 	/**
