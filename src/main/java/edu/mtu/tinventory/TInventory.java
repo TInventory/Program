@@ -47,14 +47,13 @@ public class TInventory extends Application {
         // TODO: Perhaps if one of these turns up false make error popup window
          database.setupDataTable(null);
 
-         /*
+       /**
         // TODO: Remove, is quick testing method
         Product product = new Product("Aviator", "Sunglasses", "60.00");
         product.getQuanity().changeQty("Sold", 10);
         Product product1 = new Product("Studio M200", "AKG Headphones", "70.00");
         product1.getQuanity().changeQty("Rented", 3);
         Product product2 = new Product("Waddles", "Rubber Duck", "100000000");
-        
         database.registerNewItem(product, null);
         database.registerNewItem(product1, null);
         database.registerNewItem(product2, null);
