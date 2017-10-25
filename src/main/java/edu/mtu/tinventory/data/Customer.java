@@ -19,13 +19,11 @@ public class Customer {
 	 * @param personName
 	 * @param invoice - null if never had an invoice before
 	 */
-	public Customer(String phoneNumber, String faxNumber, String companyName, String personName, Invoice invoice) {
+	public Customer(String phoneNumber, String faxNumber, String companyName, String personName) {
 		this.phoneNumber = phoneNumber;
 		this.faxNumber = faxNumber;
 		this.companyName = companyName;
 		this.personName = personName;
-		if (invoice != null)
-			logSale(invoice);
 	}
 	public void logSale(Invoice invoice) {
 		if (pastSales == null)
