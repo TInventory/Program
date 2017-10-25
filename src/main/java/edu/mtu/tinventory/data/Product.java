@@ -15,9 +15,24 @@ public class Product {
 	private String name;
 	// The quantity of items in each state
 	// TODO: Create proxy methods in this class? Something to get qtys.
-	private final StateQtyMap quantities;
+	private StateQtyMap quantities;
 	// The cost of this item. Using BigDecimal to avoid imprecision of floating point.
 	private BigDecimal price;
+
+	/**
+	 * Used by the database to create a local object from the remote database.
+	 * When creating a new product locally, use the constructor.
+	 * @param id The unique ID for the product.
+	 * @param name The human-friendly name for the product.
+	 * @param price The unit-price for the product.
+	 * @param quantities The quantities in each state for the products. Format is specified in RegisterNewItem query.
+	 * @return a Product object with the specified information from the database.
+	 */
+	public static Product createFromDatabse(String id, String name, String price, String quantities) {
+		Product ret = new Product(id, name, price);
+		ret.quantities = StateQtyMap.createFromString(quantities);
+		return ret;
+	}
 
 	public Product(String id, String name, String price) {
 		this.id = id;

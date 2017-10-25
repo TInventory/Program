@@ -13,6 +13,15 @@ public class StateQtyMap {
 		map = new HashMap<>();
 	}
 
+	public static StateQtyMap createFromString(String s) {
+		StateQtyMap ret = new StateQtyMap();
+		for(String e : s.split(";")) {
+			String[] split = e.split(":");
+			ret.changeQty(split[0], Integer.parseInt(split[1]));
+		}
+		return ret;
+	}
+
 	/**
 	 * Updates the inventory by adding/subtracting the amount specified from that state.
 	 * @param stateID The state ID that you want to change the quantity of.
