@@ -1,5 +1,6 @@
 package edu.mtu.tinventory.gui;
 
+import edu.mtu.tinventory.data.Customer;
 import edu.mtu.tinventory.data.Invoice;
 import edu.mtu.tinventory.data.Product;
 import edu.mtu.tinventory.data.PurchasedProduct;
@@ -74,7 +75,13 @@ public class SellController {
 		if(items.getItems().isEmpty()) {
 			Dialogs.showDialog(Dialogs.Type.ERROR, "No products specified", "Must specify at least one item");
 		} else {
-			Invoice i = Invoice.createNewInvoice(items.getItems());
+			//Should probably be able to select a customer from the database
+			//Or create a new customer
+			//Or do something else
+			//Is this a todo?
+			//F*@& if I know
+			Customer customer = new Customer(null, null, null, null, null);
+			Invoice i = Invoice.createNewInvoice(items.getItems(), customer);
 			if(i == null) {
 				Dialogs.showDialog(Dialogs.Type.ERROR, "Invoice could not be created", "Problem communicating with Database. Please try again.");
 			} else {

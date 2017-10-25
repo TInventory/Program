@@ -9,6 +9,7 @@ import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.ScheduledFuture;
 import java.util.concurrent.TimeUnit;
 
+import edu.mtu.tinventory.data.Customer;
 import edu.mtu.tinventory.data.Invoice;
 import edu.mtu.tinventory.data.Product;
 import edu.mtu.tinventory.database.query.Query;
@@ -137,7 +138,6 @@ public class DatabaseInterface {
             return false;
         }
     }
-
     /**
      * Creates a new table in the database
      * 
@@ -236,7 +236,7 @@ public class DatabaseInterface {
 
     /**
      * Saves Store a completed invoice in the database.
-     * 
+     * --Should also be saved to relevant Customer in database
      * @param invoice
      *            The invoice to store in the database.
      * @return true if it was successfully saved, false otherwise.
@@ -270,7 +270,22 @@ public class DatabaseInterface {
      *            String: Name of the database to be created
      */
     public boolean setupDatabase(String string) {
-        return false;
+    	return false;
 
+    }
+    /**
+     * Register a new customer into the database
+     * @param customer - to be registered
+     * @return if the customer were registered
+     */
+    public boolean registerNewCustomer(Customer customer) {
+    	return false;
+    }
+    /**
+     * Get a list of every customer in database
+     * @return list of customers
+     */
+    public List<Customer> getCustomers() {
+    	return null;
     }
 }

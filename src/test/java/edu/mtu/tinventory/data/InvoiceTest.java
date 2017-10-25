@@ -17,7 +17,8 @@ public class InvoiceTest {
 		PurchasedProduct testPurchasedProduct = new PurchasedProduct(testProduct, 12, new BigDecimal("122.2"));
 		List<PurchasedProduct> products = new ArrayList<PurchasedProduct>();
 		products.add(testPurchasedProduct);
-		Invoice test = Invoice.createNewInvoice(products);
+		Customer customer = new Customer(null, null, null, null, null);
+		Invoice test = Invoice.createNewInvoice(products, customer);
 		assertEquals(test.getTotal(), new BigDecimal("1466.4"));
 	}
 	@Test
@@ -29,7 +30,8 @@ public class InvoiceTest {
 		List<PurchasedProduct> products = new ArrayList<PurchasedProduct>();
 		products.add(testPurchasedProduct);
 		products.add(testPurchasedProduct2);
-		Invoice test = Invoice.createNewInvoice(products);
+		Customer customer = new Customer(null, null, null, null, null);
+		Invoice test = Invoice.createNewInvoice(products, customer);
 		assertEquals(test.getTotal(), new BigDecimal("2262.4"));
 	}
 }

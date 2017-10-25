@@ -19,21 +19,25 @@ public class Invoice {
 	private List<PurchasedProduct> products;
 	// The total amount
 	private BigDecimal total;
+	
+	private Customer customer;
 
-	public static Invoice createNewInvoice(List<PurchasedProduct> products) {
+	public static Invoice createNewInvoice(List<PurchasedProduct> products, Customer customer) {
 		//TODO: Get the next unique Invoice # from a user-specified format. Probably from the database?
 		//		Date should always be today. Maybe include a initializer for other dates, but would need a use case for it.
-		Invoice i = new Invoice((int)(Math.random() * 10000), new Date(), products);
+		Invoice i = new Invoice((int)(Math.random() * 10000), new Date(), products, customer);
 		/*if(DatabaseInterface.getInstance().saveInvoice(i)) { //TODO: Uncomment when Database method works
 			return i;
 		} else {
 			return null;
 		}*/
+		//registers the invoice in the associated customer
+		customer.logSale(i);
 		return i;
 	}
 
 	// This constructor should only be used for building an obj from the database.
-	private Invoice(int id, Date date, List<PurchasedProduct> products) {
+	private Invoice(int id, Date date, List<PurchasedProduct> products, Customer customer) {
 		this.id = id;
 		this.date = date;
 		this.products = products;
@@ -41,8 +45,11 @@ public class Invoice {
 		for(PurchasedProduct p : products) {
 			total = total.add(p.getTotalPrice());
 		}
+		this.customer = customer;
 	}
-
+	public Customer getCustomer() {
+		return customer;
+	}
 	public int getId() {
 		return id;
 	}

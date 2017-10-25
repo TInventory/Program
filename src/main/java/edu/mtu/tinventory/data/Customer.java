@@ -11,12 +11,21 @@ public class Customer {
 	private String address;
 	private List<Invoice> pastSales;
 	
+	/**
+	 * Creates a new Customer from information and a previous invoice
+	 * @param phoneNumber
+	 * @param faxNumber
+	 * @param companyName
+	 * @param personName
+	 * @param invoice - null if never had an invoice before
+	 */
 	public Customer(String phoneNumber, String faxNumber, String companyName, String personName, Invoice invoice) {
 		this.phoneNumber = phoneNumber;
 		this.faxNumber = faxNumber;
 		this.companyName = companyName;
 		this.personName = personName;
-		logSale(invoice);
+		if (invoice != null)
+			logSale(invoice);
 	}
 	public void logSale(Invoice invoice) {
 		if (pastSales == null)
@@ -41,5 +50,4 @@ public class Customer {
 	public List<Invoice> getPastSales() {
 		return pastSales;
 	}
-	
 }
