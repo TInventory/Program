@@ -15,7 +15,7 @@ dependencies {
     // All dependencies for our main program are declared here
     // Format is "compile 'group:artifact:version'
     // Use search.maven.org to see if the library is in the central repo for us to use
-    compile 'mysql:mysql-connector-java:5.1.44'
+    runtime 'mysql:mysql-connector-java:5.1.44' // Not needed to compile, just needed to run. Fixes a linking error...for some reason...
 
     // All dependencies for our test cases to compile are declared here.
     // This already contains our main compile dependencies
@@ -41,7 +41,7 @@ task fatJar(type: Jar, dependsOn: 'jar') {
         from zipTree(jar.archivePath)
     }
     inputs.file jar.archivePath
-    from(configurations.compile.collect { zipTree(it).matching { exclude 'META-INF/**' } })
+    from(configurations.runtime.collect { zipTree(it).matching { exclude 'META-INF/**' } })
     manifest commonManifest
     classifier 'all'
 }
