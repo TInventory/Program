@@ -205,7 +205,24 @@ public class DatabaseInterface {
     public Product getProduct(String productID) {
         return null;
     }
-
+    /**
+     * Fetches a list of all customers currently registered in the database
+     * 
+     * @return A List of all registered products
+     */
+    public List<Product> getCustomers(String table) {
+        try {
+            //TODO: Changed for testing
+            GrabAllItems query = new GrabAllItems(table);
+            sendSingleCommand(query);
+            
+            return null;
+           
+        } catch (Exception exception) {
+            System.out.println(exception);
+            return null;
+        }
+    }
     /**
      * Fetches a list of all products currently registered in the database
      * 
