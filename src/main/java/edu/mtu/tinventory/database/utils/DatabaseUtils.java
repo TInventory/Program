@@ -1,6 +1,5 @@
 package edu.mtu.tinventory.database.utils;
 
-import edu.mtu.tinventory.logging.LocalLog;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.DataInputStream;
@@ -13,7 +12,9 @@ import java.util.List;
 import java.util.UUID;
 import java.util.regex.Pattern;
 
+import edu.mtu.tinventory.data.Product;
 import edu.mtu.tinventory.database.query.queries.InfoStreams;
+import edu.mtu.tinventory.logging.LocalLog;
 
 /**
  * 
@@ -228,4 +229,12 @@ public class DatabaseUtils {
 		return str.toString().trim();
 	}
 
+	public List<Product> convertObjectToProduct(List<Object> objectList) {
+	    List<Product> productList = new ArrayList<Product>();
+	    
+	    for (Object object : objectList) {
+	        //productList.add(e);
+	    }
+	    return productList;
+	}
 }

@@ -1,8 +1,5 @@
 package edu.mtu.tinventory.database;
 
-import edu.mtu.tinventory.logging.LocalLog;
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
@@ -13,7 +10,9 @@ import edu.mtu.tinventory.data.Customer;
 import edu.mtu.tinventory.data.Invoice;
 import edu.mtu.tinventory.data.Product;
 import edu.mtu.tinventory.database.query.Query;
+import edu.mtu.tinventory.database.query.queries.GrabAllItems;
 import edu.mtu.tinventory.database.query.queries.RegisterNewItem;
+import edu.mtu.tinventory.logging.LocalLog;
 
 /**
  * 
@@ -105,7 +104,8 @@ public class DatabaseInterface {
      * @param product
      *            Product: The product object to be inserted into the database
      * @param dataTable
-     *             String: Name of the table to register the item into, inserts into default table if null
+     *            String: Name of the table to register the item into, inserts
+     *            into default table if null
      * 
      * @return Returns true if the action is successful and the item is
      *         registered properly into the database, otherwise returns false
@@ -114,8 +114,8 @@ public class DatabaseInterface {
         if (dataTable == null) {
             dataTable = this.dataTable;
         }
-        
-        try { 
+
+        try {
             Query query = new RegisterNewItem(dataTable, product);
             sendSingleCommand(query);
             return true;
@@ -124,11 +124,13 @@ public class DatabaseInterface {
             return false;
         }
     }
+
     /**
      * Creates a new table in the database
      * 
-     * @param dataTable 
-     *          String: Name of the inventory table to be created, if null is set to default.
+     * @param dataTable
+     *            String: Name of the inventory table to be created, if null is
+     *            set to default.
      * 
      * @return Returns true if the action is successful and the table is created
      *         in the database, otherwise returns false
@@ -209,13 +211,24 @@ public class DatabaseInterface {
      * 
      * @return A List of all registered products
      */
-    public List<Product> getProducts() {
-        return null;
+    public List<Object> getProducts(String table) {
+        try {
+            //TODO: Changed for testing
+            GrabAllItems query = new GrabAllItems(table);
+            sendSingleCommand(query);
+            
+            return query.getData();
+           
+        } catch (Exception exception) {
+            System.out.println(exception);
+            return null;
+        }
     }
 
     /**
      * Saves Store a completed invoice in the database.
      * --Should also be saved to relevant Customer in database
+     * 
      * @param invoice
      *            The invoice to store in the database.
      * @return true if it was successfully saved, false otherwise.
@@ -236,7 +249,7 @@ public class DatabaseInterface {
     }
 
     private ScheduledFuture<?> sendSingleCommand(Query query) {
-        
+
         Consumer.queue(query);
         task = executors.schedule(consumer, 1, TimeUnit.MILLISECONDS);
         return task;
@@ -249,22 +262,27 @@ public class DatabaseInterface {
      *            String: Name of the database to be created
      */
     public boolean setupDatabase(String string) {
-    	return false;
+        return false;
 
     }
+
     /**
      * Register a new customer into the database
-     * @param customer - to be registered
+     * 
+     * @param customer
+     *            - to be registered
      * @return if the customer were registered
      */
     public boolean registerNewCustomer(Customer customer) {
-    	return false;
+        return false;
     }
+
     /**
      * Get a list of every customer in database
+     * 
      * @return list of customers
      */
     public List<Customer> getCustomers() {
-    	return null;
+        return null;
     }
 }

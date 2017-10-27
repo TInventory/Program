@@ -1,8 +1,8 @@
 package edu.mtu.tinventory;
 
+import java.util.List;
 import java.util.logging.Level;
 
-import edu.mtu.tinventory.data.Product;
 import edu.mtu.tinventory.database.DatabaseInterface;
 import edu.mtu.tinventory.gui.MainController;
 import edu.mtu.tinventory.logging.LocalLog;
@@ -21,7 +21,7 @@ public class TInventory extends Application {
         setupLog();
         
         database = DatabaseInterface.getInstance();
-        initialDatabaseSetup(); 
+       // initialDatabaseSetup(); 
 
         FXMLLoader loader = new FXMLLoader(TInventory.class.getResource("fxml/main.fxml"));
         BorderPane root = loader.load();
@@ -47,7 +47,7 @@ public class TInventory extends Application {
         // TODO: Perhaps if one of these turns up false make error popup window
          database.setupDataTable(null);
 
-       /**
+       /*
         // TODO: Remove, is quick testing method
         Product product = new Product("Aviator", "Sunglasses", "60.00");
         product.getQuanity().changeQty("Sold", 10);
@@ -58,6 +58,10 @@ public class TInventory extends Application {
         database.registerNewItem(product1, null);
         database.registerNewItem(product2, null);
         */
+       List<Object> list =  database.getProducts("inventory");
+        for (Object obj : list) {
+            System.out.println(obj.toString());
+        }
         //database.deleteDataTable("inventory");
     }
 

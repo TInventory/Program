@@ -16,4 +16,5 @@ public interface Query {
      * @return String: Returns the Query
      */
     public String getQuery();
+
 }
