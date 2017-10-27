@@ -211,13 +211,13 @@ public class DatabaseInterface {
      * 
      * @return A List of all registered products
      */
-    public List<Object> getProducts(String table) {
+    public List<Product> getProducts(String table) {
         try {
             //TODO: Changed for testing
             GrabAllItems query = new GrabAllItems(table);
             sendSingleCommand(query);
             
-            return query.getData();
+            return null;
            
         } catch (Exception exception) {
             System.out.println(exception);

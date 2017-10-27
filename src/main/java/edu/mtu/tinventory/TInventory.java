@@ -58,10 +58,14 @@ public class TInventory extends Application {
         database.registerNewItem(product1, null);
         database.registerNewItem(product2, null);
         */
-       List<Object> list =  database.getProducts("inventory");
-        for (Object obj : list) {
-            System.out.println(obj.toString());
-        }
+         
+         //This was commented out
+//       List<Object> list =  database.getProducts("inventory");
+//        for (Object obj : list) {
+//            System.out.println(obj.toString());
+//        }
+         
+         
         //database.deleteDataTable("inventory");
     }
 
