@@ -4,7 +4,8 @@ public enum View {
 	VIEW_INV("View Inventory", "inventoryView"),
 	CREATE_PRODUCT("Create New Products", "createProducts"),
 	SELL_INV("Sell Inventory", "sell"),
-	UPDATE_PRODUCT("Update Products", "updateProducts");
+	UPDATE_PRODUCT("Update Products", "updateProducts"),
+	VIEW_CUSTOMERS("View Customers", "viewCustomers");
 	
 	private String tabName;
 	private String fxmlName;
