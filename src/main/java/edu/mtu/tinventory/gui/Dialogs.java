@@ -30,6 +30,12 @@ public class Dialogs {
 		}
 	}
 
+	/**
+	 * Displays a dialog box to the user.
+	 * @param type The type of dialog box this is. Just dictates the icon the window shows.
+	 * @param heading A heading message. Using null here will not show a heading. Good for compact messages.
+	 * @param message The actual content of the message.
+	 */
 	public static void showDialog(Type type, String heading, String message) {
 		Alert alert = new Alert(type.getAlertType());
 		alert.initStyle(StageStyle.UTILITY);

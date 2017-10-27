@@ -1,6 +1,7 @@
 package edu.mtu.tinventory.data;
 
 public class Employee {
+	//NOTE: Password should NOT be stored locally.
 	private String id;
 	private String firstName;
 	private String lastName;
