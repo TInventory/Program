@@ -20,14 +20,7 @@
               <MenuItem mnemonicParsing="false" text="Placeholder" />
             </items>
           </Menu>
-            <Menu mnemonicParsing="false" text="Actions">
-              <items>
-                <MenuItem mnemonicParsing="false" onAction="#viewInventory" text="View Inventory" />
-                  <MenuItem mnemonicParsing="false" onAction="#openSellTab" text="Sell Inventory" />
-                  <MenuItem mnemonicParsing="false" onAction="#createNewProduct" text="Create New Products" />
-                  <MenuItem mnemonicParsing="false" onAction="#updateInventory" text="Update/Recieve Inventory" />
-              </items>
-            </Menu>
+            <Menu fx:id="actions" mnemonicParsing="false" text="Actions" />
           <Menu mnemonicParsing="false" text="Help">
             <items>
               <MenuItem mnemonicParsing="false" text="About" />

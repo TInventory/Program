@@ -7,6 +7,8 @@ import java.util.EnumMap;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.control.Menu;
+import javafx.scene.control.MenuItem;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
 import javafx.scene.layout.Region;
@@ -16,6 +18,7 @@ import javafx.scene.layout.Region;
  */
 public class MainController {
 	@FXML private TabPane tabs;
+	@FXML private Menu actions;
 
 	private EnumMap<View, Tab> activeTabs;
 
@@ -23,31 +26,16 @@ public class MainController {
 	@FXML
 	private void initialize() {
 		activeTabs = new EnumMap<>(View.class);
+		for(View view : View.values()) {
+			MenuItem mi = new MenuItem(view.getTabName());
+			mi.setOnAction(event -> openTab(view));
+			actions.getItems().add(mi);
+		}
 	}
 
 	@FXML
 	private void close() {
 		Platform.exit();
-	}
-
-	@FXML
-	private void viewInventory() {
-		openTab(View.VIEW_INV);
-	}
-
-	@FXML
-	private void createNewProduct() {
-		openTab(View.CREATE_PRODUCT);
-	}
-
-	@FXML
-	private void openSellTab() {
-		openTab(View.SELL_INV);
-	}
-
-	@FXML
-	private void updateInventory() {
-		openTab(View.UPDATE_PRODUCT);
 	}
 
 	private void openTab(View view) {

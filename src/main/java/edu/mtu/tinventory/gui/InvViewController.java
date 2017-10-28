@@ -1,8 +1,5 @@
 package edu.mtu.tinventory.gui;
 
-
-import java.util.List;
-
 import edu.mtu.tinventory.data.Product;
 import edu.mtu.tinventory.database.DatabaseInterface;
 import javafx.beans.property.ReadOnlyIntegerWrapper;
