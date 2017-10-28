@@ -5,12 +5,13 @@ public class Employee {
 	private String id;
 	private String firstName;
 	private String lastName;
-	//TODO: Add AccessLevel or Role or something.
+	private Access access;
 
-	public Employee(String id, String firstName, String lastName) {
+	public Employee(String id, String firstName, String lastName, Access access) {
 		this.id = id;
 		this.firstName = firstName;
 		this.lastName = lastName;
+		this.access = access;
 	}
 
 	public String getID() {
@@ -23,5 +24,9 @@ public class Employee {
 
 	public String getLastName() {
 		return lastName;
+	}
+
+	public Access getAccess() {
+		return access;
 	}
 }
