@@ -110,9 +110,9 @@ public class DatabaseInterface {
      * @return Returns true if the action is successful and the item is
      *         registered properly into the database, otherwise returns false
      */
-    public boolean registerNewItem(Product product, String dataTable) {
-        if (dataTable == null) {
-            dataTable = this.dataTable;
+    public boolean registerNewItem(Product product, String table) {
+        if (table == null || table.replace(" ", "").isEmpty()) {
+            table = dataTable;
         }
 
         try {
@@ -135,9 +135,9 @@ public class DatabaseInterface {
      * @return Returns true if the action is successful and the table is created
      *         in the database, otherwise returns false
      */
-    public boolean setupDataTable(String dataTable) {
-        if (dataTable == null) {
-            dataTable = this.dataTable;
+    public boolean setupDataTable(String table) {
+        if (table == null || table.replace(" ", "").isEmpty()) {
+            table = dataTable;
         }
         try {
             sendSingleCommand(setup.setupDataTable(dataTable));
@@ -153,8 +153,11 @@ public class DatabaseInterface {
      * @return Returns true if the action is successful and the table is created
      *         in the database, otherwise returns false
      */
-    public boolean deleteDataTable(String dataTable) {
+    public boolean deleteDataTable(String table) {
         try {
+            if (table == null || table.replace(" ", "").isEmpty()) {
+                table = dataTable;
+            }
             sendSingleCommand(setup.deleteTable(dataTable));
             return true;
         } catch (Exception exception) {
@@ -205,6 +208,7 @@ public class DatabaseInterface {
     public Product getProduct(String productID) {
         return null;
     }
+
     /**
      * Fetches a list of all customers currently registered in the database
      * 
@@ -212,17 +216,22 @@ public class DatabaseInterface {
      */
     public List<Product> getCustomers(String table) {
         try {
-            //TODO: Changed for testing
+
+            if (table == null || table.replace(" ", "").isEmpty()) {
+                table = dataTable;
+            }
+            // TODO: Changed for testing
             GrabAllItems query = new GrabAllItems(table);
             sendSingleCommand(query);
-            
+
             return null;
-           
+
         } catch (Exception exception) {
             System.out.println(exception);
             return null;
         }
     }
+
     /**
      * Fetches a list of all products currently registered in the database
      * 
@@ -230,12 +239,14 @@ public class DatabaseInterface {
      */
     public List<Product> getProducts(String table) {
         try {
-            //TODO: Changed for testing
+            if (table == null || table.replace(" ", "").isEmpty()) {
+                table = dataTable;
+            }
+            // TODO: Changed for testing
             GrabAllItems query = new GrabAllItems(table);
             sendSingleCommand(query);
-            
-            return null;
-           
+            return query.getProducts();
+
         } catch (Exception exception) {
             System.out.println(exception);
             return null;
@@ -278,9 +289,11 @@ public class DatabaseInterface {
      * @param string
      *            String: Name of the database to be created
      */
-    public boolean setupDatabase(String string) {
+    public boolean setupDatabase(String table) {
+        if (table == null || table.replace(" ", "").isEmpty()) {
+            table = dataTable;
+        }
         return false;
-
     }
 
     /**

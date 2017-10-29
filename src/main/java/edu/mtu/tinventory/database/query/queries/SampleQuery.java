@@ -1,6 +1,8 @@
 package edu.mtu.tinventory.database.query.queries;
 
 import java.sql.ResultSet;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Map;
 
 import edu.mtu.tinventory.database.query.ExecuteQuery;
@@ -46,7 +48,7 @@ public class SampleQuery implements ExecuteQuery {
     public void execute(ResultSet resultSet) {
         try {
             // Map used so we can convert between different types of maps easily
-            Map<String, Object> data = DatabaseUtils.getData(resultSet);
+            ArrayList<HashMap<String, Object>> data = DatabaseUtils.getData(resultSet);
             // Obviously would not normally just clear it, but this is a sample set
             data.clear();
         }

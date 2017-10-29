@@ -3,6 +3,7 @@ package edu.mtu.tinventory;
 import java.util.List;
 import java.util.logging.Level;
 
+import edu.mtu.tinventory.data.Product;
 import edu.mtu.tinventory.database.DatabaseInterface;
 import edu.mtu.tinventory.gui.MainController;
 import edu.mtu.tinventory.logging.LocalLog;
@@ -21,7 +22,7 @@ public class TInventory extends Application {
         setupLog();
         
         database = DatabaseInterface.getInstance();
-       // initialDatabaseSetup(); 
+        initialDatabaseSetup(); 
 
         FXMLLoader loader = new FXMLLoader(TInventory.class.getResource("fxml/main.fxml"));
         BorderPane root = loader.load();
@@ -60,11 +61,11 @@ public class TInventory extends Application {
         */
          
          //This was commented out
-//       List<Object> list =  database.getProducts("inventory");
-//        for (Object obj : list) {
-//            System.out.println(obj.toString());
-//        }
-         
+       List<Product> list =  database.getProducts("inventory");
+       System.out.println(list);
+        for (Product pro : list) {
+             System.out.println(pro.getName() + ", "  + pro.getID() + ", " + pro.getDisplayPrice() + ", " + pro.getQuanity().getMap().toString() ); 
+         }
          
         //database.deleteDataTable("inventory");
     }

@@ -4,6 +4,7 @@ import edu.mtu.tinventory.logging.LocalLog;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
+import java.util.Properties;
 
 /**
  * 
@@ -36,10 +37,12 @@ public class MySQL extends Database {
     	database = "tinventory";
     	host = "kiro47.ddns.net";
     	port = 9998;
-    	
+
         this.username = username;
         this.password = password;
-        connectionURL = "jdbc:mysql://" + host + ":" + port + "/" + database;
+        // Added end string to go over HTTP instead of HTTPS because I was having issues setting up SSL for mySQL (website works fine though)
+        // Also auto reconnect flag 
+        connectionURL = "jdbc:mysql://" + host + ":" + port + "/" + database + "?autoReconnect=true&useSSL=false";
     }
 
     /**
