@@ -214,7 +214,7 @@ public class DatabaseInterface {
      * 
      * @return A List of all registered products
      */
-    public List<Product> getCustomers(String table) {
+    public List<Customer> getCustomers(String table) {
         try {
 
             if (table == null || table.replace(" ", "").isEmpty()) {
@@ -227,7 +227,7 @@ public class DatabaseInterface {
             return null;
 
         } catch (Exception exception) {
-            System.out.println(exception);
+            LocalLog.exception(exception);
             return null;
         }
     }
@@ -248,7 +248,7 @@ public class DatabaseInterface {
             return query.getProducts();
 
         } catch (Exception exception) {
-            System.out.println(exception);
+            LocalLog.exception(exception);
             return null;
         }
     }
@@ -314,5 +314,15 @@ public class DatabaseInterface {
      */
     public List<Customer> getCustomers() {
         return null;
+    }
+
+    /**
+     * SHOULD ONLY BE CALLED WHEN THE PROGRAM IS CLOSING.
+     * Shuts down the pool of threads used to execute the SQL queries.
+     * Needed for the program to fully close after the main stage is closed.
+     * Otherwise, app is still running in the background.
+     */
+    public void quit() {
+        executors.shutdown();
     }
 }

@@ -46,23 +46,13 @@ public class Product {
     }
 
     public Product(String id, String name, String price) {
-        if (id != null) {
-            this.id = id;
-        }
-        if (name != null) {
-            this.name = name;
-        }
-        this.quantities = new StateQtyMap();
-        if (price != null) {
-            // setScale limits to two decimal places, and uses Banker's
-            // Rounding, which is apparently standard for US currency. The more
-            // you know.
-            this.price = new BigDecimal(price).setScale(2, RoundingMode.HALF_EVEN);
-        }
-    }
-
-    public void setID(String id) {
         this.id = id;
+        this.name = name;
+        this.quantities = new StateQtyMap();
+        // setScale limits to two decimal places, and uses Banker's
+        // Rounding, which is apparently standard for US currency. The more
+        // you know.
+        this.price = new BigDecimal(price).setScale(2, RoundingMode.HALF_EVEN);
     }
 
     public String getID() {
@@ -97,9 +87,5 @@ public class Product {
 
     public StateQtyMap getQuanity() {
         return quantities;
-    }
-
-    public void setQuanity(StateQtyMap stateMap) {
-        this.quantities = stateMap;
     }
 }

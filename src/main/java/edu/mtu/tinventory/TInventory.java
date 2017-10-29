@@ -1,12 +1,11 @@
 package edu.mtu.tinventory;
 
-import java.util.List;
-import java.util.logging.Level;
-
 import edu.mtu.tinventory.data.Product;
 import edu.mtu.tinventory.database.DatabaseInterface;
 import edu.mtu.tinventory.gui.MainController;
 import edu.mtu.tinventory.logging.LocalLog;
+import java.util.List;
+import java.util.logging.Level;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -33,6 +32,7 @@ public class TInventory extends Application {
         stage.setMinHeight(root.getMinHeight());
         stage.setScene(scene);
         stage.setMaximized(true);
+        stage.setOnCloseRequest(e -> database.quit());
         stage.show();
     }
 

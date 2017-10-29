@@ -1,5 +1,6 @@
 package edu.mtu.tinventory.state;
 
+import edu.mtu.tinventory.util.StringUtils;
 import java.util.HashMap;
 
 /**
@@ -26,9 +27,9 @@ public class StateQtyMap {
         
         string = string.replace(" ", "");
         // Check if the string is empty at all
-        if (string != null && !string.isEmpty()) {
+        if (!StringUtils.isNullOrEmpty(string)) {
             for (String e : string.split(";")) {
-                if (e != null && !e.isEmpty()) {
+                if (!StringUtils.isNullOrEmpty(string)) {
                      String[] split = e.split(":");
                      ret.changeQty(split[0], Integer.parseInt(split[1]));
                 }

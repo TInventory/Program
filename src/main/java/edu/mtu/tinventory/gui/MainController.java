@@ -1,6 +1,7 @@
 package edu.mtu.tinventory.gui;
 
 import edu.mtu.tinventory.TInventory;
+import edu.mtu.tinventory.database.DatabaseInterface;
 import edu.mtu.tinventory.logging.LocalLog;
 import java.io.IOException;
 import java.util.EnumMap;
@@ -35,6 +36,7 @@ public class MainController {
 
 	@FXML
 	private void close() {
+		DatabaseInterface.getInstance().quit();
 		Platform.exit();
 	}
 
