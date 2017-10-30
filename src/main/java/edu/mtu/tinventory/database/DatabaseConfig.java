@@ -15,12 +15,31 @@ import java.io.IOException;
 public class DatabaseConfig {
 
 	private File file;
+	
+	private enum FileName {
+	    
+	    SQL_CONNECTION_FILE("SQLConnections"),
+	    CACHE("cache");
+	    
+
+	    private String fileName;
+	    
+	    FileName(String fileName) {
+	        this.fileName = fileName;
+	    }
+	    
+	    public String fileName() {
+	        return fileName;
+	    }
+	    
+	}
 
 	// Suppression again because the yellow tick annoys me
 	@SuppressWarnings("unused")
     private static final DatabaseConfig 
     // These are equivalent to seperate variables
-	        sqlConfig = new DatabaseConfig("sqlConfig"), 
+	        sqlConfig = new DatabaseConfig(FileName.SQL_CONNECTION_FILE.toString()), 
+	        cache = new DatabaseConfig(FileName.CACHE.toString()),
 	        test = new DatabaseConfig("test");
 	
 	/**
@@ -32,7 +51,7 @@ public class DatabaseConfig {
 	private DatabaseConfig(String filename) {
 
 		// New instance of the filename
-		file = new File(filename);
+		file = new File(filename + ".data");
 
 		// Try to create the new file
 		try {
@@ -51,7 +70,7 @@ public class DatabaseConfig {
 	 */
 	public boolean save(File file) {
 		try {
-
+		    
 		} catch (Exception exception) {
 			LocalLog.exception("File " + file.getName() + " could not be saved.", exception);
 			return false;

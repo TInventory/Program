@@ -43,7 +43,7 @@ public class CreateProductsController {
 			database = DatabaseInterface.getInstance();
 			//Attempt to register product in database
 			//TODO: You'll need to see which data table you're inserting it into, for now it's just the default one.
-			if (database.registerNewItem(product, database.dataTable)) {
+			if (database.registerNewItem(product)) {
 				Dialogs.showDialog(Dialogs.Type.INFO, null, "Item created successfully!");
 				productName.clear();
 				productID.clear();

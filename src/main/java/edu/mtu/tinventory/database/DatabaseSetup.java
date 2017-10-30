@@ -2,6 +2,7 @@ package edu.mtu.tinventory.database;
 
 import edu.mtu.tinventory.database.query.Query;
 import edu.mtu.tinventory.database.query.queries.CreateDataTable;
+import edu.mtu.tinventory.database.query.queries.CreateDatabase;
 import edu.mtu.tinventory.database.query.queries.DropTable;
 
 public class DatabaseSetup {
@@ -17,8 +18,8 @@ public class DatabaseSetup {
      * 
      * @return The Query that executes the instruction
      */
-    public String createDatabase(String database) {
-        return "CREATE DATABASE " + database + ";";
+    public Query createDatabase(String database) {
+        return new CreateDatabase(database);
     }
 
     /**

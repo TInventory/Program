@@ -34,10 +34,10 @@ public class InvViewController {
 		priceCol.setCellValueFactory(data -> new ReadOnlyStringWrapper(data.getValue().getDisplayPrice()));
 		qtyCol.setCellValueFactory(data -> new ReadOnlyIntegerWrapper(data.getValue().getQuanity().totalQty()));
 		db = DatabaseInterface.getInstance();
-		list = FXCollections.observableList(db.getProducts(null));
+		list = FXCollections.observableList(db.getProducts());
 		FilteredList<Product> filtered = new FilteredList<Product>(list, p -> true);
 																					//Input listener for textfield for changes, check order
-		table.getItems().setAll(db.getProducts(null));      //Assuming local data is passed in a list
+		table.getItems().setAll(db.getProducts());      //Assuming local data is passed in a list
 		table.setColumnResizePolicy((param) -> true);
 	}
 
@@ -48,7 +48,7 @@ public class InvViewController {
 	private void viewInventory() {
 		if (db != null) {               
 			db = DatabaseInterface.getInstance();
-			table.getItems().setAll(db.getProducts(null));
+			table.getItems().setAll(db.getProducts());
 		} else {
 			initialize();
 		}

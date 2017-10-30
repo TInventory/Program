@@ -2,6 +2,7 @@ package edu.mtu.tinventory;
 
 import edu.mtu.tinventory.data.Product;
 import edu.mtu.tinventory.database.DatabaseInterface;
+import edu.mtu.tinventory.database.Tables;
 import edu.mtu.tinventory.gui.MainController;
 import edu.mtu.tinventory.logging.LocalLog;
 import java.util.List;
@@ -19,7 +20,7 @@ public class TInventory extends Application {
     @Override
     public void start(Stage stage) throws Exception {
         setupLog();
-        
+        System.out.println(Tables.INVENTORY_TABLE_NAME.toString());
         database = DatabaseInterface.getInstance();
         initialDatabaseSetup(); 
 
@@ -46,7 +47,7 @@ public class TInventory extends Application {
 
     private void initialDatabaseSetup() {
         // TODO: Perhaps if one of these turns up false make error popup window
-         database.setupDataTable(null);
+         database.setupDataTable();
 
        /*
         // TODO: Remove, is quick testing method
@@ -61,7 +62,7 @@ public class TInventory extends Application {
         */
          
          //This was commented out
-       List<Product> list =  database.getProducts("inventory");
+       List<Product> list =  database.getProducts();
        System.out.println(list);
         for (Product pro : list) {
              System.out.println(pro.getName() + ", "  + pro.getID() + ", " + pro.getDisplayPrice() + ", " + pro.getQuanity().getMap().toString() ); 

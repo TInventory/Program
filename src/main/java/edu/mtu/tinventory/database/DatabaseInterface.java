@@ -27,7 +27,7 @@ public class DatabaseInterface {
     /**
      * Name of the table that the main data is stored in
      */
-    public String dataTable = "inventory";
+    public String table = Tables.INVENTORY_TABLE_NAME.toString();
 
     /**
      * Creates a single instance of the database interface
@@ -110,13 +110,9 @@ public class DatabaseInterface {
      * @return Returns true if the action is successful and the item is
      *         registered properly into the database, otherwise returns false
      */
-    public boolean registerNewItem(Product product, String table) {
-        if (table == null || table.replace(" ", "").isEmpty()) {
-            table = dataTable;
-        }
-
+    public boolean registerNewItem(Product product) {
         try {
-            Query query = new RegisterNewItem(dataTable, product);
+            Query query = new RegisterNewItem(table, product);
             sendSingleCommand(query);
             return true;
         } catch (Exception exception) {
@@ -135,12 +131,9 @@ public class DatabaseInterface {
      * @return Returns true if the action is successful and the table is created
      *         in the database, otherwise returns false
      */
-    public boolean setupDataTable(String table) {
-        if (table == null || table.replace(" ", "").isEmpty()) {
-            table = dataTable;
-        }
+    public boolean setupDataTable() {
         try {
-            sendSingleCommand(setup.setupDataTable(dataTable));
+            sendSingleCommand(setup.setupDataTable(table));
             return true;
         } catch (Exception exception) {
             return false;
@@ -155,14 +148,12 @@ public class DatabaseInterface {
      */
     public boolean deleteDataTable(String table) {
         try {
-            if (table == null || table.replace(" ", "").isEmpty()) {
-                table = dataTable;
-            }
-            sendSingleCommand(setup.deleteTable(dataTable));
-            return true;
-        } catch (Exception exception) {
-            return false;
-        }
+        sendSingleCommand(setup.deleteTable(table));
+        return true;
+    }catch(Exception exception)
+    {
+        return false;
+    }
     }
 
     /**
@@ -216,10 +207,6 @@ public class DatabaseInterface {
      */
     public List<Customer> getCustomers(String table) {
         try {
-
-            if (table == null || table.replace(" ", "").isEmpty()) {
-                table = dataTable;
-            }
             // TODO: Changed for testing
             GrabAllItems query = new GrabAllItems(table);
             sendSingleCommand(query);
@@ -237,14 +224,17 @@ public class DatabaseInterface {
      * 
      * @return A List of all registered products
      */
-    public List<Product> getProducts(String table) {
+    public List<Product> getProducts() {
         try {
-            if (table == null || table.replace(" ", "").isEmpty()) {
-                table = dataTable;
-            }
-            // TODO: Changed for testing
+            // Create the new query
             GrabAllItems query = new GrabAllItems(table);
+            // output the commands
             sendSingleCommand(query);
+
+            // NOTE: may be a delay here due to waiting for the MySQL database
+            // to respond and the threads to sync up.
+
+            // Retrieve
             return query.getProducts();
 
         } catch (Exception exception) {
@@ -265,6 +255,9 @@ public class DatabaseInterface {
         return false;
     }
 
+    /**
+     * Launches a connection to the MySQL database
+     */
     private void connectTo() {
         if (!sqlConnection.connect()) {
             LocalLog.error("Couldn't connect to database!");
@@ -276,6 +269,14 @@ public class DatabaseInterface {
         }
     }
 
+    /**
+     * Sends a single query into the queue of the Consumer handler
+     * Also sends this command on a separate thread from main.
+     * 
+     * @param query
+     *            Query command to be issued
+     * @return Instance of the scheduled future, a handler for the thread.
+     */
     private ScheduledFuture<?> sendSingleCommand(Query query) {
 
         Consumer.queue(query);
@@ -288,12 +289,19 @@ public class DatabaseInterface {
      * 
      * @param string
      *            String: Name of the database to be created
+     *          
+     *     @return True is the database already existed or is now existing, false if the database does not exist and will not exist
      */
-    public boolean setupDatabase(String table) {
-        if (table == null || table.replace(" ", "").isEmpty()) {
-            table = dataTable;
+    public boolean setupInventoryDatabase() {
+        try {
+            sendSingleCommand(setup.createDatabase(Tables.DATABASE_NAME.toString()));
+            // here database either exists or was created
+            return true;
         }
-        return false;
+        catch (Exception exception) {
+            LocalLog.exception(exception);
+            return false;
+        }
     }
 
     /**
