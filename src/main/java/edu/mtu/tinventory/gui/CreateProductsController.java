@@ -12,7 +12,7 @@ import javafx.scene.control.TextField;
  * Controller class for the product creation window
  * @author Brandon Paupore
  */
-public class CreateProductsController {
+public class CreateProductsController extends Controller {
 	DatabaseInterface database;
 
 	@FXML TextField productName;

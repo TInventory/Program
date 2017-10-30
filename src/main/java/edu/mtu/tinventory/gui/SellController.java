@@ -18,7 +18,7 @@ import javafx.scene.control.TextField;
 /**
  * Controller class for the sell inventory view
  */
-public class SellController {
+public class SellController extends Controller {
 	@FXML private TextField qty;
 	@FXML private TextField productID;
 	@FXML private TextField price;
