@@ -1,5 +1,8 @@
 package edu.mtu.tinventory.gui;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+
 import edu.mtu.tinventory.data.Product;
 import edu.mtu.tinventory.database.DatabaseInterface;
 import edu.mtu.tinventory.util.StringUtils;
@@ -15,7 +18,8 @@ public class CreateProductsController {
 	@FXML TextField productName;
 	@FXML TextField productID;
 	@FXML TextField productPrice;
-
+	@FXML TextField productTags;
+		  ArrayList<String> tagList;
 	@FXML
 	private void initialize() {
 		database = DatabaseInterface.getInstance();
@@ -39,7 +43,8 @@ public class CreateProductsController {
 			Dialogs.showDialog(Dialogs.Type.ERROR, "Invalid price entered", "Price must be a valid number.");
 			productPrice.clear();
 		} else {
-			Product product = new Product(productID.getText(), productName.getText(), productPrice.getText());
+			tagList = new ArrayList<String>(Arrays.asList(productTags.getText().split(",")));
+			Product product = new Product(productID.getText(), productName.getText(), productPrice.getText(),tagList);
 			database = DatabaseInterface.getInstance();
 			//Attempt to register product in database
 			//TODO: You'll need to see which data table you're inserting it into, for now it's just the default one.

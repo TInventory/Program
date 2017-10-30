@@ -21,6 +21,7 @@
       <TextField fx:id="productName" promptText="Product Name" />
       <TextField fx:id="productID" promptText="Product ID" />
       <TextField fx:id="productPrice" promptText="Product Price" />
+      <TextField fx:id="productPrice1" promptText="Product Tags (Comma Seperated)" />
       <Button id="CreateProductButton" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#createProduct" text="Create New Product" textAlignment="CENTER" />
    </children>
 </VBox>

@@ -4,6 +4,7 @@ import edu.mtu.tinventory.state.StateQtyMap;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.text.NumberFormat;
+import java.util.ArrayList;
 import java.util.Locale;
 
 public class Product {
@@ -22,6 +23,7 @@ public class Product {
     // The cost of this item. Using BigDecimal to avoid imprecision of floating
     // point.
     private BigDecimal price;
+    private ArrayList<String> tagList;
 
     /**
      * Used by the database to create a local object from the remote database.
@@ -49,6 +51,17 @@ public class Product {
         this.id = id;
         this.name = name;
         this.quantities = new StateQtyMap();
+        // setScale limits to two decimal places, and uses Banker's
+        // Rounding, which is apparently standard for US currency. The more
+        // you know.
+        this.price = new BigDecimal(price).setScale(2, RoundingMode.HALF_EVEN);
+    }
+    
+    public Product(String id, String name, String price, ArrayList<String> tags) {
+        this.id = id;
+        this.name = name;
+        this.quantities = new StateQtyMap();
+        this.tagList = tags;
         // setScale limits to two decimal places, and uses Banker's
         // Rounding, which is apparently standard for US currency. The more
         // you know.
@@ -87,5 +100,13 @@ public class Product {
 
     public StateQtyMap getQuanity() {
         return quantities;
+    }
+    
+    public ArrayList<String> getTags() {
+    	return tagList;
+    }
+    
+    public void setTags(ArrayList<String> tags) {
+    	tagList = tags;
     }
 }
