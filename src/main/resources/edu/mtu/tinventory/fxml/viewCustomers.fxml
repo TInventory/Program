@@ -2,14 +2,21 @@
 
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.VBox?>
 
-<TableView fx:id="table" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.mtu.tinventory.gui.CustomerViewController">
-   <columns>
-      <TableColumn fx:id="companyNameCol" editable="false" prefWidth="75.0" text="Company Name" />
-      <TableColumn fx:id="personalNameCol" editable="false" prefWidth="75.0" text="Person's Name" />
-      <TableColumn fx:id="phoneNumberCol" editable="false" prefWidth="75.0" text="Phone Number" />
-      <TableColumn fx:id="addressCol" editable="false" prefWidth="75.0" text="Address" />
-      <TableColumn fx:id="faxNumberCol" editable="false" prefWidth="75.0" text="Fax Number" />
-      <TableColumn fx:id="pastSalesCol" editable="false" prefWidth="75.0" text="Past Sales" />
-   </columns>
-</TableView>
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.mtu.tinventory.gui.CustomerViewController">
+   <children>
+      <TextField fx:id="filter" />
+	  <TableView fx:id="table" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" VBox.vgrow="ALWAYS">
+   		 <columns>
+     	    <TableColumn fx:id="companyNameCol" editable="false" prefWidth="75.0" text="Company Name" />
+      		<TableColumn fx:id="personalNameCol" editable="false" prefWidth="75.0" text="Person's Name" />
+      		<TableColumn fx:id="phoneNumberCol" editable="false" prefWidth="75.0" text="Phone Number" />
+      		<TableColumn fx:id="addressCol" editable="false" prefWidth="75.0" text="Address" />
+      		<TableColumn fx:id="faxNumberCol" editable="false" prefWidth="75.0" text="Fax Number" />
+     		<TableColumn fx:id="pastSalesCol" editable="false" prefWidth="75.0" text="Past Sales" />
+   		 </columns>
+	  </TableView>
+   </children>
+</VBox>

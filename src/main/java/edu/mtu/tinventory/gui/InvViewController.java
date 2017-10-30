@@ -51,8 +51,8 @@ public class InvViewController {
 				return false;
 			});
 		});
-	SortedList<Product> sort = new SortedList<>(filtered);
-	table.setItems(sort);	
+		SortedList<Product> sort = new SortedList<>(filtered);
+		table.setItems(sort);	
 	}
 
 

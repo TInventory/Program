@@ -45,7 +45,10 @@ public class Customer {
 	public String getPersonName() {
 		return personName;
 	}
-	public List<Invoice> getPastSales() {
-		return pastSales;
+	public String getPastSales() {
+		String result = "";
+		for (Invoice i : pastSales)
+			result += i.toString();
+		return result;
 	}
 }
