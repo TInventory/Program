@@ -62,12 +62,13 @@ public class TInventory extends Application {
         */
          
          //This was commented out
+         /*
        List<Product> list =  database.getProducts();
        System.out.println(list);
         for (Product pro : list) {
              System.out.println(pro.getName() + ", "  + pro.getID() + ", " + pro.getDisplayPrice() + ", " + pro.getQuanity().getMap().toString() ); 
          }
-         
+      */   
         //database.deleteDataTable("inventory");
     }
 
