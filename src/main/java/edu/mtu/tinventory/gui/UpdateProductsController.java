@@ -14,7 +14,7 @@ import javafx.scene.layout.BorderPane;
  * Controller class for the product creation window
  * @author Brandon Paupore
  */
-public class UpdateProductsController {
+public class UpdateProductsController extends Controller {
 	DatabaseInterface database;
 
 	@FXML TextField productID;

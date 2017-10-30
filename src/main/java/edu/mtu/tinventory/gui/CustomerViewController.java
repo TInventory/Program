@@ -14,7 +14,7 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 
-public class CustomerViewController {
+public class CustomerViewController extends Controller {
 	/**
 	 * Controller class for the inventory view
 	 */

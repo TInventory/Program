@@ -27,6 +27,7 @@ public class TInventory extends Application {
         FXMLLoader loader = new FXMLLoader(TInventory.class.getResource("fxml/main.fxml"));
         BorderPane root = loader.load();
         controller = loader.getController();
+        controller.setMainApp(this);
         Scene scene = new Scene(root);
         stage.setTitle("TInventory");
         stage.setMinWidth(root.getMinWidth());

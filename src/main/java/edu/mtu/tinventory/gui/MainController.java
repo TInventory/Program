@@ -17,11 +17,15 @@ import javafx.scene.layout.Region;
 /**
  * Controller class for the main window of the program
  */
-public class MainController {
+public class MainController extends Controller {
 	@FXML private TabPane tabs;
 	@FXML private Menu actions;
 
 	private EnumMap<View, Tab> activeTabs;
+
+	public TabPane getTabPane() {
+		return tabs;
+	}
 
 	// This method is run when the main window is first loaded.
 	@FXML
@@ -57,6 +61,7 @@ public class MainController {
 	private Tab loadTab(View view) throws IOException {
 		FXMLLoader loader = new FXMLLoader(TInventory.class.getResource("fxml/" + view.getFxmlName() + ".fxml"));
 		Region node = loader.load();
+		((Controller)loader.getController()).setMainApp(mainApp);
 		node.prefHeightProperty().bind(tabs.heightProperty().subtract(30)); // Makes the loaded region take up the whole TabView, minus the space for the tabs themselves.
 		node.prefWidthProperty().bind(tabs.widthProperty());   					  // Have to do it programmatically due to communication between FXMLs.
 		Tab tab = new Tab(view.getTabName(), node);

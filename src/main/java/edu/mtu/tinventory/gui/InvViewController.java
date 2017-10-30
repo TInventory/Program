@@ -16,7 +16,7 @@ import javafx.scene.control.TextField;
 /**
  * Controller class for the inventory view
  */
-public class InvViewController {
+public class InvViewController extends Controller {
 	@FXML private TableView<Product> table;
 	@FXML private TableColumn<Product, String> nameCol;
 	@FXML private TableColumn<Product, String> idCol;
@@ -30,6 +30,8 @@ public class InvViewController {
 	 * 
 	 */
 	public void initialize() {
+		table.prefHeightProperty().bind(mainApp.getController().getTabPane().heightProperty().subtract(30).subtract(filter.getPrefHeight()));
+		table.prefWidthProperty().bind(mainApp.getController().getTabPane().widthProperty());
 		nameCol.setCellValueFactory(data -> new ReadOnlyStringWrapper(data.getValue().getName()));
 		idCol.setCellValueFactory(data -> new ReadOnlyStringWrapper(data.getValue().getID()));
 		priceCol.setCellValueFactory(data -> new ReadOnlyStringWrapper(data.getValue().getDisplayPrice()));
