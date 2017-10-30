@@ -10,6 +10,7 @@ import edu.mtu.tinventory.data.Customer;
 import edu.mtu.tinventory.data.Invoice;
 import edu.mtu.tinventory.data.Product;
 import edu.mtu.tinventory.database.query.Query;
+import edu.mtu.tinventory.database.query.queries.GetProduct;
 import edu.mtu.tinventory.database.query.queries.GrabAllItems;
 import edu.mtu.tinventory.database.query.queries.RegisterNewItem;
 import edu.mtu.tinventory.logging.LocalLog;
@@ -197,7 +198,14 @@ public class DatabaseInterface {
      * @return Product in the database if it exists, null otherwise.
      */
     public Product getProduct(String productID) {
-        return null;
+        try {
+            GetProduct query = new GetProduct(productID);
+            sendSingleCommand(query);
+            return query.getProduct();
+        } catch (Exception e) {
+            LocalLog.exception(e);
+            return null;
+        }
     }
 
     /**

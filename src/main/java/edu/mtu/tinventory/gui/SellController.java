@@ -52,8 +52,8 @@ public class SellController {
 		} else if(!StringUtils.isNullOrEmpty(price.getText()) && !StringUtils.isNumber(price.getText())) {
 			Dialogs.showDialog(Dialogs.Type.ERROR, "Price specified is invalid.", "Please enter a valid price without the currency symbol");
 		} else {
-			//Product p = DatabaseInterface.getInstance().getProduct(productID.getText()); //Use this line when Database is implemented
-			Product p = new Product(productID.getText(), productID.getText(), Double.toString(Math.random() * 100)); // ONLY FOR TESTING
+			Product p = DatabaseInterface.getInstance().getProduct(productID.getText()); //Use this line when Database is implemented
+			//Product p = new Product(productID.getText(), productID.getText(), Double.toString(Math.random() * 100)); // ONLY FOR TESTING
 			if (p == null) { // Product does not exist in the database.
 				Dialogs.showDialog(Dialogs.Type.ERROR, "Product does not exist", String.format("%s is not a valid Product ID", productID.getText()));
 				productID.clear();
