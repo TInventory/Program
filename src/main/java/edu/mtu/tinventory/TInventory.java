@@ -20,7 +20,6 @@ public class TInventory extends Application {
     @Override
     public void start(Stage stage) throws Exception {
         setupLog();
-        System.out.println(Tables.INVENTORY_TABLE_NAME.toString());
         database = DatabaseInterface.getInstance();
         initialDatabaseSetup(); 
 

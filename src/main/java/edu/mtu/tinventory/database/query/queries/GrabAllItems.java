@@ -13,12 +13,24 @@ import edu.mtu.tinventory.database.utils.DatabaseUtils;
 import edu.mtu.tinventory.state.State;
 import edu.mtu.tinventory.state.StateQtyMap;
 
+/**
+ * 
+ * @author JC Helm
+ * Query to retrieve all items from the table: table
+ *
+ */
 public class GrabAllItems implements ExecuteQuery {
 
     private String table;
     private ArrayList<HashMap<String, Object>> data;
     private boolean waiting;
 
+    /***
+     * 
+     * Grabs all products from the table
+     * 
+     * @param table Name of the table to grab from
+     */
     public GrabAllItems(String table) {
         this.table = table;
         data = null;
@@ -44,6 +56,10 @@ public class GrabAllItems implements ExecuteQuery {
         }
     }
 
+    /**
+     * Retrieves the products from the alterneritive thread
+     * @return The List of products from the query
+     */
     public List<Product> getProducts() {
         while (waiting) {
             // TODO: There's almost definitely a better way to wait on a thread,
@@ -55,6 +71,10 @@ public class GrabAllItems implements ExecuteQuery {
         return parseToProduct();
     }
 
+    /**
+     * Parses HashMap of knowns to List of Products
+     * @return Array List of Products
+     */
     private List<Product> parseToProduct() {
         List<Product> products = new ArrayList<>();
         if (data != null) {

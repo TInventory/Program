@@ -2,6 +2,13 @@ package edu.mtu.tinventory.database.query.queries;
 
 import edu.mtu.tinventory.database.query.Query;
 
+/**
+ * 
+ * @author JC Helm
+ * 
+ * Query to drop the table
+ *
+ */
 public class DropTable implements Query {
 
     /**

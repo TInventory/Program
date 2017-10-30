@@ -2,6 +2,14 @@ package edu.mtu.tinventory.database.query.queries;
 
 import edu.mtu.tinventory.database.query.Query;
 
+/**
+ * 
+ * @author JC Helm
+ * 
+ * Query set up for creating a new table for:
+ * String (120), String (120), String(120), String(6000)
+ *
+ */
 public class CreateDataTable implements Query {
 
     private String table;
