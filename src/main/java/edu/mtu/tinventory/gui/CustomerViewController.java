@@ -1,9 +1,7 @@
 package edu.mtu.tinventory.gui;
 
 import edu.mtu.tinventory.data.Customer;
-import edu.mtu.tinventory.data.Product;
 import edu.mtu.tinventory.database.DatabaseInterface;
-import javafx.beans.property.ReadOnlyIntegerWrapper;
 import javafx.beans.property.ReadOnlyStringWrapper;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -57,8 +55,8 @@ public class CustomerViewController {
 				return false;
 			});
 		});
-	SortedList<Customer> sort = new SortedList<>(filtered);
-	table.setItems(sort);	
+		SortedList<Customer> sort = new SortedList<>(filtered);
+		table.setItems(sort);	
 	}
 
 
