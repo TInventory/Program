@@ -36,9 +36,20 @@ public class InvViewController {
 		db = DatabaseInterface.getInstance();
 		list = FXCollections.observableList(db.getProducts());
 		FilteredList<Product> filtered = new FilteredList<Product>(list, p -> true);
-																					//Input listener for textfield for changes, check order
-		table.getItems().setAll(db.getProducts());      //Assuming local data is passed in a list
-		table.setColumnResizePolicy((param) -> true);
+		filter.textProperty().addListener((observable, oldV, newV) ->{ 
+			filtered.setPredicate((Product product) -> {
+				if (newV == null || newV.isEmpty()) {
+					return true;
+				}
+				String lowerCaseFilter = newV.toLowerCase();
+				if (product.getName().toLowerCase().contains(lowerCaseFilter)) {    //Extend to addition else ifs to add search areas. Convert fields to string
+					return true;
+				} else if (product.getID().toLowerCase().contains(lowerCaseFilter)) {
+					return true;
+				}
+				return false;
+			});
+		});
 	}
 
 
