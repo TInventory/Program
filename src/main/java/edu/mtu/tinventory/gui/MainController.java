@@ -23,10 +23,6 @@ public class MainController extends Controller {
 
 	private EnumMap<View, Tab> activeTabs;
 
-	public TabPane getTabPane() {
-		return tabs;
-	}
-
 	// This method is run when the main window is first loaded.
 	@FXML
 	private void initialize() {
@@ -61,7 +57,7 @@ public class MainController extends Controller {
 	private Tab loadTab(View view) throws IOException {
 		FXMLLoader loader = new FXMLLoader(TInventory.class.getResource("fxml/" + view.getFxmlName() + ".fxml"));
 		Region node = loader.load();
-		((Controller)loader.getController()).setMainApp(mainApp);
+		((Controller)loader.getController()).updateLayout(tabs);
 		node.prefHeightProperty().bind(tabs.heightProperty().subtract(30)); // Makes the loaded region take up the whole TabView, minus the space for the tabs themselves.
 		node.prefWidthProperty().bind(tabs.widthProperty());   					  // Have to do it programmatically due to communication between FXMLs.
 		Tab tab = new Tab(view.getTabName(), node);

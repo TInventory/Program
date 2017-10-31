@@ -1,11 +1,7 @@
 package edu.mtu.tinventory.gui;
 
-import edu.mtu.tinventory.TInventory;
+import javafx.scene.control.TabPane;
 
 public abstract class Controller {
-	protected TInventory mainApp;
-
-	public void setMainApp(TInventory mainApp) {
-		this.mainApp = mainApp;
-	}
+	protected void updateLayout(TabPane tabs) {} // Defaults to nothing.
 }

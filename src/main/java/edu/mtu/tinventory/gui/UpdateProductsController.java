@@ -5,11 +5,12 @@ import edu.mtu.tinventory.data.Product;
 import edu.mtu.tinventory.database.DatabaseInterface;
 import edu.mtu.tinventory.logging.LocalLog;
 import edu.mtu.tinventory.util.StringUtils;
-import java.io.IOException;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.VBox;
+
 /**
  * Controller class for the product creation window
  * @author Brandon Paupore
@@ -17,15 +18,17 @@ import javafx.scene.layout.BorderPane;
 public class UpdateProductsController extends Controller {
 	DatabaseInterface database;
 
-	@FXML TextField productID;
-	@FXML TextField quantity;
-	@FXML BorderPane borderPane;
+	@FXML private TextField productID;
+	@FXML private TextField quantity;
+	@FXML private BorderPane borderPane;
+		  private VBox invView;
 	
 	@FXML
 	public void initialize() {
 		database = DatabaseInterface.getInstance();
 		try {
-			borderPane.setLeft(new FXMLLoader(TInventory.class.getResource("fxml/inventoryView.fxml")).load());
+			invView = new FXMLLoader(TInventory.class.getResource("fxml/inventoryView.fxml")).load();
+			borderPane.setLeft(invView);
 		}
 		catch (Exception e) {
 			LocalLog.exception(e);
@@ -55,7 +58,5 @@ public class UpdateProductsController extends Controller {
 				}
 			}
 		}
-	}
-	public UpdateProductsController() throws IOException {
 	}
 }
