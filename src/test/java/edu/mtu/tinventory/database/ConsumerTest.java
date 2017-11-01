@@ -26,7 +26,7 @@ public class ConsumerTest {
     @After
     public void closingTime() {
         DatabaseInterface data = DatabaseInterface.getInstance();
-        data.setupDatabase("JUnitTesting");
+        data.setupDatabase();
         data.deleteDataTable("JUnit");
     }
 }
