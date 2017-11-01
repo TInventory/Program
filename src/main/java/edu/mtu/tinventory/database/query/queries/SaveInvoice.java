@@ -14,7 +14,7 @@ public class SaveInvoice implements Query {
 	@Override
 	public String getQuery() {
 		//TODO: Replace personName with CustomerID
-		return String.format("INSERT INTO %s VALUES (%d, %s, %s, %s)", Tables.INVOICE_TABLE_NAME.nameToString(),
+		return String.format("INSERT INTO %s VALUES (%d, '%s', '%s', '%s')", Tables.INVOICE_TABLE_NAME.nameToString(),
 				invoice.getId(), invoice.getDate().toString(), invoice.getCustomer().getPersonName(), invoice.getProductsString());
 	}
 }
