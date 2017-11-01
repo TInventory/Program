@@ -379,6 +379,12 @@ public class DatabaseInterface {
 	public List<Customer> getCustomers() {
 		return new ArrayList<Customer>();
 	}
+	
+	public List<Invoice> getCustomerInvoices(Customer customer) {
+		String id = customer.getUUID().toString().replaceAll("-", "");
+		//TODO
+		return new ArrayList<>();
+	}
 
 	/**
 	 * SHOULD ONLY BE CALLED WHEN THE PROGRAM IS CLOSING. Shuts down the pool of
