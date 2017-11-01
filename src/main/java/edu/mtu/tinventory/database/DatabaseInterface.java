@@ -1,5 +1,9 @@
 package edu.mtu.tinventory.database;
 
+import edu.mtu.tinventory.database.query.queries.CreateEmployeesTable;
+import edu.mtu.tinventory.database.query.queries.CreateInvoicesTable;
+import edu.mtu.tinventory.database.query.queries.SaveInvoice;
+import edu.mtu.tinventory.database.query.queries.UpdateProduct;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.Executors;
@@ -105,9 +109,6 @@ public class DatabaseInterface {
 	 * 
 	 * @param product
 	 *            Product: The product object to be inserted into the database
-	 * @param dataTable
-	 *            String: Name of the table to register the item into, inserts
-	 *            into default table if null
 	 * 
 	 * @return Returns true if the action is successful and the item is
 	 *         registered properly into the database, otherwise returns false
@@ -118,26 +119,25 @@ public class DatabaseInterface {
 			sendSingleCommand(query);
 			return true;
 		} catch (Exception exception) {
-			exception.printStackTrace();
+			LocalLog.exception(exception);
 			return false;
 		}
 	}
 
 	/**
-	 * Creates a new table in the database
-	 * 
-	 * @param dataTable
-	 *            String: Name of the inventory table to be created, if null is
-	 *            set to default.
-	 * 
-	 * @return Returns true if the action is successful and the table is created
-	 *         in the database, otherwise returns false
+	 * Creates the required tables for the program to work.
+	 *
+	 * @return Returns true if the action is successful and the tables were created
+	 *         in the database, otherwise returns false.
 	 */
-	public boolean setupDataTable() {
+	public boolean setupDatabase() {
 		try {
 			sendSingleCommand(setup.setupDataTable(table));
+			sendSingleCommand(new CreateEmployeesTable());
+			sendSingleCommand(new CreateInvoicesTable());
 			return true;
-		} catch (Exception exception) {
+		} catch (Exception e) {
+			LocalLog.exception(e);
 			return false;
 		}
 	}
@@ -175,9 +175,8 @@ public class DatabaseInterface {
 	/**
 	 * Updates the Product in the database with the information in this instance
 	 * of Product. This method takes the ProductID from the passed-in product
-	 * instance, and then compares the information on this object with the
-	 * information in the database. Anything that's different, the database gets
-	 * updated with the new information.
+	 * instance, and then updates the database with any new information found on
+	 * it, such as the name or price.
 	 * 
 	 * @param product
 	 *            The product to have its information updated in the server
@@ -185,7 +184,13 @@ public class DatabaseInterface {
 	 * @return true if the update was successful, false otherwise.
 	 */
 	public boolean updateItem(Product product) {
-		return false;
+		try {
+			sendSingleCommand(new UpdateProduct(product));
+			return true;
+		} catch (Exception e) {
+			LocalLog.exception(e);
+			return false;
+		}
 	}
 
 	/**
@@ -276,7 +281,13 @@ public class DatabaseInterface {
 	 * @return true if it was successfully saved, false otherwise.
 	 */
 	public boolean saveInvoice(Invoice invoice) {
-		return false;
+		try {
+			sendSingleCommand(new SaveInvoice(invoice));
+			return true;
+		} catch (Exception e) {
+			LocalLog.exception(e);
+			return false;
+		}
 	}
 
 	/**
@@ -334,9 +345,6 @@ public class DatabaseInterface {
 
 	/***
 	 * Creates a database in the SQL server
-	 * 
-	 * @param string
-	 *            String: Name of the database to be created
 	 * 
 	 * @return True is the database already existed or is now existing, false if
 	 *         the database does not exist and will not exist

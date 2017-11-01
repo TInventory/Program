@@ -23,6 +23,7 @@ public class LocalLog {
 	private static final DateTimeFormatter FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd-HH-mm-ss");
 	private static final Path LOGS_FOLDER = Paths.get("tinventory-logs");
 	private static boolean setup = false;
+	private static Exception lastLoggedException;
 
 	/**
 	 * Logs the exception as a SEVERE message. THe message will be taken from e.getMessage().
@@ -85,6 +86,14 @@ public class LocalLog {
 	}
 
 	/**
+	 * Returns the last exception logged by the system.
+	 * @return The last exception logged by the system.
+	 */
+	public static Exception getLastLoggedException() {
+		return lastLoggedException;
+	}
+
+	/**
 	 * Sets up the logging interface. Will only run once. Run when the program starts up.
 	 * @param loggingLevel The level of messages to actually log to console/file.
 	 */
@@ -123,6 +132,7 @@ public class LocalLog {
 		record.setSourceMethodName(ste.getMethodName());
 		if(exception != null) {
 			record.setThrown(exception);
+			lastLoggedException = exception;
 		}
 		LOG.log(record);
 	}

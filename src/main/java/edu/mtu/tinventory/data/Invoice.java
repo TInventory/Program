@@ -1,8 +1,10 @@
 package edu.mtu.tinventory.data;
 
 import edu.mtu.tinventory.database.DatabaseInterface;
+import edu.mtu.tinventory.logging.LocalLog;
 import java.math.BigDecimal;
-import java.util.Date;
+import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -14,7 +16,7 @@ public class Invoice {
 	// Unique Invoice Number
 	private int id;
 	// Date the invoice was generated
-	private Date date;
+	private LocalDate date;
 	// List of items on this invoice
 	private List<PurchasedProduct> products;
 	// The total amount
@@ -25,19 +27,22 @@ public class Invoice {
 	public static Invoice createNewInvoice(List<PurchasedProduct> products, Customer customer) {
 		//TODO: Get the next unique Invoice # from a user-specified format. Probably from the database?
 		//		Date should always be today. Maybe include a initializer for other dates, but would need a use case for it.
-		Invoice i = new Invoice((int)(Math.random() * 10000), new Date(), products, customer);
-		/*if(DatabaseInterface.getInstance().saveInvoice(i)) { //TODO: Uncomment when Database method works
+		Invoice i = new Invoice((int)(Math.random() * 10000), LocalDate.now(), products, customer);
+		if(DatabaseInterface.getInstance().saveInvoice(i)) {
+			customer.logSale(i); //registers the invoice in the associated customer
 			return i;
 		} else {
 			return null;
-		}*/
-		//registers the invoice in the associated customer
-		customer.logSale(i);
-		return i;
+		}
+	}
+
+	public static Invoice createFromDatabase(int id, String date, String customerID, String products) {
+		//TODO: Worry about CustomerID later.
+		return new Invoice(id, LocalDate.parse(date), parseProducts(products), null);
 	}
 
 	// This constructor should only be used for building an obj from the database.
-	private Invoice(int id, Date date, List<PurchasedProduct> products, Customer customer) {
+	private Invoice(int id, LocalDate date, List<PurchasedProduct> products, Customer customer) {
 		this.id = id;
 		this.date = date;
 		this.products = products;
@@ -54,7 +59,7 @@ public class Invoice {
 		return id;
 	}
 
-	public Date getDate() {
+	public LocalDate getDate() {
 		return date;
 	}
 
@@ -64,5 +69,30 @@ public class Invoice {
 
 	public BigDecimal getTotal() {
 		return total;
+	}
+
+	public String getProductsString() {
+		StringBuilder sb = new StringBuilder();
+		for(PurchasedProduct pp : products) {
+			sb.append(pp).append(";");
+		}
+		return sb.deleteCharAt(sb.length() - 1).toString(); // Removes the trailing semicolon
+	}
+
+	private static List<PurchasedProduct> parseProducts(String serialized) {
+		ArrayList<PurchasedProduct> ret = new ArrayList<>();
+		int colon = 0;
+		int at = 0;
+		for(String s : serialized.split(";")) {
+			colon = s.indexOf(':');
+			at = s.indexOf('@');
+			Product p = DatabaseInterface.getInstance().getProduct(s.substring(0, colon));
+			if(p == null) {
+				LocalLog.warning("Invalid product found in invoice. It will be omitted from the local copy.");
+			} else {
+				ret.add(new PurchasedProduct(p, Integer.parseInt(s.substring(colon + 1, at)), new BigDecimal(s.substring(at + 1))));
+			}
+		}
+		return ret;
 	}
 }

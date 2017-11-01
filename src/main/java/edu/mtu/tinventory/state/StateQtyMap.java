@@ -2,6 +2,7 @@ package edu.mtu.tinventory.state;
 
 import edu.mtu.tinventory.util.StringUtils;
 import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Wrapper around HashMap to make things more convenient.
@@ -55,8 +56,7 @@ public class StateQtyMap {
         State state = StateRegistry.getState(stateID);
         if (state != null) {
             Integer qty = map.get(state);
-            if (qty != null) { // null if the state is not in the map, meaning
-                               // qty for that state is 0.
+            if (qty != null) { // null if the state is not in the map, meaning qty for that state is 0.
                 map.put(state, qty + offset);
             } else {
                 map.put(state, offset);
@@ -83,17 +83,17 @@ public class StateQtyMap {
         if (oldS != null && newS != null) {
             Integer oldQty = map.get(oldS);
             Integer newQty = map.get(newS);
-            if (oldQty != null && newQty != null) { // null if the state is not
-                                                    // in the map, meaning qty
-                                                    // for that state is 0.
+            if (oldQty != null && newQty != null) {
+                // null if the state is not in the map, meaning qty for that state is 0.
                 map.put(newS, newQty + amount);
                 map.put(oldS, oldQty - amount);
             } else if (newQty == null && oldQty != null) {
                 map.put(newS, amount);
                 map.put(oldS, oldQty - amount);
-            } else { // oldQty == null...which shouldn't happen, as if someone's
-                     // trying to move an amount from that state, there needs to
-                     // be stuff there
+            } else {
+                // oldQty == null...which shouldn't happen, as if someone's
+                // trying to move an amount from that state, there needs to
+                // be stuff there
                 return false;
             }
             return true;
@@ -126,11 +126,22 @@ public class StateQtyMap {
     }
 
     /**
-     * Getter method for HashMap of StateQtyMap
-     * 
-     * @return HashMap of type <State, Integer>
+     *
+     * Stores quantities string in following format:
+     * State:Integer;State:Integer; etc. Semicolon separates two entry sets
+     * Colon separates the entry set into the State and Integer
+     *
+     * @return String of quantities into a single string
      */
-    public HashMap<State, Integer> getMap() {
-        return map;
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        for (Map.Entry<State, Integer> e : map.entrySet()) {
+            sb.append(e.getKey().getID()).append(":").append(e.getValue()).append(";");
+        }
+        if(sb.length() != 0) {
+            sb.deleteCharAt(sb.length() - 1);
+        }
+        return sb.toString();
     }
 }

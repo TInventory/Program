@@ -2,7 +2,7 @@ package edu.mtu.tinventory.data;
 
 public class Employee {
 	//NOTE: Password should NOT be stored locally.
-	private String id;
+	private String id; // Generally a conglomeration of their name, like how your mtu emails are. Arbitrarily picking 8 as the length limit.
 	private String firstName;
 	private String lastName;
 	private Access access;

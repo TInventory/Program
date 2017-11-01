@@ -50,4 +50,9 @@ public class PurchasedProduct {
 	public String getDisplayTotalPrice() {
 		return Product.PRICE_FORMAT.format(totalPrice);
 	}
+
+	@Override
+	public String toString() {
+		return product.getID() + ":" + quantity + "@" + unitPrice;
+	}
 }

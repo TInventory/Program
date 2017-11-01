@@ -12,6 +12,7 @@ public enum Tables {
     CONFIGURATION_TABLE_NAME("configurations"),
     CUSTOMER_TABLE_NAME("customers"),
     INVOICE_TABLE_NAME("invoices"),
+    EMPLOYEES_TABLE_NAME("employees"),
 
     TESTING_DATABASE("test_tinventory"),
     TESTING_INVENTORY_TABLE("test_inventory"),

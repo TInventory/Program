@@ -2,10 +2,12 @@ package edu.mtu.tinventory;
 
 import edu.mtu.tinventory.data.Product;
 import edu.mtu.tinventory.database.DatabaseInterface;
+import edu.mtu.tinventory.gui.Dialogs;
 import edu.mtu.tinventory.logging.LocalLog;
 import java.util.List;
 import java.util.logging.Level;
 import javafx.application.Application;
+import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.layout.BorderPane;
@@ -37,8 +39,11 @@ public class TInventory extends Application {
     }
 
     private void initialDatabaseSetup() {
-        // TODO: Perhaps if one of these turns up false make error popup window
-         database.setupDataTable();
+        if(!database.setupDatabase()) {
+            Dialogs.showDialogWithException("Database setup failed", "Failed to setup necessary tables for operation. Check below for exact error.", LocalLog.getLastLoggedException());
+            database.quit();
+            Platform.exit();
+        }
 
        /*
         // TODO: Remove, is quick testing method
