@@ -27,13 +27,7 @@ public class Invoice {
 	public static Invoice createNewInvoice(List<PurchasedProduct> products, Customer customer) {
 		//TODO: Get the next unique Invoice # from a user-specified format. Probably from the database?
 		//		Date should always be today. Maybe include a initializer for other dates, but would need a use case for it.
-		Invoice i = new Invoice((int)(Math.random() * 10000), LocalDate.now(), products, customer);
-		if(DatabaseInterface.getInstance().saveInvoice(i)) {
-			customer.logSale(i); //registers the invoice in the associated customer
-			return i;
-		} else {
-			return null;
-		}
+		return new Invoice((int)(Math.random() * 100000), LocalDate.now(), products, customer);
 	}
 
 	public static Invoice createFromDatabase(int id, String date, String customerID, String products) {

@@ -3,13 +3,15 @@ package edu.mtu.tinventory.data;
 import java.util.ArrayList;
 import java.util.List;
 
+import edu.mtu.tinventory.database.DatabaseInterface;
+
 public class Customer {
 	private String phoneNumber;
 	private String faxNumber;
 	private String companyName;
 	private String personName;
 	private String address;
-	private List<Invoice> pastSales;
+	private String id;
 	
 	/**
 	 * Creates a new Customer from information and a previous invoice
@@ -25,11 +27,7 @@ public class Customer {
 		this.companyName = companyName;
 		this.personName = personName;
 	}
-	public void logSale(Invoice invoice) {
-		if (pastSales == null)
-			pastSales = new ArrayList<Invoice>();
-		pastSales.add(invoice);
-	}
+	
 	public String getFaxNumber() {
 		return faxNumber;
 	}
@@ -45,10 +43,14 @@ public class Customer {
 	public String getPersonName() {
 		return personName;
 	}
+	public List<Invoice> getInvoices() {
+		return DatabaseInterface.getInstance().getCustomerInvoices(this);
+	}
 	public String getPastSales() {
+		List<Invoice> pastSales = DatabaseInterface.getInstance().getCustomerInvoices(this);
 		String result = "";
 		for (Invoice i : pastSales)
-			result += i.toString();
+			result += i.getId() + " " + i.getDate().toString() + " " + i.getTotal();
 		return result;
 	}
 }
