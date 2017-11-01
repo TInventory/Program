@@ -81,16 +81,15 @@ public class Invoice {
 
 	private static List<PurchasedProduct> parseProducts(String serialized) {
 		ArrayList<PurchasedProduct> ret = new ArrayList<>();
-		int colon = 0;
-		int at = 0;
+		int colon, colon2;
 		for(String s : serialized.split(";")) {
 			colon = s.indexOf(':');
-			at = s.indexOf('@');
+			colon2 = s.lastIndexOf(':');
 			Product p = DatabaseInterface.getInstance().getProduct(s.substring(0, colon));
 			if(p == null) {
 				LocalLog.warning("Invalid product found in invoice. It will be omitted from the local copy.");
 			} else {
-				ret.add(new PurchasedProduct(p, Integer.parseInt(s.substring(colon + 1, at)), new BigDecimal(s.substring(at + 1))));
+				ret.add(new PurchasedProduct(p, Integer.parseInt(s.substring(colon + 1, colon2)), new BigDecimal(s.substring(colon2 + 1))));
 			}
 		}
 		return ret;

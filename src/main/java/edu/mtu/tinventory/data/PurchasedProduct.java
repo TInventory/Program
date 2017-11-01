@@ -53,6 +53,6 @@ public class PurchasedProduct {
 
 	@Override
 	public String toString() {
-		return product.getID() + ":" + quantity + "@" + unitPrice;
+		return product.getID() + ":" + quantity + ":" + unitPrice;
 	}
 }
