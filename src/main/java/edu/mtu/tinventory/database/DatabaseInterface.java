@@ -1,5 +1,6 @@
 package edu.mtu.tinventory.database;
 
+import edu.mtu.tinventory.database.query.queries.CreateConfigTable;
 import edu.mtu.tinventory.database.query.queries.CreateEmployeesTable;
 import edu.mtu.tinventory.database.query.queries.CreateInvoicesTable;
 import edu.mtu.tinventory.database.query.queries.SaveInvoice;
@@ -81,7 +82,7 @@ public class DatabaseInterface {
 
 		cache = null;
 		forceUpdateCache();
-		autoUpdateCache( 60);
+		autoUpdateCache(60);
 		// TODO: Populate from config file
 		// sqlConnection = new MySQL(username, password, database, host, port);
 		// TODO: start auto refreshing method
@@ -127,8 +128,8 @@ public class DatabaseInterface {
 	/**
 	 * Creates the required tables for the program to work.
 	 *
-	 * @return Returns true if the action is successful and the tables were created
-	 *         in the database, otherwise returns false.
+	 * @return Returns true if the action is successful and the tables were
+	 *         created in the database, otherwise returns false.
 	 */
 	public boolean setupDatabase() {
 		try {
@@ -379,11 +380,31 @@ public class DatabaseInterface {
 	public List<Customer> getCustomers() {
 		return new ArrayList<Customer>();
 	}
-	
+
+	/**
+	 * 
+	 * @param customer
+	 * @return
+	 */
 	public List<Invoice> getCustomerInvoices(Customer customer) {
 		String id = customer.getUUID().toString().replaceAll("-", "");
-		//TODO
+		// TODO
 		return new ArrayList<>();
+	}
+
+	/**
+	 * Creates the configuration table
+	 * @return True if the table is created successfully 
+	 */
+	public boolean createConfigTable() {
+		try {
+			sendSingleCommand(new CreateConfigTable(Tables.CONFIGURATION_TABLE_NAME.nameToString()));
+			//TODO: NEED TO POPULATE 
+			return true;
+		} catch (Exception exception) {
+			LocalLog.exception(exception);
+			return false;
+		}
 	}
 
 	/**
