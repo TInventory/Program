@@ -5,13 +5,10 @@ import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Map.Entry;
 
 import edu.mtu.tinventory.data.Product;
 import edu.mtu.tinventory.database.query.ExecuteQuery;
 import edu.mtu.tinventory.database.utils.DatabaseUtils;
-import edu.mtu.tinventory.state.State;
-import edu.mtu.tinventory.state.StateQtyMap;
 
 /**
  * 

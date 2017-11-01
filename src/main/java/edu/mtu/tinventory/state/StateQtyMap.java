@@ -10,7 +10,7 @@ import java.util.Map;
 // TODO: Update database after calling most of these methods. Probably want more
 // methods to, idk.
 public class StateQtyMap {
-    private final HashMap<State, Integer> map;
+    private final HashMap<String, Integer> map;
 
     public StateQtyMap() {
         map = new HashMap<>();
@@ -44,17 +44,16 @@ public class StateQtyMap {
      * Updates the inventory by adding/subtracting the amount specified from
      * that state.
      * 
-     * @param stateID
-     *            The state ID that you want to change the quantity of.
+     * @param state
+     *            The state that you want to change the quantity of.
      * @param offset
      *            The amount to be added/subtracted from the current quantity of
      *            that state.
      * @return true if the quantity was successfully updated, false if the
      *         stateID is invalid.
      */
-    public boolean changeQty(String stateID, int offset) {
-        State state = StateRegistry.getState(stateID);
-        if (state != null) {
+    public boolean changeQty(String state, int offset) {
+        if (StateRegistry.isState(state)) {
             Integer qty = map.get(state);
             if (qty != null) { // null if the state is not in the map, meaning qty for that state is 0.
                 map.put(state, qty + offset);
@@ -78,18 +77,16 @@ public class StateQtyMap {
      * @return true if the move was successful, false otherwise.
      */
     public boolean moveQty(String oldState, String newState, int amount) {
-        State oldS = StateRegistry.getState(oldState);
-        State newS = StateRegistry.getState(newState);
-        if (oldS != null && newS != null) {
-            Integer oldQty = map.get(oldS);
-            Integer newQty = map.get(newS);
+        if (StateRegistry.isState(oldState) && StateRegistry.isState(newState)) {
+            Integer oldQty = map.get(oldState);
+            Integer newQty = map.get(newState);
             if (oldQty != null && newQty != null) {
                 // null if the state is not in the map, meaning qty for that state is 0.
-                map.put(newS, newQty + amount);
-                map.put(oldS, oldQty - amount);
+                map.put(newState, newQty + amount);
+                map.put(oldState, oldQty - amount);
             } else if (newQty == null && oldQty != null) {
-                map.put(newS, amount);
-                map.put(oldS, oldQty - amount);
+                map.put(newState, amount);
+                map.put(oldState, oldQty - amount);
             } else {
                 // oldQty == null...which shouldn't happen, as if someone's
                 // trying to move an amount from that state, there needs to
@@ -104,12 +101,16 @@ public class StateQtyMap {
     /**
      * Returns the amount of items in the specified state.
      * 
-     * @param stateID
+     * @param state
      *            The state to get the quantity from.
-     * @return The quantity of items in that state.
+     * @return The quantity of items in that state, or -1 if the state is not valid.
      */
-    public int getQty(String stateID) {
-        return map.get(StateRegistry.getState(stateID));
+    public int getQty(String state) {
+        if (StateRegistry.isState(state)) {
+            return map.get(state);
+        } else {
+            return -1;
+        }
     }
 
     /**
@@ -136,8 +137,8 @@ public class StateQtyMap {
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
-        for (Map.Entry<State, Integer> e : map.entrySet()) {
-            sb.append(e.getKey().getID()).append(":").append(e.getValue()).append(";");
+        for (Map.Entry<String, Integer> e : map.entrySet()) {
+            sb.append(e.getKey()).append(":").append(e.getValue()).append(";");
         }
         if(sb.length() != 0) {
             sb.deleteCharAt(sb.length() - 1);
