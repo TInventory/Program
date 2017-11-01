@@ -12,8 +12,7 @@ public class Customer {
 	private String companyName;
 	private String personName;
 	private String address;
-	private String id;
-	private UUID uuid;
+	private UUID id;
 	
 	/**
 	 * Creates a new Customer from information and a previous invoice
@@ -21,14 +20,13 @@ public class Customer {
 	 * @param faxNumber
 	 * @param companyName
 	 * @param personName
-	 * @param invoice - null if never had an invoice before
 	 */
-	public Customer(String phoneNumber, String faxNumber, String companyName, String personName) {
+	public Customer(String personName, String companyName, String phoneNumber, String faxNumber) {
+		this.id = UUID.randomUUID();
+		this.personName = personName;
+		this.companyName = companyName;
 		this.phoneNumber = phoneNumber;
 		this.faxNumber = faxNumber;
-		this.companyName = companyName;
-		this.personName = personName;
-		this.uuid = UUID.randomUUID();
 	}
 	
 	/**
@@ -37,14 +35,14 @@ public class Customer {
 	 * @param faxNumber
 	 * @param companyName
 	 * @param personName
-	 * @param invoice - null if never had an invoice before
+	 * @param id
 	 */
-	public Customer(String phoneNumber, String faxNumber, String companyName, String personName, UUID uuid) {
+	public Customer(UUID id, String phoneNumber, String faxNumber, String companyName, String personName) {
+		this.id = id;
+		this.personName = personName;
+		this.companyName = companyName;
 		this.phoneNumber = phoneNumber;
 		this.faxNumber = faxNumber;
-		this.companyName = companyName;
-		this.personName = personName;
-		this.uuid = uuid;
 	}
 	
 	public String getFaxNumber() {
@@ -72,7 +70,7 @@ public class Customer {
 			result += i.getId() + " " + i.getDate().toString() + " " + i.getTotal();
 		return result;
 	}
-	public UUID getUUID() {
-		return uuid;
+	public UUID getID() {
+		return id;
 	}
 }
