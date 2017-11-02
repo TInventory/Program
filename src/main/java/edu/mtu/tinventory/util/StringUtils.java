@@ -1,5 +1,7 @@
 package edu.mtu.tinventory.util;
 
+import java.util.UUID;
+
 /**
  * Utility methods for Strings.
  * Because I'm too lazy to add Guava as a dependency just for these.
@@ -31,5 +33,18 @@ public class StringUtils {
 				return false;
 			}
 		}
+	}
+
+	/**
+	 * Adds hyphens back into UUID string and returns the UUID object.
+	 * @param s The string of the UUID without hyphens.
+	 * @return the UUID object for the String.
+	 */
+	public static UUID stringToUUID(String s) {
+		return UUID.fromString(s.substring(0, 8) +
+				'-' + s.substring(8, 12) +
+				'-' + s.substring(12, 16) +
+				'-' + s.substring(16, 20) +
+				'-' + s.substring(20));
 	}
 }

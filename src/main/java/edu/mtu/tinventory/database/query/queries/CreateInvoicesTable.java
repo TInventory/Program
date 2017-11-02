@@ -7,7 +7,7 @@ public class CreateInvoicesTable implements Query {
 
 	@Override
 	public String getQuery() {
-		return String.format("CREATE TABLE IF NOT EXISTS %s (id INT, date NVARCHAR(10), customer NVARCHAR(16), items NVARCHAR(6000))",
+		return String.format("CREATE TABLE IF NOT EXISTS %s (id INT, date NVARCHAR(10), customer NVARCHAR(32), items NVARCHAR(6000))",
 				Tables.INVOICE_TABLE_NAME.nameToString());
 	}
 }

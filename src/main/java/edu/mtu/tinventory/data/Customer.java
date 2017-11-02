@@ -1,48 +1,50 @@
 package edu.mtu.tinventory.data;
 
-import java.util.ArrayList;
+import edu.mtu.tinventory.database.DatabaseInterface;
 import java.util.List;
 import java.util.UUID;
 
-import edu.mtu.tinventory.database.DatabaseInterface;
-
 public class Customer {
+	private UUID id;
+	private String personName;
+	private String companyName;
 	private String phoneNumber;
 	private String faxNumber;
-	private String companyName;
-	private String personName;
 	private String address;
-	private UUID id;
-	
+
 	/**
 	 * Creates a new Customer from information and a previous invoice
+	 * @param personName
+	 * @param companyName
 	 * @param phoneNumber
 	 * @param faxNumber
-	 * @param companyName
-	 * @param personName
+	 * @param address
 	 */
-	public Customer(String personName, String companyName, String phoneNumber, String faxNumber) {
+	public Customer(String personName, String companyName, String phoneNumber, String faxNumber, String address) {
 		this.id = UUID.randomUUID();
 		this.personName = personName;
 		this.companyName = companyName;
 		this.phoneNumber = phoneNumber;
 		this.faxNumber = faxNumber;
+		this.address = address;
 	}
 	
 	/**
 	 * Creates a new Customer from information and a previous invoice
+	 * @param id
+	 * @param personName
+	 * @param companyName
 	 * @param phoneNumber
 	 * @param faxNumber
-	 * @param companyName
-	 * @param personName
-	 * @param id
+	 * @param address
 	 */
-	public Customer(UUID id, String phoneNumber, String faxNumber, String companyName, String personName) {
+	public Customer(UUID id, String personName, String companyName, String phoneNumber, String faxNumber, String address) {
 		this.id = id;
 		this.personName = personName;
 		this.companyName = companyName;
 		this.phoneNumber = phoneNumber;
 		this.faxNumber = faxNumber;
+		this.address = address;
 	}
 	
 	public String getFaxNumber() {
@@ -65,12 +67,15 @@ public class Customer {
 	}
 	public String getPastSales() {
 		List<Invoice> pastSales = DatabaseInterface.getInstance().getCustomerInvoices(this);
-		String result = "";
+		StringBuilder result = new StringBuilder(); // Saves a little memory doing it this way.
 		for (Invoice i : pastSales)
-			result += i.getId() + " " + i.getDate().toString() + " " + i.getTotal();
-		return result;
+			result.append(i.getId()).append(" ").append(i.getDate()).append(" ").append(i.getTotal().toPlainString());
+		return result.toString();
 	}
 	public UUID getID() {
 		return id;
+	}
+	public String getIDString() {
+		return id.toString().replace("-", "");
 	}
 }

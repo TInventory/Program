@@ -106,7 +106,7 @@ public class SellController extends Controller {
 			//Or do something else
 			//Is this a todo?
 			//F*@& if I know
-			Customer customer = new Customer(null, null, null, null);
+			Customer customer = new Customer(null, null, null, null, null);
 			Invoice i = Invoice.createNewInvoice(items.getItems(), customer);
 			if(i == null) {
 				Dialogs.showDialog(Dialogs.Type.ERROR, "Invoice could not be created", "Problem communicating with Database. Please try again.");

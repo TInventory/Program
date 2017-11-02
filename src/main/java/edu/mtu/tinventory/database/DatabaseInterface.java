@@ -1,25 +1,28 @@
 package edu.mtu.tinventory.database;
 
+import edu.mtu.tinventory.data.Customer;
+import edu.mtu.tinventory.data.Invoice;
+import edu.mtu.tinventory.data.Product;
+import edu.mtu.tinventory.database.query.Query;
 import edu.mtu.tinventory.database.query.queries.CreateConfigTable;
+import edu.mtu.tinventory.database.query.queries.CreateCustomersTable;
 import edu.mtu.tinventory.database.query.queries.CreateEmployeesTable;
 import edu.mtu.tinventory.database.query.queries.CreateInvoicesTable;
+import edu.mtu.tinventory.database.query.queries.GetAllCustomers;
+import edu.mtu.tinventory.database.query.queries.GetCustomer;
+import edu.mtu.tinventory.database.query.queries.GetInvoicesForCustomer;
+import edu.mtu.tinventory.database.query.queries.GetProduct;
+import edu.mtu.tinventory.database.query.queries.GrabAllItems;
+import edu.mtu.tinventory.database.query.queries.RegisterNewCustomer;
+import edu.mtu.tinventory.database.query.queries.RegisterNewItem;
 import edu.mtu.tinventory.database.query.queries.SaveInvoice;
 import edu.mtu.tinventory.database.query.queries.UpdateProduct;
-import java.util.ArrayList;
+import edu.mtu.tinventory.logging.LocalLog;
 import java.util.List;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.ScheduledFuture;
 import java.util.concurrent.TimeUnit;
-
-import edu.mtu.tinventory.data.Customer;
-import edu.mtu.tinventory.data.Invoice;
-import edu.mtu.tinventory.data.Product;
-import edu.mtu.tinventory.database.query.Query;
-import edu.mtu.tinventory.database.query.queries.GetProduct;
-import edu.mtu.tinventory.database.query.queries.GrabAllItems;
-import edu.mtu.tinventory.database.query.queries.RegisterNewItem;
-import edu.mtu.tinventory.logging.LocalLog;
 
 /**
  * 
@@ -136,6 +139,7 @@ public class DatabaseInterface {
 			sendSingleCommand(setup.setupDataTable(table));
 			sendSingleCommand(new CreateEmployeesTable());
 			sendSingleCommand(new CreateInvoicesTable());
+			sendSingleCommand(new CreateCustomersTable());
 			return true;
 		} catch (Exception e) {
 			LocalLog.exception(e);
@@ -217,14 +221,11 @@ public class DatabaseInterface {
 	 * 
 	 * @return A List of all registered products
 	 */
-	public List<Customer> getCustomers(String table) {
+	public List<Customer> getCustomers() {
 		try {
-			// TODO: Changed for testing
-			GrabAllItems query = new GrabAllItems(table);
+			GetAllCustomers query = new GetAllCustomers();
 			sendSingleCommand(query);
-
-			return null;
-
+			return query.getCustomers();
 		} catch (Exception exception) {
 			LocalLog.exception(exception);
 			return null;
@@ -369,16 +370,13 @@ public class DatabaseInterface {
 	 * @return if the customer were registered
 	 */
 	public boolean registerNewCustomer(Customer customer) {
-		return false;
-	}
-
-	/**
-	 * Get a list of every customer in database
-	 * 
-	 * @return list of customers
-	 */
-	public List<Customer> getCustomers() {
-		return new ArrayList<Customer>();
+		try {
+			sendSingleCommand(new RegisterNewCustomer(customer));
+			return true;
+		} catch (Exception e) {
+			LocalLog.exception(e);
+			return false;
+		}
 	}
 
 	/**
@@ -387,9 +385,32 @@ public class DatabaseInterface {
 	 * @return
 	 */
 	public List<Invoice> getCustomerInvoices(Customer customer) {
-		String id = customer.getID().toString().replaceAll("-", "");
-		// TODO
-		return new ArrayList<>();
+		try {
+			GetInvoicesForCustomer query = new GetInvoicesForCustomer(customer);
+			sendSingleCommand(query);
+			return query.getInvoices();
+		} catch (Exception e) {
+			LocalLog.exception(e);
+			return null;
+		}
+	}
+
+	/**
+	 * Gets the Customer object associated with the specified customer ID.
+	 * The ID should be the UUID string without the hyphens (so length = 32).
+	 * @param customerID The UUID for the customer in string form (without the hyphens)
+	 * @return The Customer object with the specified UUID,
+	 * 		   or null if such a customer did not exist or there was an error querying the database.
+	 */
+	public Customer getCustomer(String customerID) {
+		try {
+			GetCustomer query = new GetCustomer(customerID);
+			sendSingleCommand(query);
+			return query.getCustomer();
+		} catch (Exception e) {
+			LocalLog.exception(e);
+			return null;
+		}
 	}
 
 	/**

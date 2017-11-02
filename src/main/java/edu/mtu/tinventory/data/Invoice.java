@@ -27,12 +27,17 @@ public class Invoice {
 	public static Invoice createNewInvoice(List<PurchasedProduct> products, Customer customer) {
 		//TODO: Get the next unique Invoice # from a user-specified format. Probably from the database?
 		//		Date should always be today. Maybe include a initializer for other dates, but would need a use case for it.
-		return new Invoice((int)(Math.random() * 100000), LocalDate.now(), products, customer);
+		Invoice i = new Invoice((int)(Math.random() * 100000), LocalDate.now(), products, customer);
+		if(DatabaseInterface.getInstance().saveInvoice(i)) {
+			return i;
+		} else {
+			return null;
+		}
 	}
 
 	public static Invoice createFromDatabase(int id, String date, String customerID, String products) {
 		//TODO: Worry about CustomerID later.
-		return new Invoice(id, LocalDate.parse(date), parseProducts(products), null);
+		return new Invoice(id, LocalDate.parse(date), parseProducts(products), DatabaseInterface.getInstance().getCustomer(customerID));
 	}
 
 	// This constructor should only be used for building an obj from the database.
