@@ -2,8 +2,7 @@ package edu.mtu.tinventory.state;
 import org.junit.Before;
 import org.junit.Test;
 import static org.junit.Assert.*;
-
-import java.util.Collection;
+import java.util.Set;
 
 public class StateRegistryTest {
 
@@ -14,25 +13,22 @@ public class StateRegistryTest {
 
 	@Test
 	public void testRegisterState() {
-		assertEquals(StateRegistry.registerState(new State("Test", "test")), true);
-		assertEquals(StateRegistry.registerState(new State("Test", "test")), false);
-		assertEquals(StateRegistry.registerState(new State("Test", "123123")), false);
-		assertEquals(StateRegistry.registerState(new State("123123", "test")), true);
+		assertEquals(StateRegistry.registerState("Test"), true);
+		assertEquals(StateRegistry.registerState("Test"), false);
+		assertEquals(StateRegistry.registerState("123123"), false);
 	}
 	@Test
-	public void testGetState() {
-		State test = new State("123", "Test");
-		StateRegistry.registerState(test);
-		assertEquals(StateRegistry.getState("123"), test);
-		assertEquals(StateRegistry.getState("Test"), null);
+	public void testIsState() {
+		StateRegistry.registerState("test");
+		assertEquals(StateRegistry.isState("123"), true);
+		assertEquals(StateRegistry.isState("Test"), false);
 	}
 	@Test
 	public void testGetStates() {
-		State test = new State("123", "Test1");
-		State test2 = new State("1232", "Test2");
-		StateRegistry.registerState(test);
-		StateRegistry.registerState(test2);
-		assertEquals(StateRegistry.getState(test.getID()), test);
-		assertEquals(StateRegistry.getState(test2.getID()), test2);
+		StateRegistry.registerState("test");
+		StateRegistry.registerState("test2");
+		Set<String> set = StateRegistry.getStates();
+		assertEquals(set.contains("test"), true);
+		assertEquals(set.contains("test2"), true);
 	}
 }

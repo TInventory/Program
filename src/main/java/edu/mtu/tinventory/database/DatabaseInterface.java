@@ -387,7 +387,7 @@ public class DatabaseInterface {
 	 * @return
 	 */
 	public List<Invoice> getCustomerInvoices(Customer customer) {
-		String id = customer.getUUID().toString().replaceAll("-", "");
+		String id = customer.getID().toString().replaceAll("-", "");
 		// TODO
 		return new ArrayList<>();
 	}
