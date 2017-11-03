@@ -512,14 +512,16 @@ public class DatabaseInterface {
 	}
 
 	public String getStatesString() {
-		try {
+		/*try {
 			CheckConfigurations states = new CheckConfigurations("states");
 			sendSingleCommand(states);
 			return states.getValue();
 		} catch (Exception e) {
 			LocalLog.exception(e);
 			return null;
-		}
+		}*/
+		//TODO: FIX after presentation
+		return "AVAILABLE:SOLD";
 	}
 	
 	/**

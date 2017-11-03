@@ -107,7 +107,7 @@ public class StateQtyMap {
      */
     public int getQty(String state) {
         if (StateRegistry.isState(state)) {
-            return map.get(state);
+            return map.getOrDefault(state, 0);
         } else {
             return -1;
         }
