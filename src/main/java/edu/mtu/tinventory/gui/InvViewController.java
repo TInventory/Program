@@ -61,6 +61,10 @@ public class InvViewController extends Controller {
 		table.skinProperty().addListener(new ResizeColumnsListener(table)); // REFLECTION HACK
 	}
 
+	public void refresh() {
+		list = FXCollections.observableList(db.getProducts());
+	}
+
 	@Override
 	protected void updateLayout(TabPane tabs) {
 		// 30 is the constant height for the tabs themselves.

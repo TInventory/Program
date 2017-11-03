@@ -1,5 +1,6 @@
 package edu.mtu.tinventory.database;
 
+import edu.mtu.tinventory.state.StateRegistry;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.Executors;
@@ -461,13 +462,9 @@ public class DatabaseInterface {
 	 */
 	private void populateConfigTable() {
 	    try {
-	        //TODO: Someone should probably do this list better
-	        List<String> states = new ArrayList<>();
-	        states.add("sold");
-	        states.add("available");
-	        
-	       sendSingleCommand(new CreateConfigurations("states", DatabaseUtils.formatStates(states) ));
-	       sendSingleCommand(new CreateConfigurations("frozen", "false"));
+	    	// StateRegistry handles creating default states if none exist.
+	        sendSingleCommand(new CreateConfigurations("states", StateRegistry.formatStates()));
+	        sendSingleCommand(new CreateConfigurations("frozen", "false"));
 	    }
 	    catch (Exception exception) {
 	        LocalLog.exception(exception);
@@ -507,6 +504,17 @@ public class DatabaseInterface {
 	    catch (Exception exception) {
 	        LocalLog.exception(exception);
 	    }
+	}
+
+	public String getStatesString() {
+		try {
+			CheckConfigurations states = new CheckConfigurations("states");
+			sendSingleCommand(states);
+			return states.getValue();
+		} catch (Exception e) {
+			LocalLog.exception(e);
+			return null;
+		}
 	}
 	
 	/**

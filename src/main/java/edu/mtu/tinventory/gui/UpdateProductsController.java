@@ -4,6 +4,7 @@ import edu.mtu.tinventory.TInventory;
 import edu.mtu.tinventory.data.Product;
 import edu.mtu.tinventory.database.DatabaseInterface;
 import edu.mtu.tinventory.logging.LocalLog;
+import edu.mtu.tinventory.state.StateRegistry;
 import edu.mtu.tinventory.util.StringUtils;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -51,7 +52,7 @@ public class UpdateProductsController extends Controller {
 				Dialogs.showDialog(Dialogs.Type.ERROR, "Invalid Quantity Specified", "Quantity must be a positive number.");
 			} else {
 				if (p != null) {
-					p.getQuanity().changeQty("DEFAULT", qty);
+					p.getQuanity().changeQty(StateRegistry.AVAILABLE_STATE, qty);
 					productID.clear();
 					quantity.clear();
 					((TableView)invView.getChildren().get(1)).refresh();

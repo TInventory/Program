@@ -7,6 +7,7 @@ import edu.mtu.tinventory.data.Product;
 import edu.mtu.tinventory.data.PurchasedProduct;
 import edu.mtu.tinventory.database.DatabaseInterface;
 import edu.mtu.tinventory.logging.LocalLog;
+import edu.mtu.tinventory.state.StateRegistry;
 import edu.mtu.tinventory.util.StringUtils;
 import java.io.IOException;
 import java.math.BigDecimal;
@@ -69,7 +70,6 @@ public class SellController extends Controller {
 			Controller c = loader.getController();
 			c.setMainApp(mainApp);
 			c.setStage(selectStage);
-			TableView table = (TableView)viewCust.getChildren().get(1);
 			Button newCust = new Button("Create New Customer");
 			newCust.setOnAction(event -> {
 				try {
@@ -118,9 +118,8 @@ public class SellController extends Controller {
 		} else if(!StringUtils.isNullOrEmpty(price.getText()) && !StringUtils.isNumber(price.getText())) {
 			Dialogs.showDialog(Dialogs.Type.ERROR, "Price specified is invalid.", "Please enter a valid price without the currency symbol");
 		} else {
-			Product p = DatabaseInterface.getInstance().getProduct(productID.getText()); //Use this line when Database is implemented
-			//Product p = new Product(productID.getText(), productID.getText(), Double.toString(Math.random() * 100)); // ONLY FOR TESTING
-			if (p == null) { // Product does not exist in the database.
+				Product p = DatabaseInterface.getInstance().getProduct(productID.getText());
+				if (p == null) { // Product does not exist in the database.
 				Dialogs.showDialog(Dialogs.Type.ERROR, "Product does not exist", String.format("%s is not a valid Product ID", productID.getText()));
 				productID.clear();
 			} else if(contains(productID.getText())) {
@@ -180,7 +179,7 @@ public class SellController extends Controller {
 				Dialogs.showDialog(Dialogs.Type.ERROR, "Invoice could not be created", "Problem communicating with Database. Please try again.");
 			} else {
 				for(PurchasedProduct pp : i.getProducts()) {
-					pp.getProduct().getQuanity().changeQty("DEFAULT", -(pp.getQuantity()));
+					pp.getProduct().getQuanity().moveQty(StateRegistry.AVAILABLE_STATE, StateRegistry.SOLD_STATE, pp.getQuantity());
 				}
 				items.getItems().clear();
 				total.clear();

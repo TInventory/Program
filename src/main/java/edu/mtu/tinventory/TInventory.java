@@ -1,13 +1,12 @@
 package edu.mtu.tinventory;
 
-import java.util.logging.Level;
-
 import edu.mtu.tinventory.database.DatabaseInterface;
 import edu.mtu.tinventory.database.utils.DatabaseUtils;
 import edu.mtu.tinventory.gui.Dialogs;
 import edu.mtu.tinventory.gui.IconLoader;
 import edu.mtu.tinventory.gui.MainController;
 import edu.mtu.tinventory.logging.LocalLog;
+import java.util.logging.Level;
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
@@ -61,8 +60,7 @@ public class TInventory extends Application {
             Dialogs.showDialogWithException("Database setup failed", "Failed to setup necessary tables for operation. Check below for exact error.", LocalLog.getLastLoggedException());
             database.quit();
             Platform.exit();
-        } 
-        
+        }
     }
 
     private void setupLog() {

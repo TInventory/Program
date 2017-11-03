@@ -1,5 +1,8 @@
 package edu.mtu.tinventory.database.utils;
 
+import edu.mtu.tinventory.TInventory;
+import edu.mtu.tinventory.database.query.queries.InfoStreams;
+import edu.mtu.tinventory.logging.LocalLog;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.DataInputStream;
@@ -14,10 +17,6 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 import java.util.regex.Pattern;
-
-import edu.mtu.tinventory.TInventory;
-import edu.mtu.tinventory.database.query.queries.InfoStreams;
-import edu.mtu.tinventory.logging.LocalLog;
 
 /**
  * 
@@ -235,21 +234,6 @@ public class DatabaseUtils {
         }
 
         return str.toString().trim();
-    }
-
-    /**
-     * Formats states to be inserted into database
-     * 
-     * @param states List of states to be inserted
-     * @return A string of states to be inserted into the database
-     */
-    public static String formatStates(List<String> states) {
-        String formatted = "";
-        for (String string : states) {
-            formatted = formatted + ":" + string;
-        }
-        
-        return formatted.substring(1);
     }
     
     /**

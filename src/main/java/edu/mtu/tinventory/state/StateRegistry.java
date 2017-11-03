@@ -1,14 +1,26 @@
 package edu.mtu.tinventory.state;
 
+import edu.mtu.tinventory.database.DatabaseInterface;
+import edu.mtu.tinventory.util.StringUtils;
 import java.util.HashSet;
 import java.util.Set;
 
-/*
- * Need a method to create states the user wants. Maybe read from a file/the database? -P
- * Should we support removing states? -P
- */
 public class StateRegistry {
+	public static final String AVAILABLE_STATE = "AVAILABLE";
+	public static final String SOLD_STATE = "SOLD";
 	private static final Set<String> SET = new HashSet<>();
+
+	static {
+		String states = DatabaseInterface.getInstance().getStatesString();
+		if(!StringUtils.isNullOrEmpty(states)) {
+			for(String state : states.split(":")) {
+				registerState(state.toUpperCase());
+			}
+		} else {
+			registerState(AVAILABLE_STATE);
+			registerState(SOLD_STATE);
+		}
+	}
 
 	private StateRegistry() {} // Singleton
 
@@ -36,6 +48,19 @@ public class StateRegistry {
 	 */
 	public static Set<String> getStates() {
 		return SET;
+	}
+
+	/**
+	 * Formats states to be inserted into database
+	 *
+	 * @return A string of states to be inserted into the database
+	 */
+	public static String formatStates() {
+		StringBuilder formatted = new StringBuilder(); // Saves slightly on memory
+		for (String string : SET) {
+			formatted.append(":").append(string);
+		}
+		return formatted.substring(1);
 	}
 
 	/**

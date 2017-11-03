@@ -62,7 +62,7 @@ public class CustomerViewController extends Controller {
 		SortedList<Customer> sort = new SortedList<>(filtered);
 		table.setItems(sort);
 		table.skinProperty().addListener(new ResizeColumnsListener(table)); // REFLECTION HACK
-		table.setRowFactory(param -> {
+		table.setRowFactory(param -> { // This allows the double-clicking in select customer for Sell Inventory to select a customer.
 			TableRow<Customer> row = new TableRow<>();
 			if(!stage.equals(mainApp.getMainWindow())) {
 				row.setOnMouseClicked(event -> {
