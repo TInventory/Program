@@ -2,13 +2,9 @@ package edu.mtu.tinventory.gui;
 
 import edu.mtu.tinventory.data.Product;
 import edu.mtu.tinventory.database.DatabaseInterface;
-import edu.mtu.tinventory.logging.LocalLog;
-import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
+import edu.mtu.tinventory.state.StateRegistry;
 import java.util.ArrayList;
 import java.util.Arrays;
-
-import javafx.application.Platform;
 import javafx.beans.property.ReadOnlyIntegerWrapper;
 import javafx.beans.property.ReadOnlyStringWrapper;
 import javafx.collections.FXCollections;
@@ -43,7 +39,7 @@ public class InvViewController extends Controller {
 		nameCol.setCellValueFactory(data -> new ReadOnlyStringWrapper(data.getValue().getName()));
 		idCol.setCellValueFactory(data -> new ReadOnlyStringWrapper(data.getValue().getID()));
 		priceCol.setCellValueFactory(data -> new ReadOnlyStringWrapper(data.getValue().getDisplayPrice()));
-		qtyCol.setCellValueFactory(data -> new ReadOnlyIntegerWrapper(data.getValue().getQuanity().totalQty()));
+		qtyCol.setCellValueFactory(data -> new ReadOnlyIntegerWrapper(data.getValue().getQuanity().getQty(StateRegistry.AVAILABLE_STATE)));
 		db = DatabaseInterface.getInstance();
 		list = FXCollections.observableList(db.getProducts());
 		FilteredList<Product> filtered = new FilteredList<Product>(list, p -> true);
