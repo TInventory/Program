@@ -3,6 +3,7 @@ package edu.mtu.tinventory.gui;
 import edu.mtu.tinventory.TInventory;
 import edu.mtu.tinventory.data.Product;
 import edu.mtu.tinventory.database.DatabaseInterface;
+import edu.mtu.tinventory.database.utils.DatabaseUtils;
 import edu.mtu.tinventory.logging.LocalLog;
 import edu.mtu.tinventory.state.StateRegistry;
 import edu.mtu.tinventory.util.StringUtils;
@@ -42,8 +43,9 @@ public class UpdateProductsController extends Controller {
 	 */
 	@FXML
 	private void updateProduct() {
-		//TODO: LOOK AT AGAIN after Presentation
-		if(!StringUtils.isNumber(quantity.getText())) {
+		if(DatabaseUtils.isDatabaseFrozen()) {
+			Dialogs.showDialog(Dialogs.Type.ERROR, "The database is currently frozen", "The inventory cannot be changed while the database is frozen.");
+		} else if(!StringUtils.isNumber(quantity.getText())) {
 			Dialogs.showDialog(Dialogs.Type.ERROR, "Invalid Quantity Specified", "Quantity must be a valid number.");
 		} else {
 			Product p = database.getProduct(productID.getText());

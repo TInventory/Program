@@ -1,5 +1,6 @@
 package edu.mtu.tinventory.gui;
 
+import edu.mtu.tinventory.database.utils.DatabaseUtils;
 import java.util.ArrayList;
 import java.util.Arrays;
 
@@ -31,7 +32,9 @@ public class CreateProductsController extends Controller {
 	 */
 	@FXML
 	private void createProduct() {
-		if(StringUtils.isNullOrEmpty(productID.getText())) {
+		if(DatabaseUtils.isDatabaseFrozen()) {
+			Dialogs.showDialog(Dialogs.Type.ERROR, "The database is currently frozen", "The inventory cannot be changed while the database is frozen.");
+		} else if(StringUtils.isNullOrEmpty(productID.getText())) {
 			Dialogs.showDialog(Dialogs.Type.ERROR, "Product ID Required", "Must specify a Product ID");
 		} else if(StringUtils.isNullOrEmpty(productName.getText())) {
 			Dialogs.showDialog(Dialogs.Type.ERROR, "Product Name Required", "Must specify a Product Name");

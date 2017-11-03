@@ -6,6 +6,7 @@ import edu.mtu.tinventory.data.Invoice;
 import edu.mtu.tinventory.data.Product;
 import edu.mtu.tinventory.data.PurchasedProduct;
 import edu.mtu.tinventory.database.DatabaseInterface;
+import edu.mtu.tinventory.database.utils.DatabaseUtils;
 import edu.mtu.tinventory.logging.LocalLog;
 import edu.mtu.tinventory.state.StateRegistry;
 import edu.mtu.tinventory.util.StringUtils;
@@ -105,7 +106,9 @@ public class SellController extends Controller {
 
 	@FXML
 	private void addItemToOrder() {
-		if(customerObj == null) {
+		if(DatabaseUtils.isDatabaseFrozen()) {
+			Dialogs.showDialog(Dialogs.Type.ERROR, "The database is currently frozen", "The inventory cannot be changed while the database is frozen.");
+		} else if(customerObj == null) {
 			Dialogs.showDialog(Dialogs.Type.ERROR, "No customer specified", "A customer must be specified (for now).");
 		} else if(StringUtils.isNullOrEmpty(qty.getText())) {
 			Dialogs.showDialog(Dialogs.Type.ERROR, "No quantity specified", "You must specify a quantity for each product.");
