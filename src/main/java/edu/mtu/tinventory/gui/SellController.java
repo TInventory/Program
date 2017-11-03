@@ -1,24 +1,37 @@
 package edu.mtu.tinventory.gui;
 
+import edu.mtu.tinventory.TInventory;
 import edu.mtu.tinventory.data.Customer;
 import edu.mtu.tinventory.data.Invoice;
 import edu.mtu.tinventory.data.Product;
 import edu.mtu.tinventory.data.PurchasedProduct;
 import edu.mtu.tinventory.database.DatabaseInterface;
+import edu.mtu.tinventory.logging.LocalLog;
 import edu.mtu.tinventory.util.StringUtils;
+import java.io.IOException;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import javafx.beans.property.ReadOnlyIntegerWrapper;
 import javafx.beans.property.ReadOnlyStringWrapper;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.geometry.Insets;
+import javafx.geometry.Pos;
+import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.GridPane;
+import javafx.scene.layout.VBox;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
 
 /**
  * Controller class for the sell inventory view
  */
 public class SellController extends Controller {
+	@FXML private TextField customer;
 	@FXML private TextField qty;
 	@FXML private TextField productID;
 	@FXML private TextField price;
@@ -29,6 +42,14 @@ public class SellController extends Controller {
 	@FXML private TableColumn<PurchasedProduct, String> uPriceColumn; // For now, I'm storing the BigDecimals as Strings.
 	@FXML private TableColumn<PurchasedProduct, String> tPriceColumn; // May write a wrapper to allow use as BigDecimal later, if need be.
 	@FXML private TextField total;
+	private Stage selectStage;
+	private Customer customerObj;
+
+	public void setCustomer(Customer customer) {
+		selectStage.close();
+		this.customerObj = customer;
+		this.customer.setText(customer.getPersonName());
+	}
 
 	@FXML
 	private void initialize() {
@@ -40,8 +61,53 @@ public class SellController extends Controller {
 	}
 
 	@FXML
+	private void openSelectCustomer() {
+		try {
+			selectStage = new Stage();
+			FXMLLoader loader = new FXMLLoader(TInventory.class.getResource("fxml/viewCustomers.fxml"));
+			VBox viewCust = loader.load();
+			Controller c = loader.getController();
+			c.setMainApp(mainApp);
+			c.setStage(selectStage);
+			TableView table = (TableView)viewCust.getChildren().get(1);
+			Button newCust = new Button("Create New Customer");
+			newCust.setOnAction(event -> {
+				try {
+					FXMLLoader loader1 = new FXMLLoader(TInventory.class.getResource("fxml/createCustomer.fxml"));
+					GridPane root = loader1.load();
+					Controller c1 = loader1.getController();
+					c1.setMainApp(mainApp);
+					Stage createStage = new Stage();
+					c1.setStage(createStage);
+					createStage.initOwner(selectStage);
+					createStage.initModality(Modality.WINDOW_MODAL);
+					createStage.setTitle("Create Customer - TInventory");
+					createStage.setScene(new Scene(root));
+					createStage.showAndWait();
+				} catch (IOException e) {
+					LocalLog.exception("Failed to open createCustomer.fxml!", e);
+					Dialogs.showDialogWithException(null, "Failed to load the Create Customer view.", e);
+				}
+			});
+			VBox mainBox = new VBox(5, newCust, viewCust);
+			mainBox.setAlignment(Pos.CENTER);
+			mainBox.setPadding(new Insets(5, 5, 5, 5));
+			selectStage.initOwner(mainApp.getMainWindow());
+			selectStage.initModality(Modality.WINDOW_MODAL);
+			selectStage.setTitle("Select Customer - TInventory");
+			selectStage.setScene(new Scene(mainBox));
+			selectStage.showAndWait();
+		} catch (IOException e) {
+			LocalLog.exception("Failed to open viewCustomers.fxml!", e);
+			Dialogs.showDialogWithException(null, "Failed to load the View Customers view.", e);
+		}
+	}
+
+	@FXML
 	private void addItemToOrder() {
-		if(StringUtils.isNullOrEmpty(qty.getText())) {
+		if(customerObj == null) {
+			Dialogs.showDialog(Dialogs.Type.ERROR, "No customer specified", "A customer must be specified (for now).");
+		} else if(StringUtils.isNullOrEmpty(qty.getText())) {
 			Dialogs.showDialog(Dialogs.Type.ERROR, "No quantity specified", "You must specify a quantity for each product.");
 		} else if(StringUtils.isNullOrEmpty(productID.getText())) {
 			Dialogs.showDialog(Dialogs.Type.ERROR, "No product specified", "You must specify a Product ID for each product.");
@@ -67,6 +133,8 @@ public class SellController extends Controller {
 					pp = new PurchasedProduct(p, Integer.parseInt(qty.getText()), p.getPrice());
 				}
 				items.getItems().add(pp);
+				customerObj = null;
+				customer.clear();
 				qty.clear();
 				productID.clear();
 				price.clear();
@@ -106,8 +174,8 @@ public class SellController extends Controller {
 			//Or do something else
 			//Is this a todo?
 			//F*@& if I know
-			Customer customer = new Customer(null, null, null, null, null);
-			Invoice i = Invoice.createNewInvoice(items.getItems(), customer);
+			//This is done now, but I'm keeping the comment because it's gold. -P
+			Invoice i = Invoice.createNewInvoice(items.getItems(), customerObj);
 			if(i == null) {
 				Dialogs.showDialog(Dialogs.Type.ERROR, "Invoice could not be created", "Problem communicating with Database. Please try again.");
 			} else {

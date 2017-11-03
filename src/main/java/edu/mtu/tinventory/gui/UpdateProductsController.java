@@ -7,6 +7,7 @@ import edu.mtu.tinventory.logging.LocalLog;
 import edu.mtu.tinventory.util.StringUtils;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
@@ -53,6 +54,7 @@ public class UpdateProductsController extends Controller {
 					p.getQuanity().changeQty("DEFAULT", qty);
 					productID.clear();
 					quantity.clear();
+					((TableView)invView.getChildren().get(1)).refresh();
 				} else {
 					Dialogs.showDialog(Dialogs.Type.ERROR, "Invalid Product ID Specified", String.format("%s is not a valid Product ID.", productID.getText()));
 				}

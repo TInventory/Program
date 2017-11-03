@@ -18,13 +18,14 @@
       <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
   </columnConstraints>
   <rowConstraints>
+      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
     <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
       <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
     <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
     <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
   </rowConstraints>
    <children>
-      <TableView fx:id="items" prefHeight="200.0" prefWidth="63.0" GridPane.columnSpan="4" GridPane.rowIndex="2" GridPane.vgrow="ALWAYS">
+      <TableView fx:id="items" prefHeight="200.0" prefWidth="63.0" GridPane.columnSpan="4" GridPane.rowIndex="3" GridPane.vgrow="ALWAYS">
         <columns>
           <TableColumn fx:id="qtyColumn" editable="false" prefWidth="75.0" text="Qty" />
             <TableColumn fx:id="idColumn" editable="false" prefWidth="75.0" text="ID" />
@@ -36,14 +37,16 @@
             <Insets bottom="10.0" top="10.0" />
          </GridPane.margin>
       </TableView>
-      <TextField fx:id="qty" onAction="#addItemToOrder" promptText="Qty" GridPane.rowSpan="2" />
-      <TextField fx:id="productID" onAction="#addItemToOrder" promptText="ID" GridPane.columnIndex="1" GridPane.rowSpan="2" />
-      <TextField fx:id="price" onAction="#addItemToOrder" promptText="Price" GridPane.columnIndex="2" GridPane.rowSpan="2" />
-      <Button mnemonicParsing="false" onAction="#addItemToOrder" text="Add Item" GridPane.columnIndex="3" />
-      <Button mnemonicParsing="false" onAction="#delete" text="Delete Item" GridPane.columnIndex="3" GridPane.rowIndex="1" />
-      <Label text="Total:" GridPane.rowIndex="3" />
-      <TextField fx:id="total" editable="false" GridPane.columnIndex="1" GridPane.rowIndex="3" />
-      <Button mnemonicParsing="false" onAction="#completeOrder" text="Complete Order" GridPane.columnIndex="2" GridPane.rowIndex="3" />
+      <TextField fx:id="qty" onAction="#addItemToOrder" promptText="Qty" GridPane.rowIndex="1" GridPane.rowSpan="2" />
+      <TextField fx:id="productID" onAction="#addItemToOrder" promptText="ID" GridPane.columnIndex="1" GridPane.rowIndex="1" GridPane.rowSpan="2" />
+      <TextField fx:id="price" onAction="#addItemToOrder" promptText="Price" GridPane.columnIndex="2" GridPane.rowIndex="1" GridPane.rowSpan="2" />
+      <Button mnemonicParsing="false" onAction="#addItemToOrder" text="Add Item" GridPane.columnIndex="3" GridPane.rowIndex="1" />
+      <Button mnemonicParsing="false" onAction="#delete" text="Delete Item" GridPane.columnIndex="3" GridPane.rowIndex="2" />
+      <Label alignment="CENTER_RIGHT" text="Total:" GridPane.halignment="RIGHT" GridPane.rowIndex="4" />
+      <TextField fx:id="total" editable="false" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+      <Button mnemonicParsing="false" onAction="#completeOrder" text="Complete Order" GridPane.columnIndex="2" GridPane.rowIndex="4" />
+      <TextField fx:id="customer" editable="false" promptText="Customer" GridPane.columnIndex="1" />
+      <Button mnemonicParsing="false" onAction="#openSelectCustomer" text="Select Customer" GridPane.columnIndex="2" />
    </children>
    <padding>
       <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />

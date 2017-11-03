@@ -22,11 +22,23 @@ public class MainController extends Controller {
 	@FXML private Menu actions;
 
 	private EnumMap<View, Tab> activeTabs;
+	private EnumMap<View, Controller> controllers;
+
+	/**
+	 * Returns the controller for the open tab for the specified view.
+	 * If the view does not have a tab open, null is returned.
+	 * @param view The view to get the controller for.
+	 * @return The controller for the open tab for the view, or null if the view is not open in a tab presently.
+	 */
+	public Controller getControllerForTab(View view) {
+		return controllers.get(view);
+	}
 
 	// This method is run when the main window is first loaded.
 	@FXML
 	private void initialize() {
 		activeTabs = new EnumMap<>(View.class);
+		controllers = new EnumMap<>(View.class);
 		for(View view : View.values()) {
 			MenuItem mi = new MenuItem(view.getTabName());
 			mi.setOnAction(event -> openTab(view));
@@ -44,8 +56,7 @@ public class MainController extends Controller {
 		Tab tab = activeTabs.get(view);
 		if(tab == null) { // The tab is currently not open. Load it.
 			try {
-				tab = loadTab(view);
-				activeTabs.put(view, tab);
+				loadTab(view);
 			} catch(IOException e) {
 				//TODO: Have a better error handler (Maybe with a Dialog box?)
 				LocalLog.exception(e);
@@ -54,15 +65,22 @@ public class MainController extends Controller {
 		tabs.getSelectionModel().select(activeTabs.get(view));
 	}
 
-	private Tab loadTab(View view) throws IOException {
+	private void loadTab(View view) throws IOException {
 		FXMLLoader loader = new FXMLLoader(TInventory.class.getResource("fxml/" + view.getFxmlName() + ".fxml"));
 		Region node = loader.load();
-		((Controller)loader.getController()).updateLayout(tabs);
+		Controller c = loader.getController();
+		c.setMainApp(mainApp);
+		c.setStage(mainApp.getMainWindow());
+		c.updateLayout(tabs);
 		node.prefHeightProperty().bind(tabs.heightProperty().subtract(30)); // Makes the loaded region take up the whole TabView, minus the space for the tabs themselves.
 		node.prefWidthProperty().bind(tabs.widthProperty());   					  // Have to do it programmatically due to communication between FXMLs.
 		Tab tab = new Tab(view.getTabName(), node);
-		tab.setOnClosed(event -> activeTabs.remove(view));
+		tab.setOnClosed(event -> {
+			activeTabs.remove(view);
+			controllers.remove(view);
+		});
 		tabs.getTabs().add(tab);
-		return tab;
+		activeTabs.put(view, tab);
+		controllers.put(view, c);
 	}
 }

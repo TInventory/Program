@@ -3,6 +3,7 @@ package edu.mtu.tinventory;
 import edu.mtu.tinventory.data.Product;
 import edu.mtu.tinventory.database.DatabaseInterface;
 import edu.mtu.tinventory.gui.Dialogs;
+import edu.mtu.tinventory.gui.MainController;
 import edu.mtu.tinventory.logging.LocalLog;
 import java.util.List;
 import java.util.logging.Level;
@@ -15,6 +16,8 @@ import javafx.stage.Stage;
 
 public class TInventory extends Application {
     private DatabaseInterface database;
+    private MainController mainController;
+    private Stage primaryStage;
 
     @Override
     public void start(Stage stage) throws Exception {
@@ -22,8 +25,12 @@ public class TInventory extends Application {
         database = DatabaseInterface.getInstance();
         initialDatabaseSetup(); 
 
+        this.primaryStage = stage;
         FXMLLoader loader = new FXMLLoader(TInventory.class.getResource("fxml/main.fxml"));
         BorderPane root = loader.load();
+        mainController = loader.getController();
+        mainController.setMainApp(this);
+        mainController.setStage(stage);
         Scene scene = new Scene(root);
         stage.setTitle("TInventory");
         stage.setMinWidth(root.getMinWidth());
@@ -32,6 +39,14 @@ public class TInventory extends Application {
         stage.setMaximized(true);
         stage.setOnCloseRequest(e -> database.quit());
         stage.show();
+    }
+
+    public Stage getMainWindow() {
+        return primaryStage;
+    }
+
+    public MainController getMainController() {
+        return mainController;
     }
 
     public static void main(String[] args) {

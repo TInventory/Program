@@ -30,7 +30,6 @@ public class InvViewController extends Controller {
 	@FXML private TextField filter;
 	private ObservableList<Product> list;
 	private DatabaseInterface db;
-	private Method resizeColumnMethod;
 
 	/**Initializes the table, labels columns, gets any values the database may have.
 	 * 
@@ -59,28 +58,7 @@ public class InvViewController extends Controller {
 		});
 		SortedList<Product> sort = new SortedList<>(filtered);
 		table.setItems(sort);
-
-		// REFLECTION HACK (KIDS, DON'T TRY THIS AT HOME)
-		try {
-			resizeColumnMethod = Class.forName("com.sun.javafx.scene.control.skin.TableViewSkin").getDeclaredMethod("resizeColumnToFitContent", TableColumn.class, int.class);
-			resizeColumnMethod.setAccessible(true);
-		} catch (ReflectiveOperationException e) {
-			LocalLog.exception("Failed to grab method to automatically resize columns! Things will look funky...", e);
-		}
-		table.skinProperty().addListener((observable, oldValue, newValue) -> { // Have to wait for the skin to not be null, so we can do this.
-			if(newValue != null && resizeColumnMethod != null) {
-				Platform.runLater(() -> { // This threads the resizing of columns, which buys us just enough time for everything to not be null.
-					for (Object column : table.getColumns()) {
-						try {
-							resizeColumnMethod.invoke(table.getSkin(), column, -1);
-						} catch (IllegalAccessException | InvocationTargetException e) {
-							LocalLog.exception("Failed to automatically resize column...somehow...", e);
-						}
-					}
-				});
-			}
-		});
-		// END REFLECTION HACK
+		table.skinProperty().addListener(new ResizeColumnsListener(table)); // REFLECTION HACK
 	}
 
 	@Override

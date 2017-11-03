@@ -8,7 +8,9 @@ import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import javafx.collections.transformation.SortedList;
 import javafx.fxml.FXML;
+import javafx.scene.control.TabPane;
 import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableRow;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 
@@ -41,7 +43,7 @@ public class CustomerViewController extends Controller {
 		db = DatabaseInterface.getInstance();
 		list = FXCollections.observableList(db.getCustomers());
 		FilteredList<Customer> filtered = new FilteredList<Customer>(list, p -> true);
-		filter.textProperty().addListener((observable, oldV, newV) ->{ 
+		filter.textProperty().addListener((observable, oldV, newV) -> {
 			filtered.setPredicate((Customer customer) -> {
 				if (newV == null || newV.isEmpty()) {
 					return true;
@@ -51,25 +53,32 @@ public class CustomerViewController extends Controller {
 					return true;
 				} else if (customer.getPhoneNumber().toLowerCase().contains(lowerCaseFilter)) {
 					return true;
+				} else if (customer.getPersonName().toLowerCase().contains(lowerCaseFilter)) {
+					return true;
 				}
 				return false;
 			});
 		});
 		SortedList<Customer> sort = new SortedList<>(filtered);
-		table.setItems(sort);	
+		table.setItems(sort);
+		table.skinProperty().addListener(new ResizeColumnsListener(table)); // REFLECTION HACK
+		table.setRowFactory(param -> {
+			TableRow<Customer> row = new TableRow<>();
+			if(!stage.equals(mainApp.getMainWindow())) {
+				row.setOnMouseClicked(event -> {
+					if(event.getClickCount() == 2 && !row.isEmpty()) {
+						((SellController)mainApp.getMainController().getControllerForTab(View.SELL_INV)).setCustomer(row.getItem());
+					}
+				});
+			}
+			return row;
+		});
 	}
 
-
-	/* Initializes if table has not been initialized yet, else will update. 
-	 * 
-	 */
-	private void viewCustomers() {
-		if (db != null) {               
-			db = DatabaseInterface.getInstance();
-			table.getItems().setAll(db.getCustomers());
-		} else {
-			initialize();
-		}
-
+	@Override
+	protected void updateLayout(TabPane tabs) {
+		// 30 is the constant height for the tabs themselves.
+		table.prefHeightProperty().bind(tabs.heightProperty().subtract(30).subtract(filter.getPrefHeight()));
+		table.prefWidthProperty().bind(tabs.widthProperty());
 	}
 }
