@@ -5,6 +5,7 @@ import java.util.logging.Level;
 import edu.mtu.tinventory.database.DatabaseInterface;
 import edu.mtu.tinventory.database.utils.DatabaseUtils;
 import edu.mtu.tinventory.gui.Dialogs;
+import edu.mtu.tinventory.gui.IconLoader;
 import edu.mtu.tinventory.gui.MainController;
 import edu.mtu.tinventory.logging.LocalLog;
 import javafx.application.Application;
@@ -34,6 +35,7 @@ public class TInventory extends Application {
         mainController.setStage(stage);
         Scene scene = new Scene(root);
         stage.setTitle("TInventory");
+        stage.getIcons().add(new IconLoader().getIcon());
         stage.setMinWidth(root.getMinWidth());
         stage.setMinHeight(root.getMinHeight());
         stage.setScene(scene);
