@@ -283,4 +283,7 @@ public class DatabaseUtils {
         executors.scheduleAtFixedRate(new StatusUpdater(), 1, 5, TimeUnit.SECONDS);
     }
 
+    public static void shutdownStatusThread() {
+        executors.shutdown();
+    }
 }

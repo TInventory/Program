@@ -517,5 +517,6 @@ public class DatabaseInterface {
 	 */
 	public void quit() {
 		executors.shutdown();
+		DatabaseUtils.shutdownStatusThread();
 	}
 }
