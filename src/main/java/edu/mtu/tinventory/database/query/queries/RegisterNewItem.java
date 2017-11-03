@@ -10,8 +10,6 @@ public class RegisterNewItem implements Query {
 	private String quantity;
 
 	private String table;
-	// TODO : Replace from configurations
-	private String currency = "'$'";
 
 	/**
 	 * Query for inserting product into database

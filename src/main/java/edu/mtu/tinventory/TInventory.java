@@ -1,12 +1,12 @@
 package edu.mtu.tinventory;
 
-import edu.mtu.tinventory.data.Product;
+import java.util.logging.Level;
+
 import edu.mtu.tinventory.database.DatabaseInterface;
+import edu.mtu.tinventory.database.utils.DatabaseUtils;
 import edu.mtu.tinventory.gui.Dialogs;
 import edu.mtu.tinventory.gui.MainController;
 import edu.mtu.tinventory.logging.LocalLog;
-import java.util.List;
-import java.util.logging.Level;
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
@@ -15,16 +15,17 @@ import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 
 public class TInventory extends Application {
-    private DatabaseInterface database;
+    private DatabaseInterface database = DatabaseInterface.getInstance();
     private MainController mainController;
     private Stage primaryStage;
-
+    public static boolean databaseFrozen = false;
+    
     @Override
     public void start(Stage stage) throws Exception {
         setupLog();
-        database = DatabaseInterface.getInstance();
         initialDatabaseSetup(); 
-
+        DatabaseUtils.checkStatus();
+        
         this.primaryStage = stage;
         FXMLLoader loader = new FXMLLoader(TInventory.class.getResource("fxml/main.fxml"));
         BorderPane root = loader.load();
@@ -58,29 +59,8 @@ public class TInventory extends Application {
             Dialogs.showDialogWithException("Database setup failed", "Failed to setup necessary tables for operation. Check below for exact error.", LocalLog.getLastLoggedException());
             database.quit();
             Platform.exit();
-        }
-
-       /*
-        // TODO: Remove, is quick testing method
-        Product product = new Product("Aviator", "Sunglasses", "60.00");
-        product.getQuanity().changeQty("Sold", 10);
-        Product product1 = new Product("Studio M200", "AKG Headphones", "70.00");
-        product1.getQuanity().changeQty("Rented", 3);
-        Product product2 = new Product("Waddles", "Rubber Duck", "100000000");
-        database.registerNewItem(product, null);
-        database.registerNewItem(product1, null);
-        database.registerNewItem(product2, null);
-        */
-         
-         //This was commented out
-         /*
-       List<Product> list =  database.getProducts();
-       System.out.println(list);
-        for (Product pro : list) {
-             System.out.println(pro.getName() + ", "  + pro.getID() + ", " + pro.getDisplayPrice() + ", " + pro.getQuanity().getMap().toString() ); 
-         }
-      */   
-        //database.deleteDataTable("inventory");
+        } 
+        
     }
 
     private void setupLog() {

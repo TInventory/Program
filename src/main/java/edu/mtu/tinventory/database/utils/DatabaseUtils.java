@@ -10,9 +10,12 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.UUID;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.TimeUnit;
 import java.util.regex.Pattern;
 
-import edu.mtu.tinventory.data.Product;
+import edu.mtu.tinventory.TInventory;
 import edu.mtu.tinventory.database.query.queries.InfoStreams;
 import edu.mtu.tinventory.logging.LocalLog;
 
@@ -234,12 +237,50 @@ public class DatabaseUtils {
         return str.toString().trim();
     }
 
-    public List<Product> convertObjectToProduct(List<Object> objectList) {
-        List<Product> productList = new ArrayList<Product>();
-
-        for (Object object : objectList) {
-            // productList.add(e);
+    /**
+     * Formats states to be inserted into database
+     * 
+     * @param states List of states to be inserted
+     * @return A string of states to be inserted into the database
+     */
+    public static String formatStates(List<String> states) {
+        String formatted = "";
+        for (String string : states) {
+            formatted = formatted + ":" + string;
         }
-        return productList;
+        
+        return formatted.substring(1);
     }
+    
+    /**
+     * Sets the frozen status of the database
+     * @param isFrozen true to set database as frozen, false otherwise.
+     */
+    public static void setDatabaseFrozen(boolean isFrozen) {
+        TInventory.databaseFrozen = isFrozen;
+    }
+    
+    /**
+     * Checks if database is frozen
+     * @return Returns true if the database if frozen, false otherwise
+     */
+    public static boolean isDatabaseFrozen() {
+        return TInventory.databaseFrozen;
+    }
+
+    
+    /**
+     * Creates new thread to run status checker
+     */
+    // Maybe not hard code? could go either way
+    private static ScheduledExecutorService executors = Executors.newScheduledThreadPool(1);
+    
+    /**
+     * Only to ever be called once
+     * Starts the active checker for frozen status
+     */
+    public static void checkStatus() {
+        executors.scheduleAtFixedRate(new StatusUpdater(), 1, 5, TimeUnit.SECONDS);
+    }
+
 }

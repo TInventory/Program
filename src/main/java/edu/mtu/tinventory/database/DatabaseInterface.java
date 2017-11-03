@@ -1,10 +1,21 @@
 package edu.mtu.tinventory.database;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.ScheduledFuture;
+import java.util.concurrent.TimeUnit;
+
 import edu.mtu.tinventory.data.Customer;
 import edu.mtu.tinventory.data.Invoice;
 import edu.mtu.tinventory.data.Product;
 import edu.mtu.tinventory.database.query.Query;
+import edu.mtu.tinventory.database.query.queries.ChangeConfigTable;
+import edu.mtu.tinventory.database.query.queries.CheckConfigurations;
+import edu.mtu.tinventory.database.query.queries.ConfigPopulated;
 import edu.mtu.tinventory.database.query.queries.CreateConfigTable;
+import edu.mtu.tinventory.database.query.queries.CreateConfigurations;
 import edu.mtu.tinventory.database.query.queries.CreateCustomersTable;
 import edu.mtu.tinventory.database.query.queries.CreateDataTable;
 import edu.mtu.tinventory.database.query.queries.CreateDatabase;
@@ -20,12 +31,8 @@ import edu.mtu.tinventory.database.query.queries.RegisterNewCustomer;
 import edu.mtu.tinventory.database.query.queries.RegisterNewItem;
 import edu.mtu.tinventory.database.query.queries.SaveInvoice;
 import edu.mtu.tinventory.database.query.queries.UpdateProduct;
+import edu.mtu.tinventory.database.utils.DatabaseUtils;
 import edu.mtu.tinventory.logging.LocalLog;
-import java.util.List;
-import java.util.concurrent.Executors;
-import java.util.concurrent.ScheduledExecutorService;
-import java.util.concurrent.ScheduledFuture;
-import java.util.concurrent.TimeUnit;
 
 /**
  * 
@@ -73,10 +80,16 @@ public class DatabaseInterface {
 	private ScheduledFuture<?> task;
 
 	/**
+	 * If false do no try to access database
+	 * implemented in almost all SQL methods
+	 */
+	public boolean accessible = true;
+	
+	/**
 	 * Empty constructor for now
 	 */
 	private DatabaseInterface() {
-		// TODO: Change to actual config, currently is harcodes
+		// TODO: Change to actual config, currently is hard coded
 		sqlConnection = new MySQL(null, null, null, null, 0);
 
 		connectTo();
@@ -84,15 +97,6 @@ public class DatabaseInterface {
 		cache = null;
 		forceUpdateCache();
 		autoUpdateCache(60);
-		// TODO: Populate from config file
-		// sqlConnection = new MySQL(username, password, database, host, port);
-		// TODO: start auto refreshing method
-		// TODO: Currently hard coded, need to be added as a config via config
-		// SQL table
-		// final long initialDelay = 10;
-		// TODO: Currently hard coded, need to be added as a config via config
-		// SQL table
-		// final long period = 5 * 60; // convert from minutes to seconds
 
 	}
 
@@ -138,6 +142,8 @@ public class DatabaseInterface {
 			sendSingleCommand(new CreateEmployeesTable());
 			sendSingleCommand(new CreateInvoicesTable());
 			sendSingleCommand(new CreateCustomersTable());
+		    createConfigTable();
+			//checkIfFrozen(5);
 			return true;
 		} catch (Exception e) {
 			LocalLog.exception(e);
@@ -419,17 +425,90 @@ public class DatabaseInterface {
 	public boolean createConfigTable() {
 		try {
 			sendSingleCommand(new CreateConfigTable(Tables.CONFIGURATION_TABLE_NAME.nameToString()));
+			if (!configIsPopulated()) {
 			populateConfigTable();
+			}
 			return true;
 		} catch (Exception exception) {
 			LocalLog.exception(exception);
 			return false;
 		}
 	}
-
-	private void populateConfigTable() {
-	    //TODO: populate
+	
+	/**
+	 * Check if the configuration table has any information
+	 * @return true if configurations exist, false if not
+	 */
+	private boolean configIsPopulated() {
+	    try {
+	    ConfigPopulated populated = new ConfigPopulated();
+	    sendSingleCommand(populated);
+	    if (populated.isPopulated()) {
+	        return true;
+	    }
+	    else {
+	        return false;
+	    }
+	    }
+	    catch (Exception exception) {
+	        LocalLog.exception(exception);
+	        return false;
+	    }
 	}
+
+    /**
+	 * Creates the basic configurations of the configuration table
+	 */
+	private void populateConfigTable() {
+	    try {
+	        //TODO: Someone should probably do this list better
+	        List<String> states = new ArrayList<>();
+	        states.add("sold");
+	        states.add("available");
+	        
+	       sendSingleCommand(new CreateConfigurations("states", DatabaseUtils.formatStates(states) ));
+	       sendSingleCommand(new CreateConfigurations("frozen", "false"));
+	    }
+	    catch (Exception exception) {
+	        LocalLog.exception(exception);
+	    }
+	}
+
+    /**
+	 * 
+	 * @param freezeDatabase Boolean: if true freeze the database, if false unfreeze
+	 * @return
+	 */
+	public boolean freezeDatabase(boolean freezeDatabase) {
+	   // TODO: check for admin perms?
+	    try {
+	           sendSingleCommand(new ChangeConfigTable("frozen", String.valueOf(freezeDatabase)));
+	        return true;
+	    }
+	    catch(Exception exception) {
+	        LocalLog.exception(exception);
+	        return false;
+	    }
+	}
+
+	/**
+	 * Launches a re-occurring task to see if the database is frozen
+	 * Should only ever be launched once on startup
+	 * Value is stored in main class TInventory
+	 * @param secondsToCheck How often it should check status
+	 */
+	public void checkIfFrozen(int secondsToCheck) {
+	    try {
+	        CheckConfigurations froze = new CheckConfigurations("frozen");
+	        sendReoccuringCommand(froze, secondsToCheck);
+	        // set frozen value as easily grabbed variable
+	        DatabaseUtils.setDatabaseFrozen(Boolean.getBoolean(froze.getValue()));
+	    }
+	    catch (Exception exception) {
+	        LocalLog.exception(exception);
+	    }
+	}
+	
 	/**
 	 * SHOULD ONLY BE CALLED WHEN THE PROGRAM IS CLOSING. Shuts down the pool of
 	 * threads used to execute the SQL queries. Needed for the program to fully
