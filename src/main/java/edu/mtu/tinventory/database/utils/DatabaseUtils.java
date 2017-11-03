@@ -270,4 +270,20 @@ public class DatabaseUtils {
     public static void shutdownStatusThread() {
         executors.shutdown();
     }
+
+    public static Object parseTags(List<String> tags) {
+            String tagString  = "";
+            for (String tag  : tags) {
+                tagString.concat(":" + tag);
+            }
+            return "'" + tagString.substring(1) + "'";
+    }
+
+    public static ArrayList<String> createTagsFromString(String tags) {
+        ArrayList<String> array = new ArrayList<>();
+        for (String string : tags.split(":")) {
+            array.add(string);
+        }
+        return array;
+    }
 }
