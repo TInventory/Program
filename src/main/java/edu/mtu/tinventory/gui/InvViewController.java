@@ -5,6 +5,9 @@ import edu.mtu.tinventory.database.DatabaseInterface;
 import edu.mtu.tinventory.logging.LocalLog;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
+import java.util.ArrayList;
+import java.util.Arrays;
+
 import javafx.application.Platform;
 import javafx.beans.property.ReadOnlyIntegerWrapper;
 import javafx.beans.property.ReadOnlyStringWrapper;
@@ -28,8 +31,10 @@ public class InvViewController extends Controller {
 	@FXML private TableColumn<Product, String> priceCol;
 	@FXML private TableColumn<Product, Number> qtyCol;
 	@FXML private TextField filter;
+	@FXML private TextField tagFilter;
 	private ObservableList<Product> list;
 	private DatabaseInterface db;
+	private ArrayList<String> tagList;
 
 	/**Initializes the table, labels columns, gets any values the database may have.
 	 * 
@@ -54,6 +59,31 @@ public class InvViewController extends Controller {
 					return true;
 				}
 				return false;
+			});
+		});
+
+		tagFilter.textProperty().addListener((observable, oldV, newV) ->{ 
+			if (tagFilter.getLength() > 0){
+				tagList =  new ArrayList<String>(Arrays.asList(tagFilter.getText()));
+			}
+			filtered.setPredicate((Product product) -> {
+				if (newV == null || newV.isEmpty()) {
+					return true;
+				}
+
+				if (product.getTags() != null) {
+					for (String tag: tagList) {
+						if (!product.getTags().contains(tag)) {
+							return false;
+						}
+					}
+				} else {
+					return false;
+				}
+				//				if (filtered.contains(product)) {
+				//					return false;
+				//				}
+				return true;
 			});
 		});
 		SortedList<Product> sort = new SortedList<>(filtered);
