@@ -30,7 +30,7 @@ public class Customer {
 	}
 	
 	/**
-	 * Creates a new Customer from information and a previous invoice
+	 * Recreates a previous customer from database
 	 * @param id
 	 * @param personName
 	 * @param companyName

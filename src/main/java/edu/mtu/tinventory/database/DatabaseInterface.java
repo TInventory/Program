@@ -6,8 +6,11 @@ import edu.mtu.tinventory.data.Product;
 import edu.mtu.tinventory.database.query.Query;
 import edu.mtu.tinventory.database.query.queries.CreateConfigTable;
 import edu.mtu.tinventory.database.query.queries.CreateCustomersTable;
+import edu.mtu.tinventory.database.query.queries.CreateDataTable;
+import edu.mtu.tinventory.database.query.queries.CreateDatabase;
 import edu.mtu.tinventory.database.query.queries.CreateEmployeesTable;
 import edu.mtu.tinventory.database.query.queries.CreateInvoicesTable;
+import edu.mtu.tinventory.database.query.queries.DropTable;
 import edu.mtu.tinventory.database.query.queries.GetAllCustomers;
 import edu.mtu.tinventory.database.query.queries.GetCustomer;
 import edu.mtu.tinventory.database.query.queries.GetInvoicesForCustomer;
@@ -45,11 +48,6 @@ public class DatabaseInterface {
 	 * Creates a single instance of the database interface
 	 */
 	private static DatabaseInterface instance = new DatabaseInterface();
-
-	/**
-	 * Instance of the setup class that should be run at start time
-	 */
-	private DatabaseSetup setup = new DatabaseSetup();
 
 	/**
 	 * Instance of the information needed to establish the connection to the
@@ -136,7 +134,7 @@ public class DatabaseInterface {
 	 */
 	public boolean setupDatabase() {
 		try {
-			sendSingleCommand(setup.setupDataTable(table));
+		    sendSingleCommand(new CreateDataTable(Tables.INVENTORY_TABLE_NAME.toString()));
 			sendSingleCommand(new CreateEmployeesTable());
 			sendSingleCommand(new CreateInvoicesTable());
 			sendSingleCommand(new CreateCustomersTable());
@@ -155,7 +153,8 @@ public class DatabaseInterface {
 	 */
 	public boolean deleteDataTable(String table) {
 		try {
-			sendSingleCommand(setup.deleteTable(table));
+		    //TODO: probably should just make this an drop inventory
+		    sendSingleCommand(new DropTable(table));
 			return true;
 		} catch (Exception exception) {
 			return false;
@@ -353,7 +352,7 @@ public class DatabaseInterface {
 	 */
 	public boolean setupInventoryDatabase() {
 		try {
-			sendSingleCommand(setup.createDatabase(Tables.DATABASE_NAME.toString()));
+		    sendSingleCommand(new CreateDatabase(Tables.DATABASE_NAME.toString()));
 			// here database either exists or was created
 			return true;
 		} catch (Exception exception) {
@@ -420,7 +419,7 @@ public class DatabaseInterface {
 	public boolean createConfigTable() {
 		try {
 			sendSingleCommand(new CreateConfigTable(Tables.CONFIGURATION_TABLE_NAME.nameToString()));
-			//TODO: NEED TO POPULATE 
+			populateConfigTable();
 			return true;
 		} catch (Exception exception) {
 			LocalLog.exception(exception);
@@ -428,6 +427,9 @@ public class DatabaseInterface {
 		}
 	}
 
+	private void populateConfigTable() {
+	    //TODO: populate
+	}
 	/**
 	 * SHOULD ONLY BE CALLED WHEN THE PROGRAM IS CLOSING. Shuts down the pool of
 	 * threads used to execute the SQL queries. Needed for the program to fully
