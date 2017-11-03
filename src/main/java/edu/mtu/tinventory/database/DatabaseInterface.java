@@ -1,13 +1,5 @@
 package edu.mtu.tinventory.database;
 
-import edu.mtu.tinventory.state.StateRegistry;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.concurrent.Executors;
-import java.util.concurrent.ScheduledExecutorService;
-import java.util.concurrent.ScheduledFuture;
-import java.util.concurrent.TimeUnit;
-
 import edu.mtu.tinventory.data.Customer;
 import edu.mtu.tinventory.data.Invoice;
 import edu.mtu.tinventory.data.Product;
@@ -33,7 +25,14 @@ import edu.mtu.tinventory.database.query.queries.RegisterNewItem;
 import edu.mtu.tinventory.database.query.queries.SaveInvoice;
 import edu.mtu.tinventory.database.query.queries.UpdateProduct;
 import edu.mtu.tinventory.database.utils.DatabaseUtils;
+import edu.mtu.tinventory.gui.Dialogs;
 import edu.mtu.tinventory.logging.LocalLog;
+import java.util.List;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.ScheduledFuture;
+import java.util.concurrent.TimeUnit;
+import javafx.application.Platform;
 
 /**
  * 
@@ -94,6 +93,12 @@ public class DatabaseInterface {
 		sqlConnection = new MySQL(null, null, null, null, 0);
 
 		connectTo();
+
+		if(!setupDatabase()) {
+			Dialogs.showDialogWithException("Database setup failed", "Failed to setup necessary tables for operation. Check below for exact error.", LocalLog.getLastLoggedException());
+			quit();
+			Platform.exit();
+		}
 
 		cache = null;
 		forceUpdateCache();
@@ -462,8 +467,8 @@ public class DatabaseInterface {
 	 */
 	private void populateConfigTable() {
 	    try {
-	    	// StateRegistry handles creating default states if none exist.
-	        sendSingleCommand(new CreateConfigurations("states", StateRegistry.formatStates()));
+	    	// Hardcode these two to avoid circular dependencies on StateRegistry and DatabaseInterface
+	        sendSingleCommand(new CreateConfigurations("states", "AVAILABLE:SOLD"));
 	        sendSingleCommand(new CreateConfigurations("frozen", "false"));
 	    }
 	    catch (Exception exception) {

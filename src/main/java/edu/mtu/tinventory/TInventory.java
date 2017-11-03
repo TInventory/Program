@@ -15,7 +15,7 @@ import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 
 public class TInventory extends Application {
-    private DatabaseInterface database = DatabaseInterface.getInstance();
+    private DatabaseInterface database;
     private MainController mainController;
     private Stage primaryStage;
     public static boolean databaseFrozen = false;
@@ -23,7 +23,7 @@ public class TInventory extends Application {
     @Override
     public void start(Stage stage) throws Exception {
         setupLog();
-        initialDatabaseSetup(); 
+        database = DatabaseInterface.getInstance();
         DatabaseUtils.checkStatus();
         
         this.primaryStage = stage;
@@ -54,15 +54,6 @@ public class TInventory extends Application {
     public static void main(String[] args) {
         launch(args);
     }
-
-    private void initialDatabaseSetup() {
-        if(!database.setupDatabase()) {
-            Dialogs.showDialogWithException("Database setup failed", "Failed to setup necessary tables for operation. Check below for exact error.", LocalLog.getLastLoggedException());
-            database.quit();
-            Platform.exit();
-        }
-    }
-
     private void setupLog() {
         if (getParameters().getRaw().contains("-trace")) {
             LocalLog.setupLog(Level.FINER);
