@@ -56,6 +56,7 @@ public class CreateProductsController extends Controller {
 				productName.clear();
 				productID.clear();
 				productPrice.clear();
+				productTags.clear();
 			} else {
 				Dialogs.showDialog(Dialogs.Type.ERROR, "Item could not be registered", "");
 			}
