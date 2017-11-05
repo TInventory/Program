@@ -135,8 +135,6 @@ public class SellController extends Controller {
 					pp = new PurchasedProduct(p, Integer.parseInt(qty.getText()), p.getPrice());
 				}
 				items.getItems().add(pp);
-				customerObj = null;
-				customer.clear();
 				qty.clear();
 				productID.clear();
 				price.clear();
@@ -186,6 +184,8 @@ public class SellController extends Controller {
 				}
 				items.getItems().clear();
 				total.clear();
+				customerObj = null;
+				customer.clear();
 				Dialogs.showDialog(Dialogs.Type.INFO, "Invoice successfully created", "Invoice No: " + i.getId());
 			}
 		}
