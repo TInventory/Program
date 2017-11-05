@@ -24,6 +24,13 @@ public class Invoice {
 	
 	private Customer customer;
 
+	/**
+	 * Creates a new Invoice and stores it in the database.
+	 * It is assumed that the Invoice is issued on the date that this method is called.
+	 * @param products The list of products to be on this Invoice
+	 * @param customer The customer that this Invoice is issued to
+	 * @return The Invoice object created from this information, or null if the Database failed to create the Invoice.
+	 */
 	public static Invoice createNewInvoice(List<PurchasedProduct> products, Customer customer) {
 		//TODO: Get the next unique Invoice # from a user-specified format. Probably from the database?
 		//		Date should always be today. Maybe include a initializer for other dates, but would need a use case for it.
@@ -35,8 +42,15 @@ public class Invoice {
 		}
 	}
 
+	/**
+	 * Creates and returns an Invoice object from a previously created Invoice that has been stored in the database.
+	 * @param id The Invoice ID
+	 * @param date The date the Invoice was issued
+	 * @param customerID The ID for the customer that this Invoice was issued to (as it is stored in the database)
+	 * @param products The list of products on this invoice (as it is stored in the database)
+	 * @return The Invoice object to be used locally
+	 */
 	public static Invoice createFromDatabase(int id, String date, String customerID, String products) {
-		//TODO: Worry about CustomerID later.
 		return new Invoice(id, LocalDate.parse(date), parseProducts(products), DatabaseInterface.getInstance().getCustomer(customerID));
 	}
 

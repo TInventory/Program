@@ -13,12 +13,12 @@ public class Customer {
 	private String address;
 
 	/**
-	 * Creates a new Customer from information and a previous invoice
-	 * @param personName
-	 * @param companyName
-	 * @param phoneNumber
-	 * @param faxNumber
-	 * @param address
+	 * Creates a new Customer
+	 * @param personName The name of the customer
+	 * @param companyName The name of the business the customer represents, can be null.
+	 * @param phoneNumber The phone number for the customer, can be null.
+	 * @param faxNumber The fax number for the customer/business, can be null.
+	 * @param address The address for the customer, can be null.
 	 */
 	public Customer(String personName, String companyName, String phoneNumber, String faxNumber, String address) {
 		this.id = UUID.randomUUID();
@@ -30,13 +30,13 @@ public class Customer {
 	}
 	
 	/**
-	 * Recreates a previous customer from database
-	 * @param id
-	 * @param personName
-	 * @param companyName
-	 * @param phoneNumber
-	 * @param faxNumber
-	 * @param address
+	 * Recreates a customer from the database
+	 * @param id The unique ID for the customer
+	 * @param personName The name of the customer
+	 * @param companyName The name of the business the customer represents, can be null.
+	 * @param phoneNumber The phone number for the customer, can be null.
+	 * @param faxNumber The fax number for the customer/business, can be null.
+	 * @param address The address for the customer, can be null.
 	 */
 	public Customer(UUID id, String personName, String companyName, String phoneNumber, String faxNumber, String address) {
 		this.id = id;
@@ -75,6 +75,11 @@ public class Customer {
 	public UUID getID() {
 		return id;
 	}
+
+	/**
+	 * Returns the UUID for this customer as a string with the hyphens removed.
+	 * @return The UUID string without hyphens
+	 */
 	public String getIDString() {
 		return id.toString().replace("-", "");
 	}

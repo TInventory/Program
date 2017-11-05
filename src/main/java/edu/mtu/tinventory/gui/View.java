@@ -1,5 +1,9 @@
 package edu.mtu.tinventory.gui;
 
+/**
+ * List of all tabbed views used in this program.
+ * Any element in this enum is automatically added to the program.
+ */
 public enum View {
 	VIEW_INV("View Inventory", "inventoryView"),
 	CREATE_PRODUCT("Create New Products", "createProducts"),

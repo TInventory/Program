@@ -9,6 +9,11 @@ import javafx.scene.control.Skin;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 
+/**
+ * Our reflection hack to automatically resize columns in TableViews.
+ * It has been given its own class for ease of reuse.
+ * Women and children, avert your eyes.
+ */
 public class ResizeColumnsListener implements ChangeListener<Skin<?>> {
 	private static Method resizeColumnMethod;
 	private TableView<?> table;

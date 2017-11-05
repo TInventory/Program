@@ -58,8 +58,8 @@ public class MainController extends Controller {
 			try {
 				loadTab(view);
 			} catch(IOException e) {
-				//TODO: Have a better error handler (Maybe with a Dialog box?)
-				LocalLog.exception(e);
+				LocalLog.exception("Failed to load " + view.getFxmlName() + ".fxml", e);
+				Dialogs.showDialogWithException("Failed to load view", view.getTabName() + " failed to load. See the stacktrace below for more details.", e);
 			}
 		}
 		tabs.getSelectionModel().select(activeTabs.get(view));
