@@ -15,20 +15,20 @@ public class StateRegistryTest {
 	public void testRegisterState() {
 		assertEquals(StateRegistry.registerState("Test"), true);
 		assertEquals(StateRegistry.registerState("Test"), false);
-		assertEquals(StateRegistry.registerState("123123"), false);
+		assertEquals(StateRegistry.registerState("123123"), true);
 	}
 	@Test
 	public void testIsState() {
 		StateRegistry.registerState("test");
-		assertEquals(StateRegistry.isState("123"), true);
-		assertEquals(StateRegistry.isState("Test"), false);
+		assertEquals(StateRegistry.isState("123"), false);
+		assertEquals(StateRegistry.isState("Test"), true);
 	}
 	@Test
 	public void testGetStates() {
 		StateRegistry.registerState("test");
 		StateRegistry.registerState("test2");
 		Set<String> set = StateRegistry.getStates();
-		assertEquals(set.contains("test"), true);
-		assertEquals(set.contains("test2"), true);
+		assertEquals(set.contains("TEST"), true);
+		assertEquals(set.contains("TEST2"), true);
 	}
 }

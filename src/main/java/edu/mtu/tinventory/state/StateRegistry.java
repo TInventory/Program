@@ -30,7 +30,7 @@ public class StateRegistry {
 	 * @return false if the registry already has a state with that ID, true if the state was successfully registered.
 	 */
 	public static boolean registerState(String state) {
-		return SET.add(state);
+		return SET.add(state.toUpperCase());
 	}
 
 	/**
@@ -39,7 +39,7 @@ public class StateRegistry {
 	 * @return true if the state is valid.
 	 */
 	public static boolean isState(String state) {
-		return SET.contains(state);
+		return SET.contains(state.toUpperCase());
 	}
 
 	/**
