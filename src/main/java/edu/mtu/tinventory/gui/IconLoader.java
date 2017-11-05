@@ -12,6 +12,6 @@ public class IconLoader {
     }
     
     private void load() {
-        icon = new Image("file:src/main/resources/Icon.png");
+        icon = new Image(getClass().getResourceAsStream("/Icon.png"));
     }
 }
