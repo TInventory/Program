@@ -9,12 +9,13 @@ public class SaveInvoice implements Query {
 
 	public SaveInvoice(Invoice invoice) {
 		this.invoice = invoice;
+		System.out.println(invoice.getCustomer().getIDString());
 	}
 
 	@Override
 	public String getQuery() {
 		//TODO: Replace personName with CustomerID
 		return String.format("INSERT INTO %s VALUES (%d, '%s', '%s', '%s')", Tables.INVOICE_TABLE_NAME.nameToString(),
-				invoice.getId(), invoice.getDate().toString(), invoice.getCustomer().getPersonName(), invoice.getProductsString());
+				invoice.getId(), invoice.getDate().toString(), invoice.getCustomer().getIDString(), invoice.getProductsString());
 	}
 }
