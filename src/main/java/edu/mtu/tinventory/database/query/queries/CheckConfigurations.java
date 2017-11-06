@@ -3,6 +3,7 @@ package edu.mtu.tinventory.database.query.queries;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Map.Entry;
 
 import edu.mtu.tinventory.database.Tables;
 import edu.mtu.tinventory.database.query.ExecuteQuery;
@@ -16,13 +17,13 @@ public class CheckConfigurations implements ExecuteQuery{
     private String value;
     
     public CheckConfigurations(String parameter) {
-        this.parameter = parameter;
+        this.parameter = "'" + parameter + "'";
         this.value = "";
         this.waiting = true;
     }
     @Override
     public String getQuery() {
-        return String.format("", Tables.CONFIGURATION_TABLE_NAME, parameter);
+        return String.format("SELECT DISTINCT value FROM %s WHERE parameter=%s;", Tables.CONFIGURATION_TABLE_NAME, parameter);
     }
 
     @Override
@@ -30,7 +31,8 @@ public class CheckConfigurations implements ExecuteQuery{
         try {
            ArrayList<HashMap<String, Object>> data =  DatabaseUtils.getData(resultSet);
            if (!data.isEmpty()) {
-               value = data.get(0).get(parameter).toString();
+               value = data.get(0).get("value").toString();
+               System.out.println(value);
            }
            else {
             // Okay we really messed up

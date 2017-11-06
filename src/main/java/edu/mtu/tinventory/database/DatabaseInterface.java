@@ -149,7 +149,7 @@ public class DatabaseInterface {
 			sendSingleCommand(new CreateInvoicesTable());
 			sendSingleCommand(new CreateCustomersTable());
 		    createConfigTable();
-			//checkIfFrozen(5);
+			checkIfFrozen(5);
 			return true;
 		} catch (Exception e) {
 			LocalLog.exception(e);
