@@ -11,9 +11,10 @@ pages:
     - Basic Usage: 'basicuse.md'
     - Views:
         - View Inventory: 'views/viewinv.md'
-        - Sell Inventory: 'views/sellinv.md'
         - Create New Products: 'views/createproducts.md'
-        - Update/Receive Inventory: 'views/receiveinv.md'
+        - Sell Inventory: 'views/sellinv.md'
+        - Update Products: 'views/receiveinv.md'
+        - View Customers: 'views/viewcust.md'
 
 # Everything below this line should not need to be changed
 site_name: TInventory User Manual

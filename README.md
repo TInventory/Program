@@ -1,6 +1,8 @@
 # TInventory
 [![Documentation Status](https://readthedocs.org/projects/tinventory/badge/?version=latest)](http://tinventory.readthedocs.io/en/latest/?badge=latest)
 
+![TInventory logo](docs/img/logo.png)
+
 Our Inventory Management Program for Team Software Project
 
 ## Table of Contents
