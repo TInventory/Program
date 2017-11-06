@@ -1,14 +1,13 @@
 package edu.mtu.tinventory;
 
+import edu.mtu.tinventory.data.Employee;
 import edu.mtu.tinventory.database.DatabaseInterface;
 import edu.mtu.tinventory.database.utils.DatabaseUtils;
-import edu.mtu.tinventory.gui.Dialogs;
 import edu.mtu.tinventory.gui.IconLoader;
 import edu.mtu.tinventory.gui.MainController;
 import edu.mtu.tinventory.logging.LocalLog;
 import java.util.logging.Level;
 import javafx.application.Application;
-import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.layout.BorderPane;
@@ -18,6 +17,7 @@ public class TInventory extends Application {
     private DatabaseInterface database;
     private MainController mainController;
     private Stage primaryStage;
+	private Employee loggedIn;
     public static boolean databaseFrozen = false;
     
     @Override
@@ -25,22 +25,26 @@ public class TInventory extends Application {
         setupLog();
         database = DatabaseInterface.getInstance();
         DatabaseUtils.checkStatus();
-        
-        this.primaryStage = stage;
-        FXMLLoader loader = new FXMLLoader(TInventory.class.getResource("fxml/main.fxml"));
-        BorderPane root = loader.load();
-        mainController = loader.getController();
-        mainController.setMainApp(this);
-        mainController.setStage(stage);
-        Scene scene = new Scene(root);
-        stage.setTitle("TInventory");
-        stage.getIcons().add(new IconLoader().getIcon());
-        stage.setMinWidth(root.getMinWidth());
-        stage.setMinHeight(root.getMinHeight());
-        stage.setScene(scene);
-        stage.setMaximized(true);
-        stage.setOnCloseRequest(e -> database.quit());
-        stage.show();
+
+		if ((loggedIn = showLoginDialog()) != null) {
+			this.primaryStage = stage;
+			FXMLLoader loader = new FXMLLoader(TInventory.class.getResource("fxml/main.fxml"));
+			BorderPane root = loader.load();
+			mainController = loader.getController();
+			mainController.setMainApp(this);
+			mainController.setStage(stage);
+			Scene scene = new Scene(root);
+			stage.setTitle("TInventory");
+			stage.getIcons().add(new IconLoader().getIcon());
+			stage.setMinWidth(root.getMinWidth());
+			stage.setMinHeight(root.getMinHeight());
+			stage.setScene(scene);
+			stage.setMaximized(true);
+			stage.setOnCloseRequest(e -> database.quit());
+			stage.show();
+		} else {
+			//TODO
+		}
     }
 
     public Stage getMainWindow() {
@@ -63,4 +67,8 @@ public class TInventory extends Application {
             LocalLog.setupLog(Level.INFO);
         }
     }
+
+    private Employee showLoginDialog() {
+		return null; //TODO
+	}
 }
