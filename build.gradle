@@ -4,7 +4,7 @@ plugins {
     id 'idea'
 }
 
-version = 'v2'
+version = 'v3'
 archivesBaseName = 'InventoryProgram'
 
 repositories {
