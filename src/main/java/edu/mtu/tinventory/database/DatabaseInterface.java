@@ -408,7 +408,15 @@ public class DatabaseInterface {
 			return null;
 		}
 	}
-
+	/**
+	 * Returns a list of all invoices in database
+	 * @param customer
+	 * @return
+	 */
+	public List<Invoice> getInvoices() {
+		//TODO
+		return null;
+	}
 	/**
 	 * Gets the Customer object associated with the specified customer ID.
 	 * The ID should be the UUID string without the hyphens (so length = 32).
