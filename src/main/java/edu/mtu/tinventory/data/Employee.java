@@ -26,6 +26,10 @@ public class Employee {
 		return lastName;
 	}
 
+	public String getFullName() {
+		return firstName + " " + lastName;
+	}
+
 	public Access getAccess() {
 		return access;
 	}

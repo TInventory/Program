@@ -83,6 +83,7 @@ public class SellController extends Controller {
 					createStage.initOwner(selectStage);
 					createStage.initModality(Modality.WINDOW_MODAL);
 					createStage.setTitle("Create Customer - TInventory");
+					createStage.getIcons().add(mainApp.getIcon());
 					createStage.setScene(new Scene(root));
 					createStage.showAndWait();
 				} catch (IOException e) {
@@ -96,6 +97,7 @@ public class SellController extends Controller {
 			selectStage.initOwner(mainApp.getMainWindow());
 			selectStage.initModality(Modality.WINDOW_MODAL);
 			selectStage.setTitle("Select Customer - TInventory");
+			selectStage.getIcons().add(mainApp.getIcon());
 			selectStage.setScene(new Scene(mainBox));
 			selectStage.showAndWait();
 		} catch (IOException e) {

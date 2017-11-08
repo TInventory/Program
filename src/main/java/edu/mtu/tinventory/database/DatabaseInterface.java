@@ -1,11 +1,13 @@
 package edu.mtu.tinventory.database;
 
 import edu.mtu.tinventory.data.Customer;
+import edu.mtu.tinventory.data.Employee;
 import edu.mtu.tinventory.data.Invoice;
 import edu.mtu.tinventory.data.Product;
 import edu.mtu.tinventory.database.query.Query;
 import edu.mtu.tinventory.database.query.queries.ChangeConfigTable;
 import edu.mtu.tinventory.database.query.queries.CheckConfigurations;
+import edu.mtu.tinventory.database.query.queries.GetEmployeeIfPasswordMatches;
 import edu.mtu.tinventory.database.query.queries.ConfigPopulated;
 import edu.mtu.tinventory.database.query.queries.CreateConfigTable;
 import edu.mtu.tinventory.database.query.queries.CreateConfigurations;
@@ -512,16 +514,25 @@ public class DatabaseInterface {
 	}
 
 	public String getStatesString() {
-		/*try {
+		try {
 			CheckConfigurations states = new CheckConfigurations("states");
 			sendSingleCommand(states);
 			return states.getValue();
 		} catch (Exception e) {
 			LocalLog.exception(e);
 			return null;
-		}*/
-		//TODO: FIX after presentation
-		return "AVAILABLE:SOLD";
+		}
+	}
+
+	public Employee getEmployee(String employeeID, String password) {
+		try {
+			GetEmployeeIfPasswordMatches query = new GetEmployeeIfPasswordMatches(employeeID, password);
+			sendSingleCommand(query);
+			return query.getEmployee();
+		} catch (Exception e) {
+			LocalLog.exception(e);
+			return null;
+		}
 	}
 	
 	/**

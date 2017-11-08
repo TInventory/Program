@@ -3,13 +3,14 @@ package edu.mtu.tinventory.data;
 import static edu.mtu.tinventory.gui.View.*;
 
 import edu.mtu.tinventory.gui.View;
+import edu.mtu.tinventory.util.StringUtils;
 import java.util.Arrays;
 import java.util.EnumSet;
 import java.util.Set;
 
 public class Access {
 	//TODO: Maybe change/expand on these...or make them dynamically defined? Something...
-	enum Level {
+	public enum Level {
 		SALESMAN(VIEW_INV, SELL_INV, VIEW_CUSTOMERS),
 		MANAGER(SALESMAN, CREATE_PRODUCT, UPDATE_PRODUCT),
 		ADMINISTRATOR(MANAGER); // TODO: Probably some stuff later
@@ -39,6 +40,16 @@ public class Access {
 	private Level level;
 	// And overrides or additions to this specific access level.
 	private Set<View> additional;
+
+	public static Access createFromString(String level, String overrides) {
+		Access ret = new Access(Level.valueOf(level));
+		if (!StringUtils.isNullOrEmpty(overrides)) {
+			for (String s : overrides.split(";")) {
+				ret.grantAccess(View.valueOf(s));
+			}
+		}
+		return ret;
+	}
 
 	public Access(Level level, View... views) {
 		this.level = level;
@@ -75,5 +86,13 @@ public class Access {
 	 */
 	public boolean revokeAccess(View view) {
 		return !level.hasAccess(view) && additional.contains(view) && additional.remove(view);
+	}
+
+	public String getOverridesString() {
+		StringBuilder sb = new StringBuilder();
+		for (View view : additional) {
+			sb.append(";").append(view.name());
+		}
+		return sb.substring(1);
 	}
 }
