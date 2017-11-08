@@ -12,6 +12,7 @@
         <menus>
           <Menu mnemonicParsing="false" text="File">
             <items>
+                  <MenuItem mnemonicParsing="false" onAction="#logout" text="Logout" />
               <MenuItem mnemonicParsing="false" onAction="#close" text="Close" />
             </items>
           </Menu>

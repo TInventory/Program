@@ -7,6 +7,7 @@ import edu.mtu.tinventory.data.Product;
 import edu.mtu.tinventory.database.query.Query;
 import edu.mtu.tinventory.database.query.queries.ChangeConfigTable;
 import edu.mtu.tinventory.database.query.queries.CheckConfigurations;
+import edu.mtu.tinventory.database.query.queries.GetAllEmployees;
 import edu.mtu.tinventory.database.query.queries.GetEmployeeIfPasswordMatches;
 import edu.mtu.tinventory.database.query.queries.ConfigPopulated;
 import edu.mtu.tinventory.database.query.queries.CreateConfigTable;
@@ -529,6 +530,17 @@ public class DatabaseInterface {
 			GetEmployeeIfPasswordMatches query = new GetEmployeeIfPasswordMatches(employeeID, password);
 			sendSingleCommand(query);
 			return query.getEmployee();
+		} catch (Exception e) {
+			LocalLog.exception(e);
+			return null;
+		}
+	}
+
+	public List<Employee> getEmployees() {
+		try {
+			GetAllEmployees query = new GetAllEmployees();
+			sendSingleCommand(query);
+			return query.getEmployees();
 		} catch (Exception e) {
 			LocalLog.exception(e);
 			return null;

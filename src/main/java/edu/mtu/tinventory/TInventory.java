@@ -8,6 +8,7 @@ import edu.mtu.tinventory.gui.Controller;
 import edu.mtu.tinventory.gui.IconLoader;
 import edu.mtu.tinventory.gui.MainController;
 import edu.mtu.tinventory.logging.LocalLog;
+import java.io.IOException;
 import java.util.logging.Level;
 import javafx.application.Application;
 import javafx.application.Platform;
@@ -38,29 +39,32 @@ public class TInventory extends Application {
         	loggedIn = new Employee("TESTING", "Test", "Ing", new Access(Access.Level.ADMINISTRATOR));
 		} else {
 			showLoginDialog();
-		}
-
-		if (loggedIn != null) {
 			this.primaryStage = stage;
+			showMainWindow();
+		}
+    }
+
+    public void showMainWindow() throws IOException {
+		if (loggedIn != null) {
 			FXMLLoader loader = new FXMLLoader(TInventory.class.getResource("fxml/main.fxml"));
 			BorderPane root = loader.load();
 			mainController = loader.getController();
 			mainController.setMainApp(this);
-			mainController.setStage(stage);
+			mainController.setStage(primaryStage);
 			Scene scene = new Scene(root);
-			stage.setTitle(loggedIn.getFullName() + " - TInventory");
-			stage.getIcons().add(icon);
-			stage.setMinWidth(root.getMinWidth());
-			stage.setMinHeight(root.getMinHeight());
-			stage.setScene(scene);
-			stage.setMaximized(true);
-			stage.setOnCloseRequest(e -> database.quit());
-			stage.show();
+			primaryStage.setTitle(loggedIn.getFullName() + " - TInventory");
+			primaryStage.getIcons().add(icon);
+			primaryStage.setMinWidth(root.getMinWidth());
+			primaryStage.setMinHeight(root.getMinHeight());
+			primaryStage.setScene(scene);
+			primaryStage.setMaximized(true);
+			primaryStage.setOnCloseRequest(e -> database.quit());
+			primaryStage.show();
 		} else {
 			database.quit();
-            Platform.exit();
+			Platform.exit();
 		}
-    }
+	}
 
     public Stage getMainWindow() {
         return primaryStage;
@@ -74,6 +78,19 @@ public class TInventory extends Application {
         return icon;
     }
 
+	public void showLoginDialog() throws IOException {
+		FXMLLoader loader = new FXMLLoader(getClass().getResource("fxml/login.fxml"));
+		GridPane root = loader.load();
+		Stage stage = new Stage();
+		Controller c = loader.getController();
+		c.setMainApp(this);
+		c.setStage(stage);
+		stage.setTitle("Login - TInventory");
+		stage.setScene(new Scene(root));
+		stage.getIcons().add(icon);
+		stage.showAndWait();
+	}
+
 	public Employee getLoggedIn() {
 		return loggedIn;
 	}
@@ -85,6 +102,7 @@ public class TInventory extends Application {
     public static void main(String[] args) {
         launch(args);
     }
+
     private void setupLog() {
         if (getParameters().getRaw().contains("-trace")) {
             LocalLog.setupLog(Level.FINER);
@@ -93,18 +111,5 @@ public class TInventory extends Application {
         } else {
             LocalLog.setupLog(Level.INFO);
         }
-    }
-
-    private void showLoginDialog() throws Exception {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("fxml/login.fxml"));
-        GridPane root = loader.load();
-        Stage stage = new Stage();
-        Controller c = loader.getController();
-        c.setMainApp(this);
-        c.setStage(stage);
-        stage.setTitle("Login - TInventory");
-        stage.setScene(new Scene(root));
-        stage.getIcons().add(icon);
-        stage.showAndWait();
     }
 }

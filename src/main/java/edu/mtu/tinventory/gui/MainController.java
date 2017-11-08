@@ -47,6 +47,19 @@ public class MainController extends Controller {
 	}
 
 	@FXML
+	private void logout() {
+		mainApp.setLoggedIn(null);
+		stage.close();
+		try {
+			mainApp.showLoginDialog();
+			mainApp.showMainWindow();
+		} catch(IOException e) {
+			LocalLog.exception("Exception encountered when trying to open login dialog.", e);
+			Dialogs.showDialogWithException("IOException encountered", "Failed to open login dialog.", e);
+		}
+	}
+
+	@FXML
 	private void close() {
 		DatabaseInterface.getInstance().quit();
 		Platform.exit();
@@ -73,7 +86,7 @@ public class MainController extends Controller {
 		c.setStage(mainApp.getMainWindow());
 		c.updateLayout(tabs);
 		node.prefHeightProperty().bind(tabs.heightProperty().subtract(30)); // Makes the loaded region take up the whole TabView, minus the space for the tabs themselves.
-		node.prefWidthProperty().bind(tabs.widthProperty());   					  // Have to do it programmatically due to communication between FXMLs.
+		node.prefWidthProperty().bind(tabs.widthProperty());				// Have to do it programmatically due to communication between FXMLs.
 		Tab tab = new Tab(view.getTabName(), node);
 		tab.setOnClosed(event -> {
 			activeTabs.remove(view);
