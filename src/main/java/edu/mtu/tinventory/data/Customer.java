@@ -62,6 +62,16 @@ public class Customer {
 	public String getPersonName() {
 		return personName;
 	}
+	/**
+	 * Returns the preferred name
+	 * @return name
+	 */
+	public String getName() {
+		String result = companyName;
+		if (result == null || result.equals(""))
+			result = personName;
+		return result;
+	}
 	public List<Invoice> getInvoices() {
 		return DatabaseInterface.getInstance().getCustomerInvoices(this);
 	}
