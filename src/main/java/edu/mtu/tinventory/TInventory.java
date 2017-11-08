@@ -32,6 +32,7 @@ public class TInventory extends Application {
         setupLog();
         database = DatabaseInterface.getInstance();
         DatabaseUtils.checkStatus();
+        
         icon = new IconLoader().getIcon();
 
         if (getParameters().getRaw().contains("-nologin")) { //TODO: Strip this in final program.

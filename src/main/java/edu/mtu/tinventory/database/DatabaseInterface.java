@@ -103,6 +103,7 @@ public class DatabaseInterface {
 			Platform.exit();
 		}
 
+		checkIfFrozen(5);
 		cache = null;
 		forceUpdateCache();
 		autoUpdateCache(60);

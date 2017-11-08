@@ -32,7 +32,6 @@ public class CheckConfigurations implements ExecuteQuery{
            ArrayList<HashMap<String, Object>> data =  DatabaseUtils.getData(resultSet);
            if (!data.isEmpty()) {
                value = data.get(0).get("value").toString();
-               System.out.println(value);
            }
            else {
             // Okay we really messed up
