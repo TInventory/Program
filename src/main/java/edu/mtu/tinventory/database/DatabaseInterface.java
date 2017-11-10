@@ -428,6 +428,13 @@ public class DatabaseInterface {
 		}
 	}
 	/**
+	 * Removes a single invoice from the database
+	 * @param invoice to be removed
+	 */
+	public void deleteInvoice(Invoice invoice) {
+		//TODO: remove invoice from database
+	}
+	/**
 	 * Gets the Customer object associated with the specified customer ID.
 	 * The ID should be the UUID string without the hyphens (so length = 32).
 	 * @param customerID The UUID for the customer in string form (without the hyphens)

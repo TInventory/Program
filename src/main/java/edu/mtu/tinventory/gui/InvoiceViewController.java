@@ -43,7 +43,7 @@ public class InvoiceViewController extends Controller {
 		idCol.setCellValueFactory(data -> new ReadOnlyIntegerWrapper(data.getValue().getId()));
 		dateCol.setCellValueFactory(data -> new ReadOnlyStringWrapper(data.getValue().getDate().toString()));
 		customerCol.setCellValueFactory(data -> new ReadOnlyStringWrapper(data.getValue().getCustomer().getName()));
-		productsCol.setCellValueFactory(data -> new ReadOnlyStringWrapper(data.getValue().getProducts().toString()));
+		productsCol.setCellValueFactory(data -> new ReadOnlyStringWrapper(data.getValue().getProductsString()));
 		priceCol.setCellValueFactory(data -> new ReadOnlyStringWrapper(data.getValue().getTotal().toString()));
 		list = FXCollections.observableList(db.getInvoices());
 		FilteredList<Invoice> filtered = new FilteredList<Invoice>(list, p -> true);
@@ -92,18 +92,25 @@ public class InvoiceViewController extends Controller {
 		table.setItems(sort);
 		table.skinProperty().addListener(new ResizeColumnsListener(table)); // REFLECTION HACK
 	}
-
+	
+	@FXML
 	public void revert() throws Exception {
+		icon = new IconLoader().getIcon();
 		FXMLLoader loader = new FXMLLoader(getClass().getResource("fxml/revertInvoice.fxml"));
 		GridPane root = loader.load();
 		Stage stage = new Stage();
-		Controller c = loader.getController();
+		ConfirmRevertController c = loader.getController();
+		c.setMainApp(this.mainApp);
 		c.setStage(stage);
-		stage.setTitle("Verify Revert Invoice");
+		Invoice i = table.getSelectionModel().getSelectedItem();
+		stage.setTitle("Verify Revert Invoice #" + i.getId());
+		c.invoice = i;
 		stage.setScene(new Scene(root));
 		stage.getIcons().add(icon);
 		stage.showAndWait();
+		refresh();
 	}
+	
 	public void refresh() {
 		list = FXCollections.observableList(db.getInvoices());
 	}
