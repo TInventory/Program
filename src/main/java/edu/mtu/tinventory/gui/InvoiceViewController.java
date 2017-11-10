@@ -1,18 +1,7 @@
 package edu.mtu.tinventory.gui;
 
-
-import edu.mtu.tinventory.data.Customer;
 import edu.mtu.tinventory.data.Invoice;
-import edu.mtu.tinventory.data.Product;
 import edu.mtu.tinventory.database.DatabaseInterface;
-import edu.mtu.tinventory.state.StateRegistry;
-
-import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-
-import javafx.beans.property.ReadOnlyDoubleWrapper;
 import javafx.beans.property.ReadOnlyIntegerWrapper;
 import javafx.beans.property.ReadOnlyStringWrapper;
 import javafx.collections.FXCollections;
@@ -20,10 +9,16 @@ import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import javafx.collections.transformation.SortedList;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.control.TabPane;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
+import javafx.scene.layout.GridPane;
+import javafx.stage.Stage;
 
 /**
  * Controller class for the invoice view
@@ -36,11 +31,11 @@ public class InvoiceViewController extends Controller {
 	@FXML private TableColumn<Invoice, String> productsCol;
 	@FXML private TableColumn<Invoice, String> priceCol;
 	@FXML private TextField filter;
-	@FXML private TextField tagFilter;
+	@FXML private Button revertInvoice;
 	private ObservableList<Invoice> list;
 	private DatabaseInterface db;
-	private ArrayList<String> tagList;
-
+	private Image icon;
+	
 	/**Initializes the table, labels columns, gets any values the database may have.
 	 * 
 	 */
@@ -61,10 +56,13 @@ public class InvoiceViewController extends Controller {
 				if (product.getCustomer().getName().toLowerCase().contains(lowerCaseFilter)) {    //Extend to addition else ifs to add search areas. Convert fields to string
 					return true;
 				}
+				else if (product.getDate().toString().contains(lowerCaseFilter)) {
+					return true;
+				}
 				return false;
 			});
 		});
-
+		//If desire to implement tags later, this should be a good start
 //		tagFilter.textProperty().addListener((observable, oldV, newV) ->{ 
 //			if (tagFilter.getLength() > 0){
 //				tagList =  new ArrayList<String>(Arrays.asList(tagFilter.getText()));
@@ -89,11 +87,23 @@ public class InvoiceViewController extends Controller {
 //				return true;
 //			});
 //		});
+		
 		SortedList<Invoice> sort = new SortedList<>(filtered);
 		table.setItems(sort);
 		table.skinProperty().addListener(new ResizeColumnsListener(table)); // REFLECTION HACK
 	}
 
+	public void revert() throws Exception {
+		FXMLLoader loader = new FXMLLoader(getClass().getResource("fxml/revertInvoice.fxml"));
+		GridPane root = loader.load();
+		Stage stage = new Stage();
+		Controller c = loader.getController();
+		c.setStage(stage);
+		stage.setTitle("Verify Revert Invoice");
+		stage.setScene(new Scene(root));
+		stage.getIcons().add(icon);
+		stage.showAndWait();
+	}
 	public void refresh() {
 		list = FXCollections.observableList(db.getInvoices());
 	}

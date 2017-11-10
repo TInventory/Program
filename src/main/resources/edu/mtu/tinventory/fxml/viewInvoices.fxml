@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.control.Button?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
@@ -8,15 +9,15 @@
 <VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.mtu.tinventory.gui.InvoiceViewController">
    <children>
       <TextField fx:id="filter" promptText="Enter search here..." />
-      <TextField fx:id="tagFilter" promptText="Enter tag(s) here..." />
       <TableView fx:id="table" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" VBox.vgrow="ALWAYS">
          <columns>
             <TableColumn fx:id="idCol" editable="false" prefWidth="75.0" text="ID" />
-            <TableColumn fx:id="nameCol" editable="false" prefWidth="75.0" text="Name" />
-            <TableColumn fx:id="priceCol" editable="false" prefWidth="75.0" text="Price" />
-            <TableColumn fx:id="qtyCol" editable="false" prefWidth="75.0" text="Quantity" />
+            <TableColumn fx:id="dateCol" editable="false" prefWidth="75.0" text="Date" />
+            <TableColumn fx:id="customerCol" editable="false" prefWidth="75.0" text="Customer" />
+            <TableColumn fx:id="productsCol" editable="false" prefWidth="75.0" text="Products Sold" />
+            <TableColumn fx:id="priceCol" editable="false" prefWidth="75.0" text="Total Bill" />
          </columns>
       </TableView>
+      <Button fx:id="revertInvoice" mnemonicParsing="false" onAction="#revert" text="Revert Invoice" />
    </children>
 </VBox>
-
