@@ -174,7 +174,7 @@ public class SellController extends Controller {
 			//Should probably be able to select a customer from the database
 			//Or create a new customer
 			//Or do something else
-			//Is this a todo?
+			//Is this a TODO?
 			//F*@& if I know
 			//This is done now, but I'm keeping the comment because it's gold. -P
 			Invoice i = Invoice.createNewInvoice(items.getItems(), customerObj);
@@ -182,7 +182,7 @@ public class SellController extends Controller {
 				Dialogs.showDialog(Dialogs.Type.ERROR, "Invoice could not be created", "Problem communicating with Database. Please try again.");
 			} else {
 				for(PurchasedProduct pp : i.getProducts()) {
-					pp.getProduct().getQuanity().moveQty(StateRegistry.AVAILABLE_STATE, StateRegistry.SOLD_STATE, pp.getQuantity());
+					pp.getProduct().getQuanity().moveQty(StateRegistry.AVAILABLE_STATE, StateRegistry.SOLD_STATE, -pp.getQuantity());
 				}
 				items.getItems().clear();
 				total.clear();
