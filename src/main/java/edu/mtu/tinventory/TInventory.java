@@ -40,9 +40,9 @@ public class TInventory extends Application {
         	loggedIn = new Employee("TESTING", "Test", "Ing", new Access(Access.Level.ADMINISTRATOR));
 		} else {
 			showLoginDialog();
-			this.primaryStage = stage;
-			showMainWindow();
 		}
+		this.primaryStage = stage;
+		showMainWindow();
     }
 
     public void showMainWindow() throws IOException {
