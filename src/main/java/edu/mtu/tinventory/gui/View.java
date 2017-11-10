@@ -10,7 +10,8 @@ public enum View {
 	SELL_INV("Sell Inventory", "sell"),
 	UPDATE_PRODUCT("Update Products", "updateProducts"),
 	VIEW_CUSTOMERS("View Customers", "viewCustomers"),
-	VIEW_INVOICES("View Sales", "viewInvoices");
+	VIEW_INVOICES("View Sales", "viewInvoices"),
+	ADMIN("Admin", "admin");
 	
 	private String tabName;
 	private String fxmlName;

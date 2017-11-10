@@ -89,10 +89,14 @@ public class Access {
 	}
 
 	public String getOverridesString() {
-		StringBuilder sb = new StringBuilder();
-		for (View view : additional) {
-			sb.append(";").append(view.name());
+		if(!additional.isEmpty()) {
+			StringBuilder sb = new StringBuilder();
+			for (View view : additional) {
+				sb.append(";").append(view.name());
+			}
+			return sb.substring(1);
+		} else {
+			return "";
 		}
-		return sb.substring(1);
 	}
 }
