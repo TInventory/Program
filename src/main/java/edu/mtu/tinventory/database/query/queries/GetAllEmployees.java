@@ -41,7 +41,7 @@ public class GetAllEmployees implements ExecuteQuery {
 
 	public List<Employee> getEmployees() {
 		while (waiting) {
-			System.out.println("");
+			System.out.print("");
 		}
 		return employees;
 	}
