@@ -113,10 +113,12 @@ public class Consumer implements Runnable {
 
 						if (DatabaseUtils.isDatabaseFrozen()
 								&& (!(query instanceof CheckConfigurations) || !(query instanceof ChangeConfigTable))) {
-							LocalLog.error(String.format("Database actions are frozen!  Request of %s has failed!", query.getClass().getName()));
-							
+							LocalLog.error(String.format("Database actions are frozen!  Request of %s has failed!",
+									query.getClass().getName()));
+
 							return;
 						}
+
 						// Ensure the query is in a proper form
 						if (query instanceof ExecuteQuery) {
 

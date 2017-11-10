@@ -40,11 +40,14 @@ public class StringUtils {
 	 * @param s The string of the UUID without hyphens.
 	 * @return the UUID object for the String.
 	 */
-	public static UUID stringToUUID(String s) {
-		return UUID.fromString(s.substring(0, 8) +
-				'-' + s.substring(8, 12) +
-				'-' + s.substring(12, 16) +
-				'-' + s.substring(16, 20) +
-				'-' + s.substring(20));
+	public static UUID stringToUUID(String string) {
+		if (string.length() < 20) {
+			return null;
+		}
+		return UUID.fromString(string.substring(0, 8) +
+				'-' + string.substring(8, 12) +
+				'-' + string.substring(12, 16) +
+				'-' + string.substring(16, 20) +
+				'-' + string.substring(20));
 	}
 }

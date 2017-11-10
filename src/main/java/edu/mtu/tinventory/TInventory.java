@@ -2,6 +2,7 @@ package edu.mtu.tinventory;
 
 import edu.mtu.tinventory.data.Access;
 import edu.mtu.tinventory.data.Employee;
+import edu.mtu.tinventory.data.Invoice;
 import edu.mtu.tinventory.database.DatabaseInterface;
 import edu.mtu.tinventory.database.utils.DatabaseUtils;
 import edu.mtu.tinventory.gui.Controller;
@@ -32,7 +33,6 @@ public class TInventory extends Application {
         setupLog();
         database = DatabaseInterface.getInstance();
         DatabaseUtils.checkStatus();
-        
         icon = new IconLoader().getIcon();
 
         if (getParameters().getRaw().contains("-nologin")) { //TODO: Strip this in final program.

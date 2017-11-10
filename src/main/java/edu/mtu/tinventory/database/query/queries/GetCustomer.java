@@ -23,19 +23,23 @@ public class GetCustomer implements ExecuteQuery {
 
 	@Override
 	public String getQuery() {
-		return String.format("SELECT * FROM %s WHERE id = '%s'",
-				Tables.CUSTOMER_TABLE_NAME.nameToString(), StringUtils.stringToUUID(customerID));
+		
+		String s = String.format("SELECT * FROM %s WHERE id = '%s'", Tables.CUSTOMER_TABLE_NAME.nameToString(),
+				customerID);
+		System.out.println(s);
+		return s;
 	}
 
 	@Override
 	public void execute(ResultSet resultSet) {
 		try {
+			System.out.println(resultSet.getFetchSize());
 			ArrayList<HashMap<String, Object>> data = DatabaseUtils.getData(resultSet);
-			if (data != null) {
+			if (data != null && resultSet.getFetchSize() != 0) {
 				HashMap<String, Object> e = data.get(0);
-				customer = new Customer(StringUtils.stringToUUID(e.get("id").toString()),
-						e.get("name").toString(), e.get("company").toString(), e.get("phone").toString(),
-						e.get("fax").toString(), e.get("address").toString());
+				customer = new Customer(StringUtils.stringToUUID(e.get("id").toString()), e.get("name").toString(),
+						e.get("company").toString(), e.get("phone").toString(), e.get("fax").toString(),
+						e.get("address").toString());
 			}
 			waiting = false;
 		} catch (SQLException e) {

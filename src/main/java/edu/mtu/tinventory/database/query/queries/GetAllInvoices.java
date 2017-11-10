@@ -36,8 +36,12 @@ public class GetAllInvoices implements ExecuteQuery {
 		try {
 			ArrayList<HashMap<String, Object>> data = DatabaseUtils.getData(resultSet);
 			if (data != null) {
+				
 				invoices = new ArrayList<>();
 				for (HashMap<String, Object> e : data) {
+					System.out.println(Integer.parseInt(e.get("id").toString()) + 
+							e.get("date").toString() + e.get("customer").toString() + e.get("items").toString());
+					
 					invoices.add(Invoice.createFromDatabase(Integer.parseInt(e.get("id").toString()),
 							e.get("date").toString(), e.get("customer").toString(), e.get("items").toString()));
 				}
@@ -51,12 +55,8 @@ public class GetAllInvoices implements ExecuteQuery {
 	
 	public List<Invoice> getInvoices() {
 		while (waiting) {
-			System.out.println("");
+			System.out.print("");
 		}
-		for (Invoice inv : invoices) {
-			System.out.println(inv);
-		}
-		System.out.println("OUT");
 		
 		return invoices;
 	}

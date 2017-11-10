@@ -105,6 +105,7 @@ public class Invoice {
 				ret.add(new PurchasedProduct(p, Integer.parseInt(s.substring(colon + 1, colon2)), new BigDecimal(s.substring(colon2 + 1))));
 			}
 		}
+
 		return ret;
 	}
 }
