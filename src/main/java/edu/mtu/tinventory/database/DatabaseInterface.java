@@ -8,6 +8,7 @@ import edu.mtu.tinventory.database.query.Query;
 import edu.mtu.tinventory.database.query.queries.ChangeConfigTable;
 import edu.mtu.tinventory.database.query.queries.CheckConfigurations;
 import edu.mtu.tinventory.database.query.queries.GetAllEmployees;
+import edu.mtu.tinventory.database.query.queries.GetAllInvoices;
 import edu.mtu.tinventory.database.query.queries.GetEmployeeIfPasswordMatches;
 import edu.mtu.tinventory.database.query.queries.ConfigPopulated;
 import edu.mtu.tinventory.database.query.queries.CreateConfigTable;
@@ -415,8 +416,16 @@ public class DatabaseInterface {
 	 * @return
 	 */
 	public List<Invoice> getInvoices() {
-		//TODO
-		return null;
+		try {
+			//TODO: Refactor name scheme and enums
+		GetAllInvoices query = new GetAllInvoices(Tables.INVOICE_TABLE_NAME);
+		sendSingleCommand(query);
+		return query.getInvoices();
+		}
+		catch (Exception exception) {
+			LocalLog.exception(exception);
+			return null;
+		}
 	}
 	/**
 	 * Gets the Customer object associated with the specified customer ID.
