@@ -7,8 +7,8 @@ import java.util.Map.Entry;
 
 import edu.mtu.tinventory.database.Tables;
 import edu.mtu.tinventory.database.query.ExecuteQuery;
-import edu.mtu.tinventory.database.utils.DatabaseUtils;
 import edu.mtu.tinventory.logging.LocalLog;
+import edu.mtu.tinventory.util.DatabaseUtils;
 
 public class CheckConfigurations implements ExecuteQuery{
 

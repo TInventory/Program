@@ -11,8 +11,8 @@ import edu.mtu.tinventory.database.query.ExecuteQuery;
 import edu.mtu.tinventory.database.query.Query;
 import edu.mtu.tinventory.database.query.queries.ChangeConfigTable;
 import edu.mtu.tinventory.database.query.queries.CheckConfigurations;
-import edu.mtu.tinventory.database.utils.DatabaseUtils;
 import edu.mtu.tinventory.logging.LocalLog;
+import edu.mtu.tinventory.util.DatabaseUtils;
 
 /**
  * 

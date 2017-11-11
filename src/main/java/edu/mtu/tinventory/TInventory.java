@@ -4,11 +4,12 @@ import edu.mtu.tinventory.data.Access;
 import edu.mtu.tinventory.data.Employee;
 import edu.mtu.tinventory.data.Invoice;
 import edu.mtu.tinventory.database.DatabaseInterface;
-import edu.mtu.tinventory.database.utils.DatabaseUtils;
 import edu.mtu.tinventory.gui.Controller;
 import edu.mtu.tinventory.gui.IconLoader;
 import edu.mtu.tinventory.gui.MainController;
 import edu.mtu.tinventory.logging.LocalLog;
+import edu.mtu.tinventory.util.DatabaseUtils;
+
 import java.io.IOException;
 import java.util.logging.Level;
 import javafx.application.Application;

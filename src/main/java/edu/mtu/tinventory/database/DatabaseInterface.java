@@ -28,9 +28,10 @@ import edu.mtu.tinventory.database.query.queries.RegisterNewCustomer;
 import edu.mtu.tinventory.database.query.queries.RegisterNewItem;
 import edu.mtu.tinventory.database.query.queries.SaveInvoice;
 import edu.mtu.tinventory.database.query.queries.UpdateProduct;
-import edu.mtu.tinventory.database.utils.DatabaseUtils;
 import edu.mtu.tinventory.gui.Dialogs;
 import edu.mtu.tinventory.logging.LocalLog;
+import edu.mtu.tinventory.util.DatabaseUtils;
+
 import java.util.List;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;

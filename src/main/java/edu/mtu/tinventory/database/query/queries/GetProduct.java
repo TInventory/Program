@@ -3,8 +3,9 @@ package edu.mtu.tinventory.database.query.queries;
 import edu.mtu.tinventory.data.Product;
 import edu.mtu.tinventory.database.Tables;
 import edu.mtu.tinventory.database.query.ExecuteQuery;
-import edu.mtu.tinventory.database.utils.DatabaseUtils;
 import edu.mtu.tinventory.logging.LocalLog;
+import edu.mtu.tinventory.util.DatabaseUtils;
+
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;

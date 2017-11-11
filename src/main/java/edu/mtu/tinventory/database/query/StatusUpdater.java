@@ -1,6 +1,7 @@
-package edu.mtu.tinventory.database.utils;
+package edu.mtu.tinventory.database.query;
 
 import edu.mtu.tinventory.database.DatabaseInterface;
+import edu.mtu.tinventory.util.DatabaseUtils;
 
 public class StatusUpdater implements Runnable{
 

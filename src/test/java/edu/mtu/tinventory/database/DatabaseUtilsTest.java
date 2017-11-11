@@ -7,7 +7,7 @@ import java.util.UUID;
 
 import org.junit.Test;
 
-import edu.mtu.tinventory.database.utils.DatabaseUtils;
+import edu.mtu.tinventory.util.DatabaseUtils;
 
 public class DatabaseUtilsTest {
     //TODO: Add more testing parameters for entire DatabaseUtils class

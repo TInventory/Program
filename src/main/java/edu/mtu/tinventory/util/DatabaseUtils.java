@@ -1,6 +1,7 @@
-package edu.mtu.tinventory.database.utils;
+package edu.mtu.tinventory.util;
 
 import edu.mtu.tinventory.TInventory;
+import edu.mtu.tinventory.database.query.StatusUpdater;
 import edu.mtu.tinventory.database.query.queries.InfoStreams;
 import edu.mtu.tinventory.logging.LocalLog;
 import java.io.ByteArrayInputStream;

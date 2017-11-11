@@ -6,7 +6,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import edu.mtu.tinventory.database.query.ExecuteQuery;
-import edu.mtu.tinventory.database.utils.DatabaseUtils;
+import edu.mtu.tinventory.util.DatabaseUtils;
 
 /**
  * 
