@@ -13,6 +13,7 @@ import java.util.HashMap;
 import java.util.List;
 
 import edu.mtu.tinventory.logging.LocalLog;
+import edu.mtu.tinventory.util.DefaultConfig;
 import edu.mtu.tinventory.util.LocalUtils;
 
 /**
@@ -143,6 +144,10 @@ public class DatabaseConfig {
 		// Creates the file if it does not exist otherwise just passes
 		// on as true
 		file.createNewFile();
+		if (file.equals(TESTING_SQL_CONFIG) || file.equals(SQL_Config)) {
+		    // Create default config
+		    DefaultConfig.createDefaultSQL(this);
+		}
 	    }
 	    // Catch exceptions
 	    catch (IOException exception) {

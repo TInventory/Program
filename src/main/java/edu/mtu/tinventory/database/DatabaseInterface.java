@@ -99,7 +99,7 @@ public class DatabaseInterface {
      */
     private DatabaseInterface() {
 	// TODO: Change to actual config, currently is hard coded
-
+	
 	sqlConnection = getMySQL();
 
 	// Connect to the SQL database
