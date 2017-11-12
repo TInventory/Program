@@ -27,11 +27,29 @@ import edu.mtu.tinventory.util.LocalUtils;
 public class DatabaseConfig {
 
     LocalUtils utils = new LocalUtils();
+    /**
+     * File instance used to to hold the current modifiable file.
+     */
     private File file;
+    /**
+     * Current directory to where the TInventory folder is located
+     */
     private File directory;
+    /**
+     * Directory inside of TInventory(directoryName) folder
+     */
     private String executableDirectory;
+    /**
+     * Version of the current running JVM
+     */
     private String jvmVersion;
+    /**
+     * Name of the active user running the program
+     */
     private String user;
+    /**
+     * Name of the directory all the files are stored in
+     */
     private String directoryName;
 
     /**
@@ -41,21 +59,19 @@ public class DatabaseConfig {
      */
     private enum FileName {
 
-        SQL_CONNECTION_FILE("SQLConnections"),
-        LOCAL_LOG("LocalLog"),
-        TESTING_LOCAL_LOG("TESTING_LocalLog"),
-        TESTING_SQL_CONNECTION_FILE("TESTING_SQLConnections");
+	SQL_CONNECTION_FILE("SQLConnections"), LOCAL_LOG("LocalLog"), TESTING_LOCAL_LOG(
+		"TESTING_LocalLog"), TESTING_SQL_CONNECTION_FILE("TESTING_SQLConnections");
 
-        private String fileName;
+	private String fileName;
 
-        FileName(String fileName) {
-            this.fileName = fileName;
-        }
+	FileName(String fileName) {
+	    this.fileName = fileName;
+	}
 
-        @Override
-        public String toString() {
-            return fileName;
-        }
+	@Override
+	public String toString() {
+	    return fileName;
+	}
 
     }
 
@@ -65,7 +81,7 @@ public class DatabaseConfig {
      * @return instance of this.class for this file
      */
     public static DatabaseConfig getSQLConfig() {
-        return SQL_Config;
+	return SQL_Config;
     }
 
     /**
@@ -74,7 +90,7 @@ public class DatabaseConfig {
      * @return instance of this.class for this file
      */
     public static DatabaseConfig getLocalLogs() {
-        return Local_Logs;
+	return Local_Logs;
     }
 
     /**
@@ -83,7 +99,7 @@ public class DatabaseConfig {
      * @return instance of this.class for this file
      */
     public static DatabaseConfig getDebugSQLConfig() {
-        return TESTING_SQL_CONFIG;
+	return TESTING_SQL_CONFIG;
     }
 
     /**
@@ -92,7 +108,7 @@ public class DatabaseConfig {
      * @return instance of this.class for this file
      */
     public static DatabaseConfig getDebugLocalLog() {
-        return TESTING_LOCAL_LOG;
+	return TESTING_LOCAL_LOG;
     }
 
     /**
@@ -100,10 +116,9 @@ public class DatabaseConfig {
      */
     private static final DatabaseConfig
     // These are equivalent to separate variables
-    SQL_Config = new DatabaseConfig(FileName.SQL_CONNECTION_FILE), 
-    Local_Logs = new DatabaseConfig(FileName.LOCAL_LOG),
-    TESTING_SQL_CONFIG = new DatabaseConfig(FileName.TESTING_SQL_CONNECTION_FILE),
-    TESTING_LOCAL_LOG = new DatabaseConfig(FileName.TESTING_LOCAL_LOG);
+    SQL_Config = new DatabaseConfig(FileName.SQL_CONNECTION_FILE), Local_Logs = new DatabaseConfig(FileName.LOCAL_LOG),
+	    TESTING_SQL_CONFIG = new DatabaseConfig(FileName.TESTING_SQL_CONNECTION_FILE),
+	    TESTING_LOCAL_LOG = new DatabaseConfig(FileName.TESTING_LOCAL_LOG);
 
     /**
      * Constructor for config file class/classes
@@ -112,29 +127,29 @@ public class DatabaseConfig {
      *            Filename of the class to be created
      */
     private DatabaseConfig(FileName filename) {
-        // Assign global variables
-        this.executableDirectory = System.getProperty("user.dir");
-        this.jvmVersion = System.getProperty("java.version");
-        this.user = System.getProperty("user.name");
-        this.directoryName = "TInventory";
+	// Assign global variables
+	this.executableDirectory = System.getProperty("user.dir");
+	this.jvmVersion = System.getProperty("java.version");
+	this.user = System.getProperty("user.name");
+	this.directoryName = "TInventory";
 
-        // If prereqs exist
-        if (makeDirectory()) {
-            // New instance of the filename
-            file = new File(getDirectory().getPath() + filename + ".data");
+	// If prereqs exist
+	if (makeDirectory()) {
+	    // New instance of the filename
+	    file = new File(getDirectory().getPath() + filename + ".data");
 
-            // Try to create the new file
-            try {
-                // Creates the file if it does not exist otherwise just passes
-                // on as true
-                file.createNewFile();
-            }
-            // Catch exceptions
-            catch (IOException exception) {
-                LocalLog.exception("Failed to create new file " + filename + ".data", exception);
-            }
+	    // Try to create the new file
+	    try {
+		// Creates the file if it does not exist otherwise just passes
+		// on as true
+		file.createNewFile();
+	    }
+	    // Catch exceptions
+	    catch (IOException exception) {
+		LocalLog.exception("Failed to create new file " + filename + ".data", exception);
+	    }
 
-        }
+	}
     }
 
     /**
@@ -143,7 +158,7 @@ public class DatabaseConfig {
      * @return The version of Java the system is running
      */
     public String getJVMVersion() {
-        return jvmVersion;
+	return jvmVersion;
     }
 
     /**
@@ -152,57 +167,95 @@ public class DatabaseConfig {
      * @return List<String> Of individual lines of the file
      */
     public List<String> readFile() {
-        // List to hold things
-        ArrayList<String> list = new ArrayList<>();
+	// List to hold things
+	ArrayList<String> list = new ArrayList<>();
 
-        try {
-            BufferedReader reader = new BufferedReader(new FileReader(file));
+	try {
+	    BufferedReader reader = new BufferedReader(new FileReader(file));
 
-            String line = reader.readLine();
-            // While there is more to read
-            while (line != null) {
-                // TODO: Here will be decryption
-                list.add(line);
-                line = reader.readLine();
-            }
-            // Close file
-            reader.close();
-        } catch (Exception exception) {
+	    String line = reader.readLine();
+	    // While there is more to read
+	    while (line != null) {
+		// TODO: Here will be decryption
+		list.add(line);
+		line = reader.readLine();
+	    }
+	    // Close file
+	    reader.close();
+	} catch (Exception exception) {
 
-            LocalLog.exception(exception);
-        }
+	    LocalLog.exception(exception);
+	}
 
-        return list;
+	return list;
 
     }
 
     /**
-     * Retrieves the configurations from the file
-     * Only intended to be used with the SQL_CONNECTION_FILE
+     * Retrieves the configurations from the file Only intended to be used with
+     * the SQL_CONNECTION_FILE
      * 
      * @return A HashMap of keys with their values of configuration options
      */
-    public HashMap<String, String> getConfigurations() {
-        // Map holder
-        HashMap<String, String> map = new HashMap<>();
+    private HashMap<String, String> getConfigurationsMap() {
+	// Map holder
+	HashMap<String, String> map = new HashMap<>();
 
-        try {
-            BufferedReader reader = new BufferedReader(new FileReader(file));
-            String line = reader.readLine();
-            while (line != null) {
-                // TODO: decrpytion goes here
-                // Might use another character
-                String[] options = line.split(":");
-                map.put(options[0], options[1]);
-                // To next line
-                line = reader.readLine();
-            }
-            // Close file
-            reader.close();
-        } catch (Exception exception) {
-            LocalLog.exception(exception);
-        }
-        return map;
+	try {
+	    BufferedReader reader = new BufferedReader(new FileReader(file));
+	    String line = reader.readLine();
+	    while (line != null) {
+		// TODO: decrpytion goes here
+		// Might use another character
+		String[] options = line.split(":");
+		map.put(options[0], options[1]);
+		// To next line
+		line = reader.readLine();
+	    }
+	    // Close file
+	    reader.close();
+	} catch (Exception exception) {
+	    LocalLog.exception(exception);
+	}
+	return map;
+    }
+
+    /**
+     * Retrieves data from file in easy to retrieve format
+     * 
+     * @return A configuration of retrieved data from file
+     */
+    public Configurations getConfigurations() {
+	// Return new configurations
+	return new Configurations(getConfigurationsMap());
+    }
+
+    /**
+     * Saves the given configuration to file
+     * 
+     * @param configuration Configuration to be saved
+     * @return true is saved succesfully false otherwise.
+     */
+    public boolean saveConfigurations(Configurations configuration) {
+
+	// If no config
+	if (configuration == null) {
+	    return false;
+	}
+	//TODO: Encrypt here
+	try {
+	    write(String.format("%s:%s", "database", configuration.getDatabase()));
+	    write(String.format("%s:%s", "host", configuration.getHost()));
+	    write(String.format("%s:%s", "password", configuration.getPassword()));
+	    write(String.format("%s:%s", "port", configuration.getPort()));
+	    write(String.format("%s:%s", "user", configuration.getUsername()));
+	    LocalLog.info("Configuration saved successfully to file.");
+	    return true;
+	} catch (Exception exception) {
+	    LocalLog.exception(exception);
+	    return false;
+	}
+
     }
 
     /**
@@ -213,17 +266,17 @@ public class DatabaseConfig {
      * @return Returns true if successful, false otherwise
      */
     public boolean write(String text) {
-        try {
-            BufferedWriter writer = new BufferedWriter(new FileWriter(file));
-            writer.write(text);
-            // Maybe there is a more efficient way to do this for log, maybe
-            // only write every so often?
-            writer.close();
-        } catch (Exception exception) {
-            LocalLog.exception("File " + file.getName() + " could not be saved.", exception);
-            return false;
-        }
-        return true;
+	try {
+	    BufferedWriter writer = new BufferedWriter(new FileWriter(file));
+	    writer.write(text);
+	    // Maybe there is a more efficient way to do this for log, maybe
+	    // only write every so often?
+	    writer.close();
+	} catch (Exception exception) {
+	    LocalLog.exception("File " + file.getName() + " could not be saved.", exception);
+	    return false;
+	}
+	return true;
     }
 
     /**
@@ -232,7 +285,7 @@ public class DatabaseConfig {
      * @return
      */
     private File getDirectory() {
-        return directory;
+	return directory;
     }
 
     /**
@@ -243,36 +296,36 @@ public class DatabaseConfig {
      *         if it does not exist
      */
     private boolean makeDirectory() {
-        // Retrieves URI of where we plan to place the files based on the OS
-        URI uri = getDirectoryPath();
-        // Retrieve the original file/directory that was found, and make sure it
-        // exists
-        File priorDirectory = new File(uri);
-        // Name of the directory we are trying to make / ensure exists
-        // global variable initialized here
-        this.directory = new File(uri + directoryName);
+	// Retrieves URI of where we plan to place the files based on the OS
+	URI uri = getDirectoryPath();
+	// Retrieve the original file/directory that was found, and make sure it
+	// exists
+	File priorDirectory = new File(uri);
+	// Name of the directory we are trying to make / ensure exists
+	// global variable initialized here
+	this.directory = new File(uri + directoryName);
 
-        // Ensure the File (Really FilePath) is a directory , should always be.
-        if (priorDirectory.isDirectory()) {
-            if (!directory.exists()) {
-                // If directory is made successfully
-                // method handles both creation and check
-                if (directory.mkdir()) {
-                    LocalLog.info("Local storage directory successfully created at \"" + directory.toURI() + "\"!");
-                    // Directory now exists
-                    return true;
-                } else {
-                    LocalLog.error("Local storage directory failed to be created at \"" + directory.toURI() + "\"!");
-                    // Directory still does not exist
-                    return false;
-                }
-            } else {
-                // The Directory already existed
-                return true;
-            }
-        }
-        // Should not actually happen, if it does we need to do more debugging
-        return false;
+	// Ensure the File (Really FilePath) is a directory , should always be.
+	if (priorDirectory.isDirectory()) {
+	    if (!directory.exists()) {
+		// If directory is made successfully
+		// method handles both creation and check
+		if (directory.mkdir()) {
+		    LocalLog.info("Local storage directory successfully created at \"" + directory.toURI() + "\"!");
+		    // Directory now exists
+		    return true;
+		} else {
+		    LocalLog.error("Local storage directory failed to be created at \"" + directory.toURI() + "\"!");
+		    // Directory still does not exist
+		    return false;
+		}
+	    } else {
+		// The Directory already existed
+		return true;
+	    }
+	}
+	// Should not actually happen, if it does we need to do more debugging
+	return false;
     }
 
     /**
@@ -283,30 +336,30 @@ public class DatabaseConfig {
      * 
      */
     private URI getDirectoryPath() {
-        String uri;
-        switch (utils.getOperatingSystem()) {
-        case WINDOWS:
-            uri = String.format(System.getenv("ProgramFiles"), user);
-            break;
-        case MAC_OS:
-            uri = String.format("/Users/%s/Library", user);
-            break;
-        case LINUX:
-            uri = String.format("/usr/share/", user);
-            break;
-        case SOLARIS:
-            uri = String.format("/usr/share/", user);
-            break;
-        default:
-            uri = executableDirectory;
-            break;
-        }
-        // Convert string to URI
-        try {
-            return new URI(uri);
-        } catch (URISyntaxException exception) {
-            LocalLog.exception(exception);
-            return null;
-        }
+	String uri;
+	switch (utils.getOperatingSystem()) {
+	case WINDOWS:
+	    uri = String.format(System.getenv("ProgramFiles"), user);
+	    break;
+	case MAC_OS:
+	    uri = String.format("/Users/%s/Library", user);
+	    break;
+	case LINUX:
+	    uri = String.format("/usr/share/", user);
+	    break;
+	case SOLARIS:
+	    uri = String.format("/usr/share/", user);
+	    break;
+	default:
+	    uri = executableDirectory;
+	    break;
+	}
+	// Convert string to URI
+	try {
+	    return new URI(uri);
+	} catch (URISyntaxException exception) {
+	    LocalLog.exception(exception);
+	    return null;
+	}
     }
 }
