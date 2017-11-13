@@ -99,8 +99,8 @@ public class DatabaseInterface {
      */
     private DatabaseInterface() {
 	// TODO: Change to actual config, currently is hard coded
-	
-	sqlConnection = getMySQL();
+	sqlConnection = new MySQL("cs3141", "taco", "tinventory", "kiro47.ddns.net", 9999);
+	//sqlConnection = getMySQL();
 
 	// Connect to the SQL database
 	connectTo();
