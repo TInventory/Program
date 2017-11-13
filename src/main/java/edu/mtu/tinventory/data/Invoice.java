@@ -89,7 +89,11 @@ public class Invoice {
 		for(PurchasedProduct pp : products) {
 			sb.append(pp).append(";");
 		}
-		return sb.deleteCharAt(sb.length() - 1).toString(); // Removes the trailing semicolon
+		if(sb.length() == 0) {
+			return "";
+		} else {
+			return sb.deleteCharAt(sb.length() - 1).toString(); // Removes the trailing semicolon
+		}
 	}
 
 	private static List<PurchasedProduct> parseProducts(String serialized) {
