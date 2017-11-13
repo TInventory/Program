@@ -40,9 +40,11 @@ public class InvoiceViewController extends Controller {
 	 * 
 	 */
 	public void initialize() {
+		db = DatabaseInterface.getInstance();
 		idCol.setCellValueFactory(data -> new ReadOnlyIntegerWrapper(data.getValue().getId()));
 		dateCol.setCellValueFactory(data -> new ReadOnlyStringWrapper(data.getValue().getDate().toString()));
-		customerCol.setCellValueFactory(data -> new ReadOnlyStringWrapper(data.getValue().getCustomer().getName()));
+		//If no customer stored then display blank name
+		customerCol.setCellValueFactory(data -> new ReadOnlyStringWrapper(data.getValue().getCustomer() != null ? data.getValue().getCustomer().getName() : ""));
 		productsCol.setCellValueFactory(data -> new ReadOnlyStringWrapper(data.getValue().getProductsString()));
 		priceCol.setCellValueFactory(data -> new ReadOnlyStringWrapper(data.getValue().getTotal().toString()));
 		list = FXCollections.observableList(db.getInvoices());
