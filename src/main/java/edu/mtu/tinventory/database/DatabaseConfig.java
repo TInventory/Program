@@ -207,6 +207,9 @@ public class DatabaseConfig {
 	HashMap<String, String> map = new HashMap<>();
 
 	try {
+	    if (file == null) {
+		return map;
+	    }
 	    BufferedReader reader = new BufferedReader(new FileReader(file));
 	    String line = reader.readLine();
 	    while (line != null) {
@@ -309,26 +312,26 @@ public class DatabaseConfig {
 	// Name of the directory we are trying to make / ensure exists
 	// global variable initialized here
 	this.directory = new File(uri + directoryName);
+	System.out.println(priorDirectory);
 
 	// Ensure the File (Really FilePath) is a directory , should always be.
 	if (priorDirectory.isDirectory()) {
-	    if (!directory.exists()) {
+	 
+		System.out.println(321);
 		// If directory is made successfully
 		// method handles both creation and check
-		if (directory.mkdir()) {
-		    LocalLog.info("Local storage directory successfully created at \"" + directory.toURI() + "\"!");
+		//TODO: FAILING HERE NOT CREATED
+		if (directory.mkdirs() && directory.mkdir()) {
+		    LocalLog.info("Local storage directory successfully created at \"" + directory + "\"!");
 		    // Directory now exists
 		    return true;
 		} else {
-		    LocalLog.error("Local storage directory failed to be created at \"" + directory.toURI() + "\"!");
+		    LocalLog.error("Local storage directory failed to be created at \"" + directory + "\"!");
 		    // Directory still does not exist
 		    return false;
 		}
-	    } else {
-		// The Directory already existed
-		return true;
+	    
 	    }
-	}
 	// Should not actually happen, if it does we need to do more debugging
 	return false;
     }
@@ -350,10 +353,10 @@ public class DatabaseConfig {
 	    uri = String.format("/Users/%s/Library", user);
 	    break;
 	case LINUX:
-	    uri = String.format("/usr/share/", user);
+	    uri = String.format("file:/usr/share/", user);
 	    break;
 	case SOLARIS:
-	    uri = String.format("/usr/share/", user);
+	    uri = String.format("file:/usr/share/", user);
 	    break;
 	default:
 	    uri = executableDirectory;
