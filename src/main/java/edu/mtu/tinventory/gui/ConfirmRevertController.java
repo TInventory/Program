@@ -18,6 +18,7 @@ public class ConfirmRevertController extends Controller {
 		database.deleteInvoice(invoice); //remove from database
 		for (PurchasedProduct pp : invoice.getProducts()) { //return products to database
 			pp.getProduct().getQuanity().moveQty(StateRegistry.SOLD_STATE, StateRegistry.AVAILABLE_STATE, pp.getQuantity());
+			DatabaseInterface.getInstance().updateItem(pp.getProduct());
 		}
 		stage.close();
 	}

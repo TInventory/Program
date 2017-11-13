@@ -55,6 +55,7 @@ public class UpdateProductsController extends Controller {
 			} else {
 				if (p != null) {
 					p.getQuanity().changeQty(StateRegistry.AVAILABLE_STATE, qty);
+					DatabaseInterface.getInstance().updateItem(p);
 					productID.clear();
 					quantity.clear();
 					((TableView)invView.getChildren().get(1)).refresh();

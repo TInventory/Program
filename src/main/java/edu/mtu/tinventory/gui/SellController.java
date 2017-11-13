@@ -182,7 +182,8 @@ public class SellController extends Controller {
 				Dialogs.showDialog(Dialogs.Type.ERROR, "Invoice could not be created", "Problem communicating with Database. Please try again.");
 			} else {
 				for(PurchasedProduct pp : i.getProducts()) {
-					pp.getProduct().getQuanity().moveQty(StateRegistry.AVAILABLE_STATE, StateRegistry.SOLD_STATE, -pp.getQuantity());
+					pp.getProduct().getQuanity().moveQty(StateRegistry.AVAILABLE_STATE, StateRegistry.SOLD_STATE, pp.getQuantity());
+					DatabaseInterface.getInstance().updateItem(pp.getProduct());
 				}
 				items.getItems().clear();
 				total.clear();
