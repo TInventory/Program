@@ -83,7 +83,18 @@ public class Invoice {
 	public BigDecimal getTotal() {
 		return total;
 	}
-
+	public String getProductNamesString() {
+		StringBuilder sb = new StringBuilder();
+		for(PurchasedProduct pp : products) {
+			sb.append(pp.getQuantity()).append(" ");
+			sb.append(pp.getProductName()).append("; ");
+		}
+		if(sb.length() == 0) {
+			return "";
+		} else {
+			return sb.deleteCharAt(sb.length() - 2).toString().trim(); // Removes the trailing semicolon
+		}
+	}
 	public String getProductsString() {
 		StringBuilder sb = new StringBuilder();
 		for(PurchasedProduct pp : products) {

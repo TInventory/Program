@@ -45,7 +45,7 @@ public class InvoiceViewController extends Controller {
 		dateCol.setCellValueFactory(data -> new ReadOnlyStringWrapper(data.getValue().getDate().toString()));
 		//If no customer stored then display blank name
 		customerCol.setCellValueFactory(data -> new ReadOnlyStringWrapper(data.getValue().getCustomer() != null ? data.getValue().getCustomer().getName() : ""));
-		productsCol.setCellValueFactory(data -> new ReadOnlyStringWrapper(data.getValue().getProductsString()));
+		productsCol.setCellValueFactory(data -> new ReadOnlyStringWrapper(data.getValue().getProductNamesString()));
 		priceCol.setCellValueFactory(data -> new ReadOnlyStringWrapper(data.getValue().getTotal().toString()));
 		list = FXCollections.observableList(db.getInvoices());
 		FilteredList<Invoice> filtered = new FilteredList<Invoice>(list, p -> true);
@@ -55,10 +55,12 @@ public class InvoiceViewController extends Controller {
 					return true;
 				}
 				String lowerCaseFilter = newV.toLowerCase();
-				if (product.getCustomer().getName().toLowerCase().contains(lowerCaseFilter)) {    //Extend to addition else ifs to add search areas. Convert fields to string
-					return true;
+				if (product.getCustomer() != null) {
+					if (product.getCustomer().getName().toLowerCase().contains(lowerCaseFilter)) {    //Extend to addition else ifs to add search areas. Convert fields to string
+						return true;
+					}
 				}
-				else if (product.getDate().toString().contains(lowerCaseFilter)) {
+				if (product.getDate().toString().contains(lowerCaseFilter)) {
 					return true;
 				}
 				return false;
