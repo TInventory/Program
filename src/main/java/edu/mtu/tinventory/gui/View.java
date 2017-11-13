@@ -11,7 +11,8 @@ public enum View {
 	UPDATE_PRODUCT("Update Products", "updateProducts"),
 	VIEW_CUSTOMERS("View Customers", "viewCustomers"),
 	VIEW_INVOICES("View Sales", "viewInvoices"),
-	ADMIN("Admin", "admin");
+	ADMIN("Admin", "admin"),
+	REPORTSCONTROLLER("Reports", "reportsView");
 	
 	private String tabName;
 	private String fxmlName;
