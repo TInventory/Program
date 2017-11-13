@@ -478,14 +478,18 @@ public class DatabaseInterface {
      *         database.
      */
     public Customer getCustomer(String customerID) {
-	try {
-	    GetCustomer query = new GetCustomer(customerID);
-	    sendSingleCommand(query);
-	    return query.getCustomer();
-	} catch (Exception e) {
-	    LocalLog.exception(e);
-	    return null;
-	}
+		if(customerID.endsWith("null")) {
+			return null;
+		} else {
+			try {
+				GetCustomer query = new GetCustomer(customerID);
+				sendSingleCommand(query);
+				return query.getCustomer();
+			} catch (Exception e) {
+				LocalLog.exception(e);
+				return null;
+			}
+		}
     }
 
     /**
