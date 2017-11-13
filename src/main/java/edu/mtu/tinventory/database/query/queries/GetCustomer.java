@@ -35,7 +35,7 @@ public class GetCustomer implements ExecuteQuery {
 		try {
 			System.out.println(resultSet.getFetchSize());
 			ArrayList<HashMap<String, Object>> data = DatabaseUtils.getData(resultSet);
-			if (data != null && resultSet.getFetchSize() != 0) {
+			if (data != null) {
 				HashMap<String, Object> e = data.get(0);
 				customer = new Customer(StringUtils.stringToUUID(e.get("id").toString()), e.get("name").toString(),
 						e.get("company").toString(), e.get("phone").toString(), e.get("fax").toString(),
