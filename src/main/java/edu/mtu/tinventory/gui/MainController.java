@@ -40,9 +40,11 @@ public class MainController extends Controller {
 		activeTabs = new EnumMap<>(View.class);
 		controllers = new EnumMap<>(View.class);
 		for(View view : View.values()) {
-			MenuItem mi = new MenuItem(view.getTabName());
-			mi.setOnAction(event -> openTab(view));
-			actions.getItems().add(mi);
+			if(mainApp.getLoggedIn().getAccess().hasAccess(view)) {
+				MenuItem mi = new MenuItem(view.getTabName());
+				mi.setOnAction(event -> openTab(view));
+				actions.getItems().add(mi);
+			}
 		}
 	}
 
