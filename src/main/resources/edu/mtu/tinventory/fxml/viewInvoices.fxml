@@ -9,6 +9,7 @@
 <VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.mtu.tinventory.gui.InvoiceViewController">
    <children>
       <TextField fx:id="filter" promptText="Enter search here..." />
+      <Button fx:id="revertInvoice" mnemonicParsing="false" onAction="#revert" text="Revert Invoice" />
       <TableView fx:id="table" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" VBox.vgrow="ALWAYS">
          <columns>
             <TableColumn fx:id="idCol" editable="false" prefWidth="75.0" text="ID" />
@@ -18,6 +19,5 @@
             <TableColumn fx:id="priceCol" editable="false" prefWidth="75.0" text="Total Bill" />
          </columns>
       </TableView>
-      <Button fx:id="revertInvoice" mnemonicParsing="false" onAction="#revert" text="Revert Invoice" />
    </children>
 </VBox>
