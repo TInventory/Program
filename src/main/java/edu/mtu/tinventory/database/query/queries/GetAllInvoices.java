@@ -39,9 +39,6 @@ public class GetAllInvoices implements ExecuteQuery {
 				
 				invoices = new ArrayList<>();
 				for (HashMap<String, Object> e : data) {
-					System.out.println(Integer.parseInt(e.get("id").toString()) + 
-							e.get("date").toString() + e.get("customer").toString() + e.get("items").toString());
-					
 					invoices.add(Invoice.createFromDatabase(Integer.parseInt(e.get("id").toString()),
 							e.get("date").toString(), e.get("customer").toString(), e.get("items").toString()));
 				}

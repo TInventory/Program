@@ -26,14 +26,12 @@ public class GetCustomer implements ExecuteQuery {
 		
 		String s = String.format("SELECT * FROM %s WHERE id = '%s'", Tables.CUSTOMER_TABLE_NAME.nameToString(),
 				customerID);
-		System.out.println(s);
 		return s;
 	}
 
 	@Override
 	public void execute(ResultSet resultSet) {
 		try {
-			System.out.println(resultSet.getFetchSize());
 			ArrayList<HashMap<String, Object>> data = DatabaseUtils.getData(resultSet);
 			if (data != null) {
 				HashMap<String, Object> e = data.get(0);
