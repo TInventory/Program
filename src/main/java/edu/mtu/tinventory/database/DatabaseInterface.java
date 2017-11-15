@@ -7,6 +7,7 @@ import edu.mtu.tinventory.data.Invoice;
 import edu.mtu.tinventory.data.Product;
 import edu.mtu.tinventory.database.query.Query;
 import edu.mtu.tinventory.database.query.queries.ChangeConfigTable;
+import edu.mtu.tinventory.database.query.queries.ChangePassword;
 import edu.mtu.tinventory.database.query.queries.CheckConfigurations;
 import edu.mtu.tinventory.database.query.queries.CheckEmployeeExists;
 import edu.mtu.tinventory.database.query.queries.GetAllEmployees;
@@ -634,6 +635,16 @@ public class DatabaseInterface {
         } catch (Exception e) {
             LocalLog.exception(e);
             return null;
+        }
+    }
+
+    public boolean changePassword(Employee employee, String newPassword) {
+        try {
+            sendSingleCommand(new ChangePassword(employee, newPassword));
+            return true;
+        } catch (Exception e) {
+            LocalLog.exception(e);
+            return false;
         }
     }
 

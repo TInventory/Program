@@ -18,7 +18,7 @@
           </Menu>
           <Menu mnemonicParsing="false" text="Edit">
             <items>
-              <MenuItem mnemonicParsing="false" text="Placeholder" />
+              <MenuItem mnemonicParsing="false" onAction="#changePass" text="Change Password" />
             </items>
           </Menu>
             <Menu fx:id="actions" mnemonicParsing="false" text="Actions" />

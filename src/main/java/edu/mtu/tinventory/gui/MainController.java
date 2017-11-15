@@ -8,11 +8,15 @@ import java.util.EnumMap;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Scene;
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
+import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Region;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
 
 /**
  * Controller class for the main window of the program
@@ -49,6 +53,27 @@ public class MainController extends Controller {
 	private void initialize() {
 		activeTabs = new EnumMap<>(View.class);
 		controllers = new EnumMap<>(View.class);
+	}
+
+	@FXML
+	private void changePass() {
+		try {
+			Stage stage = new Stage();
+			FXMLLoader loader = new FXMLLoader(TInventory.class.getResource("fxml/changePass.fxml"));
+			GridPane root = loader.load();
+			Controller c = loader.getController();
+			c.setMainApp(mainApp);
+			c.setStage(stage);
+			stage.initOwner(mainApp.getMainWindow());
+			stage.initModality(Modality.WINDOW_MODAL);
+			stage.setScene(new Scene(root));
+			stage.setTitle("Change Password - TInventory");
+			stage.getIcons().add(mainApp.getIcon());
+			stage.showAndWait();
+		} catch (IOException e) {
+			LocalLog.exception("Failed to load changePass.fxml", e);
+			Dialogs.showDialogWithException("Failed to load view", "Failed to open Change Password view.", e);
+		}
 	}
 
 	@FXML

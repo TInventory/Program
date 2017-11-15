@@ -149,7 +149,7 @@ public class Consumer implements Runnable {
 					}
 					// catch the exceptions
 					catch (SQLException e) {
-						LocalLog.exception(e);
+						LocalLog.exception(String.format("Query %s threw an exception", query.getClass().getSimpleName()), e);
 					}
 				}
 			}

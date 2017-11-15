@@ -45,4 +45,9 @@ public class Employee {
 	public Access getAccess() {
 		return access;
 	}
+
+	@Override
+	public boolean equals(Object o) {
+		return o instanceof Employee && id.equalsIgnoreCase(((Employee)o).getID());
+	}
 }
