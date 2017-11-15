@@ -4,6 +4,7 @@ import java.io.PrintWriter;
 import java.io.StringWriter;
 import java.util.Optional;
 import javafx.scene.control.Alert;
+import javafx.scene.control.ButtonBar;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
@@ -103,7 +104,8 @@ public class Dialogs {
 		alert.setHeaderText(heading);
 		alert.setContentText(message);
 
-		alert.getButtonTypes().addAll(new ButtonType("Yes"), new ButtonType("No"));
+		alert.getButtonTypes().clear();
+		alert.getButtonTypes().addAll(new ButtonType("Yes", ButtonBar.ButtonData.YES), new ButtonType("No", ButtonBar.ButtonData.NO));
 		Optional<ButtonType> result = alert.showAndWait();
 		return result.isPresent() && result.get().getText().equals("Yes");
 	}
