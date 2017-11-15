@@ -2,7 +2,9 @@ package edu.mtu.tinventory.gui;
 
 import java.io.PrintWriter;
 import java.io.StringWriter;
+import java.util.Optional;
 import javafx.scene.control.Alert;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.scene.layout.GridPane;
@@ -85,5 +87,24 @@ public class Dialogs {
 
 		alert.getDialogPane().setMinHeight(Region.USE_PREF_SIZE); // Fixes edge case sizing problems
 		alert.showAndWait();
+	}
+
+	/**
+	 * Displays a dialogs that prompts the user to confirm or deny an action.
+	 * @param type The type of dialog box this is. Just dictates the icon the window shows.
+	 * @param heading A heading message. Using null here will not show a heading. Good for compact messages.
+	 * @param message The actual content of the message. Should contain the question the user is answering.
+	 * @return true if the user chose "Yes", false otherwise.
+	 */
+	public static boolean showYesNoDialog(Type type, String heading, String message) {
+		Alert alert = new Alert(type.getAlertType());
+		alert.initStyle(StageStyle.UTILITY);
+		alert.setTitle(type.getTitle() + " - TInventory");
+		alert.setHeaderText(heading);
+		alert.setContentText(message);
+
+		alert.getButtonTypes().addAll(new ButtonType("Yes"), new ButtonType("No"));
+		Optional<ButtonType> result = alert.showAndWait();
+		return result.isPresent() && result.get().getText().equals("Yes");
 	}
 }

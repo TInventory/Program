@@ -5,6 +5,7 @@ package edu.mtu.tinventory.gui;
  * Any element in this enum is automatically added to the program.
  */
 public enum View {
+	//NOTE: After adding a view, go to Access and add it to whichever access level best suits it.
 	VIEW_INV("View Inventory", "inventoryView"),
 	CREATE_PRODUCT("Create New Products", "createProducts"),
 	SELL_INV("Sell Inventory", "sell"),

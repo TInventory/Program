@@ -12,8 +12,8 @@ public class Access {
 	//TODO: Maybe change/expand on these...or make them dynamically defined? Something...
 	public enum Level {
 		SALESMAN(VIEW_INV, SELL_INV, VIEW_CUSTOMERS),
-		MANAGER(SALESMAN, CREATE_PRODUCT, UPDATE_PRODUCT),
-		ADMINISTRATOR(MANAGER); // TODO: Probably some stuff later
+		MANAGER(SALESMAN, CREATE_PRODUCT, UPDATE_PRODUCT, REPORTSCONTROLLER),
+		ADMINISTRATOR(MANAGER, ADMIN); // TODO: Probably some stuff later
 
 		private Set<View> views;
 
