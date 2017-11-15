@@ -55,6 +55,7 @@ public class TInventory extends Application {
 			mainController = loader.getController();
 			mainController.setMainApp(this);
 			mainController.setStage(primaryStage);
+			mainController.populateActions();
 			Scene scene = new Scene(root);
 			primaryStage.setTitle(loggedIn.getFullName() + " - TInventory");
 			primaryStage.getIcons().add(icon);

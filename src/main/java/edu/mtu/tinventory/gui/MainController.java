@@ -34,18 +34,21 @@ public class MainController extends Controller {
 		return controllers.get(view);
 	}
 
-	// This method is run when the main window is first loaded.
-	@FXML
-	private void initialize() {
-		activeTabs = new EnumMap<>(View.class);
-		controllers = new EnumMap<>(View.class);
+	public void populateActions() {
 		for(View view : View.values()) {
-			if(mainApp.getLoggedIn().getAccess().hasAccess(view)) {
+			if (mainApp.getLoggedIn().getAccess().hasAccess(view)) {
 				MenuItem mi = new MenuItem(view.getTabName());
 				mi.setOnAction(event -> openTab(view));
 				actions.getItems().add(mi);
 			}
 		}
+	}
+
+	// This method is run when the main window is first loaded.
+	@FXML
+	private void initialize() {
+		activeTabs = new EnumMap<>(View.class);
+		controllers = new EnumMap<>(View.class);
 	}
 
 	@FXML
