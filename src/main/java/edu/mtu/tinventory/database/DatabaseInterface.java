@@ -29,6 +29,7 @@ import edu.mtu.tinventory.database.query.queries.GrabAllItems;
 import edu.mtu.tinventory.database.query.queries.RegisterNewCustomer;
 import edu.mtu.tinventory.database.query.queries.RegisterNewEmployee;
 import edu.mtu.tinventory.database.query.queries.RegisterNewItem;
+import edu.mtu.tinventory.database.query.queries.RemoveInvoice;
 import edu.mtu.tinventory.database.query.queries.SaveInvoice;
 import edu.mtu.tinventory.database.query.queries.UpdateProduct;
 import edu.mtu.tinventory.gui.Dialogs;
@@ -465,7 +466,19 @@ public class DatabaseInterface {
      *            to be removed
      */
     public void deleteInvoice(Invoice invoice) {
-        // TODO: remove invoice from database
+        if (invoice != null) {
+            try {
+                RemoveInvoice query = new RemoveInvoice(invoice);
+                sendSingleCommand(query);
+                
+            }
+            catch (Exception exception) {
+                LocalLog.exception(exception);
+            }
+        }
+        else {
+            LocalLog.error("Invoice could not be removed! This invoice does not exist");
+        }
     }
 
     /**
