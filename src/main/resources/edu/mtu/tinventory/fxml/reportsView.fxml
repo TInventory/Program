@@ -7,7 +7,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<SplitPane dividerPositions="0.13316582914572864" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" orientation="VERTICAL" prefHeight="407.0" prefWidth="622.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller = "edu.mtu.tinventory.gui.ReportsController">
+<SplitPane dividerPositions="0.13316582914572864" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" orientation="VERTICAL" prefHeight="407.0" prefWidth="622.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.mtu.tinventory.gui.ReportsController">
   <items>
     <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="40.0" prefWidth="609.0">
          <children>
@@ -26,7 +26,7 @@
                         <Font name="System Bold" size="36.0" />
                      </font>
                   </Label>
-                  <Button fx:id="salesCSV" mnemonicParsing="false" onAction="#salesButton" prefHeight="48.0" prefWidth="132.0" text="CSV" />
+                  <Button id="salesCSV" fx:id="salesCSV" mnemonicParsing="false" onAction="#salesButton" prefHeight="48.0" prefWidth="132.0" text="CSV" />
                </children>
             </VBox>
             <VBox layoutX="139.0" prefHeight="341.0" prefWidth="226.0">
@@ -36,7 +36,7 @@
                         <Font name="System Bold" size="36.0" />
                      </font>
                   </Label>
-                  <Button fx:id="invCSV" mnemonicParsing="false" onAction="#invButton" prefHeight="46.0" prefWidth="211.0" text="CSV" />
+                  <Button id="invCSV" fx:id="invCSV" mnemonicParsing="false" onAction="#invButton" prefHeight="46.0" prefWidth="211.0" text="CSV" />
                </children>
             </VBox>
             <VBox layoutX="365.0" prefHeight="347.0" prefWidth="239.0">
@@ -46,7 +46,7 @@
                         <Font name="System Bold" size="36.0" />
                      </font>
                   </Label>
-                  <Button fx:id="custCSV" mnemonicParsing="false" onAction="#custButton" prefHeight="45.0" prefWidth="242.0" text="CSV" />
+                  <Button id="custCSV" fx:id="custCSV" mnemonicParsing="false" onAction="#custButton" prefHeight="45.0" prefWidth="242.0" text="CSV" />
                </children>
             </VBox>
          </children></AnchorPane>

@@ -25,13 +25,39 @@ public class ReportsController extends Controller {
 	@FXML private Button custCSV;
 	private DatabaseInterface db = DatabaseInterface.getInstance();
 	
+	@FXML
+	private void initialize() {
+		salesCSV.setOnAction((event) -> {
+			try {
+				salesButton(event);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		});
+		invCSV.setOnAction((event) -> {
+			try {
+				invButton(event);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		});
+		custCSV.setOnAction((event) -> {
+			try {
+				custButton(event);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		});
+	}
+	
+	@FXML
 	private void salesButton(ActionEvent event) throws Exception {
 		List<Invoice> sales =  (List<Invoice>) FXCollections.observableList(db.getInvoices());
 		Writer write = null;
 		try {
 			SimpleDateFormat sdf = new SimpleDateFormat("yyyy_MM_dd_HH_mm_ss");
 			Date now = new Date(); 
-			File file = new File("InventoryReport" + sdf.format(now) + ".csv");
+			File file = new File("SalesReport" + sdf.format(now) + ".csv");
 			write = new BufferedWriter(new FileWriter(file));
 			
 			for (Invoice sale: sales) {
@@ -48,6 +74,7 @@ public class ReportsController extends Controller {
 
 	}
 	
+	@FXML
 	private void invButton(ActionEvent event)  throws Exception {
 		List<Product> inv = (List<Product>) FXCollections.observableList(db.getProducts());
 		Writer write = null;
@@ -71,6 +98,7 @@ public class ReportsController extends Controller {
 
 	}
 	
+	@FXML
 	private void custButton(ActionEvent event) throws Exception {
 		List<Customer> cust =  (List<Customer>) FXCollections.observableList(db.getCustomers());
 		Writer write = null;
@@ -92,28 +120,4 @@ public class ReportsController extends Controller {
 			write.close();
 		}
 	}	
-	
-	private void initialize() {
-		salesCSV.setOnAction(arg0 -> {
-			try {
-				salesButton(arg0);
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
-		});
-		invCSV.setOnAction(event -> {
-			try {
-				invButton(event);
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
-		});
-		custCSV.setOnAction(event -> {
-			try {
-				custButton(event);
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
-		});
-	}
 }
