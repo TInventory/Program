@@ -1,25 +1,29 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TextField?>
-<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
 <?import javafx.scene.layout.VBox?>
-<?import javafx.scene.text.Font?>
 
-<BorderPane fx:id="borderPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.mtu.tinventory.gui.UpdateProductsController">
-   <right>
-      <VBox spacing="3.0" BorderPane.alignment="CENTER">
-         <children>
-            <TextField fx:id="productID" promptText="Product ID" />
-            <TextField fx:id="quantity" onAction="#updateProduct" promptText="Qty to Add" />
-         </children>
-      </VBox>
-   </right>
-   <top>
-      <Label text="Receive Products" BorderPane.alignment="CENTER">
-         <font>
-            <Font size="32.0" />
-         </font>
-      </Label>
-   </top>
-</BorderPane>
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.mtu.tinventory.gui.UpdateProductsController">
+	<children>
+    	<TextField fx:id="productID" promptText="Product ID" />
+    	<TextField fx:id="quantity" promptText="Qty to Add" />
+    	<Button fx:id="button" mnemonicParsing="false" onAction="#updateProduct" text="Update Product" />	
+    	<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1">
+   			<children>
+   				 <TextField fx:id="filter" promptText="Enter search here..." />
+      			 <TextField fx:id="tagFilter" promptText="Enter tag(s) here..." />
+      			 <TableView fx:id="table" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" VBox.vgrow="ALWAYS">
+       			 	<columns>
+      			    	<TableColumn fx:id="idCol" editable="false" prefWidth="75.0" text="ID" />
+            			<TableColumn fx:id="nameCol" editable="false" prefWidth="75.0" text="Name" />
+           				<TableColumn fx:id="priceCol" editable="false" prefWidth="75.0" text="Price" />
+            			<TableColumn fx:id="qtyCol" editable="false" prefWidth="75.0" text="Quantity" />
+         			</columns>
+      			 </TableView>
+   			</children>
+		</VBox>
+   	</children>
+</VBox>
