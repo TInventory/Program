@@ -4,7 +4,6 @@ import edu.mtu.tinventory.logging.LocalLog;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
-import java.util.Properties;
 
 /**
  * 

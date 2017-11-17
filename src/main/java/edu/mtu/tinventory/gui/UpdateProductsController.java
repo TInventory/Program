@@ -2,7 +2,6 @@ package edu.mtu.tinventory.gui;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-
 import edu.mtu.tinventory.data.Product;
 import edu.mtu.tinventory.database.DatabaseInterface;
 import edu.mtu.tinventory.state.StateRegistry;

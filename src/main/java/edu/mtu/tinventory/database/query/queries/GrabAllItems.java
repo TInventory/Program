@@ -2,12 +2,10 @@ package edu.mtu.tinventory.database.query.queries;
 
 import edu.mtu.tinventory.logging.LocalLog;
 import edu.mtu.tinventory.util.DatabaseUtils;
-
 import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-
 import edu.mtu.tinventory.data.Product;
 import edu.mtu.tinventory.database.query.ExecuteQuery;
 

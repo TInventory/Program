@@ -6,7 +6,6 @@ import java.sql.Statement;
 import java.util.Queue;
 import java.util.concurrent.LinkedBlockingQueue;
 import java.util.concurrent.ScheduledFuture;
-
 import edu.mtu.tinventory.database.query.ExecuteQuery;
 import edu.mtu.tinventory.database.query.Query;
 import edu.mtu.tinventory.database.query.queries.ChangeConfigTable;

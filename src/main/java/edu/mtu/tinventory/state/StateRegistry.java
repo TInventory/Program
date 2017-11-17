@@ -1,6 +1,5 @@
 package edu.mtu.tinventory.state;
 
-import edu.mtu.tinventory.database.DatabaseInterface;
 import edu.mtu.tinventory.util.StringUtils;
 import java.util.HashSet;
 import java.util.Set;

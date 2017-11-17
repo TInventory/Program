@@ -1,7 +1,6 @@
 package edu.mtu.tinventory.data;
 
 import static edu.mtu.tinventory.gui.View.*;
-
 import edu.mtu.tinventory.gui.View;
 import edu.mtu.tinventory.util.StringUtils;
 import java.util.Arrays;

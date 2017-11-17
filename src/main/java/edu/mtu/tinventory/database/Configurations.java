@@ -1,7 +1,6 @@
 package edu.mtu.tinventory.database;
 
 import java.util.HashMap;
-
 import edu.mtu.tinventory.logging.LocalLog;
 
 public class Configurations {

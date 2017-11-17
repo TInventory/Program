@@ -2,7 +2,6 @@ package edu.mtu.tinventory;
 
 import edu.mtu.tinventory.data.Access;
 import edu.mtu.tinventory.data.Employee;
-import edu.mtu.tinventory.data.Invoice;
 import edu.mtu.tinventory.database.DatabaseInterface;
 import edu.mtu.tinventory.gui.Controller;
 import edu.mtu.tinventory.gui.IconLoader;

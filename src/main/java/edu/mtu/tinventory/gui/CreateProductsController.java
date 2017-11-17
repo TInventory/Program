@@ -2,13 +2,13 @@ package edu.mtu.tinventory.gui;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-
 import edu.mtu.tinventory.data.Product;
 import edu.mtu.tinventory.database.DatabaseInterface;
 import edu.mtu.tinventory.util.DatabaseUtils;
 import edu.mtu.tinventory.util.StringUtils;
 import javafx.fxml.FXML;
 import javafx.scene.control.TextField;
+
 /**
  * Controller class for the product creation window
  * @author Brandon Paupore

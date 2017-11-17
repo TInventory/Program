@@ -3,7 +3,6 @@ package edu.mtu.tinventory.database.query.queries;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Map.Entry;
 
 import edu.mtu.tinventory.database.Tables;
 import edu.mtu.tinventory.database.query.ExecuteQuery;

@@ -37,7 +37,6 @@ import edu.mtu.tinventory.gui.Dialogs;
 import edu.mtu.tinventory.logging.LocalLog;
 import edu.mtu.tinventory.state.StateRegistry;
 import edu.mtu.tinventory.util.DatabaseUtils;
-
 import edu.mtu.tinventory.util.StringUtils;
 import java.util.List;
 import java.util.concurrent.Executors;

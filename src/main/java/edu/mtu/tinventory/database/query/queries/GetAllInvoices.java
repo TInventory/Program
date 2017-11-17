@@ -5,9 +5,6 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-
-import edu.mtu.tinventory.data.Customer;
-import edu.mtu.tinventory.data.Employee;
 import edu.mtu.tinventory.data.Invoice;
 import edu.mtu.tinventory.database.Tables;
 import edu.mtu.tinventory.database.query.ExecuteQuery;

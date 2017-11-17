@@ -11,7 +11,6 @@ import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-
 import edu.mtu.tinventory.logging.LocalLog;
 import edu.mtu.tinventory.util.DefaultConfig;
 import edu.mtu.tinventory.util.LocalUtils;
