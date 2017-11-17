@@ -61,7 +61,7 @@ public class ReportsController extends Controller {
 			write = new BufferedWriter(new FileWriter(file));
 			
 			for (Invoice sale: sales) {
-				String buff = sale.getCustomer() + "," + sale.getDate() + "," + sale.getProductsString() + "," + sale.getTotal() + "\n";
+				String buff = sale.getCustomer().getCompanyName() + "," + sale.getCustomer().getPersonName() + "," + sale.getDate() + "," + sale.getProductsString() + "," + sale.getTotal() + "\n";
 				write.write(buff);
 			}
 			
