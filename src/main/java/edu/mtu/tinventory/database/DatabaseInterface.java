@@ -242,6 +242,7 @@ public class DatabaseInterface {
     public boolean updateItem(Product product) {
         try {
             sendSingleCommand(new UpdateProduct(product));
+            forceUpdateCache();
             return true;
         } catch (Exception e) {
             LocalLog.exception(e);
