@@ -10,10 +10,11 @@ public class StateRegistry {
 	public static final String SOLD_STATE = "SOLD";
 	private static final Set<String> SET = new HashSet<>();
 
-	static {
-		String states = DatabaseInterface.getInstance().getStatesString();
-		if(!StringUtils.isNullOrEmpty(states)) {
-			for(String state : states.split(":")) {
+	private StateRegistry() {} // Singleton
+
+	public static void setupRegistry(String states) {
+		if (!StringUtils.isNullOrEmpty(states)) {
+			for (String state : states.split(":")) {
 				registerState(state.toUpperCase());
 			}
 		} else {
@@ -21,8 +22,6 @@ public class StateRegistry {
 			registerState(SOLD_STATE);
 		}
 	}
-
-	private StateRegistry() {} // Singleton
 
 	/**
 	 * Registers a new State to be used in the database.

@@ -35,6 +35,7 @@ import edu.mtu.tinventory.database.query.queries.SaveInvoice;
 import edu.mtu.tinventory.database.query.queries.UpdateProduct;
 import edu.mtu.tinventory.gui.Dialogs;
 import edu.mtu.tinventory.logging.LocalLog;
+import edu.mtu.tinventory.state.StateRegistry;
 import edu.mtu.tinventory.util.DatabaseUtils;
 
 import java.util.List;
@@ -116,6 +117,8 @@ public class DatabaseInterface {
             quit();
             Platform.exit();
         }
+
+        StateRegistry.setupRegistry(getStatesString());
 
         checkIfFrozen(5);
         cache = null;
