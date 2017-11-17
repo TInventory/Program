@@ -15,7 +15,7 @@
    			<children>
    				 <TextField fx:id="filter" promptText="Enter search here..." />
       			 <TextField fx:id="tagFilter" promptText="Enter tag(s) here..." />
-      			 <TableView fx:id="table" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" VBox.vgrow="ALWAYS">
+      			 <TableView fx:id="table" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" VBox.vgrow="ALWAYS" onMouseClicked="#getID">
        			 	<columns>
       			    	<TableColumn fx:id="idCol" editable="false" prefWidth="75.0" text="ID" />
             			<TableColumn fx:id="nameCol" editable="false" prefWidth="75.0" text="Name" />
