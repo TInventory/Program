@@ -17,6 +17,7 @@ import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
+import javafx.stage.FileChooser;
 
 //8675309
 public class ReportsController extends Controller {
@@ -57,19 +58,26 @@ public class ReportsController extends Controller {
 		try {
 			SimpleDateFormat sdf = new SimpleDateFormat("yyyy_MM_dd_HH_mm_ss");
 			Date now = new Date(); 
-			File file = new File("SalesReport" + sdf.format(now) + ".csv");
-			write = new BufferedWriter(new FileWriter(file));
-			
-			for (Invoice sale: sales) {
-				String buff = sale.getCustomer().getCompanyName() + "," + sale.getCustomer().getPersonName() + "," + sale.getDate() + "," + sale.getProductsString() + "," + sale.getTotal() + "\n";
-				write.write(buff);
+			FileChooser fileChoose = new FileChooser();
+			fileChoose.setInitialFileName("SalesReport" + sdf.format(now) + ".csv");
+			try {
+				File file = fileChoose.showSaveDialog(stage);
+				write = new BufferedWriter(new FileWriter(file));
+
+				for (Invoice sale: sales) {
+					String buff = sale.getCustomer().getCompanyName() + "," + sale.getCustomer().getPersonName() + "," + sale.getDate() + "," + sale.getProductsString() + "," + sale.getTotal() + "\n";
+					write.write(buff);
+				}
+
+			} catch (Exception e) {
+
+			} finally {
+				write.flush();
+				write.close();
 			}
-			
-		} catch (Exception e) {
-			
-		} finally {
-			write.flush();
-			write.close();
+		}
+		catch (Exception e) {
+
 		}
 
 	}
@@ -81,19 +89,26 @@ public class ReportsController extends Controller {
 		try {
 			SimpleDateFormat sdf = new SimpleDateFormat("yyyy_MM_dd_HH_mm_ss");
 			Date now = new Date(); 
-			File file = new File("InventoryReport" + sdf.format(now) + ".csv");
-			write = new BufferedWriter(new FileWriter(file));
-			
-			for (Product prod: inv) {
-				String buff = prod.getName() + "," + prod.getID() + "," + prod.getPrice() + "," + prod.getQuanity() + "\n";
-				write.write(buff);
+			FileChooser fileChoose = new FileChooser();
+			fileChoose.setInitialFileName("InventoryReport" + sdf.format(now) + ".csv");
+			try {
+				File file = fileChoose.showSaveDialog(stage);
+				write = new BufferedWriter(new FileWriter(file));
+
+				for (Product prod: inv) {
+					String buff = prod.getName() + "," + prod.getID() + "," + prod.getPrice() + "," + prod.getQuanity() + "\n";
+					write.write(buff);
+				}
+
+			} catch (Exception e) {
+
+			} finally {
+				write.flush();
+				write.close();
 			}
-			
-		} catch (Exception e) {
-			
-		} finally {
-			write.flush();
-			write.close();
+		}
+		catch (Exception e) {
+
 		}
 
 	}
@@ -105,19 +120,25 @@ public class ReportsController extends Controller {
 		try {
 			SimpleDateFormat sdf = new SimpleDateFormat("yyyy_MM_dd_HH_mm_ss");
 			Date now = new Date(); 
-			File file = new File("CustomerReport" + sdf.format(now) + ".csv");
-			write = new BufferedWriter(new FileWriter(file));
-			
-			for (Customer cus: cust) {
-				String buff = cus.getCompanyName() + "," + cus.getPersonName() + "," + cus.getPhoneNumber() + "," + cus.getAddress() + "," + cus.getFaxNumber() + "," + cus.getPastSales() + "\n";
-				write.write(buff);
+			FileChooser fileChoose = new FileChooser();
+			fileChoose.setInitialFileName("CustomerReport" + sdf.format(now) + ".csv");
+			try {
+				File file = fileChoose.showSaveDialog(stage);
+				write = new BufferedWriter(new FileWriter(file));
+
+				for (Customer cus: cust) {
+					String buff = cus.getCompanyName() + "," + cus.getPersonName() + "," + cus.getPhoneNumber() + "," + cus.getAddress() + "," + cus.getFaxNumber() + "," + cus.getPastSales() + "\n";
+					write.write(buff);
+				}
+
+			} catch (Exception e) {
+
+			} finally {
+				write.flush();
+				write.close();
 			}
-			
 		} catch (Exception e) {
 			
-		} finally {
-			write.flush();
-			write.close();
 		}
 	}	
 }
