@@ -129,11 +129,16 @@ public class UpdateProductsController extends Controller {
 					DatabaseInterface.getInstance().updateItem(p);
 					productID.clear();
 					quantity.clear();
-					table.refresh();
+					initialize();
 				} else {
 					Dialogs.showDialog(Dialogs.Type.ERROR, "Invalid Product ID Specified", String.format("%s is not a valid Product ID.", productID.getText()));
 				}
 			}
 		}
+	}
+	
+	@FXML
+	private void getID() {
+		productID.setText(table.selectionModelProperty().get().getSelectedItem().getID());
 	}
 }
