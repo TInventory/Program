@@ -1,5 +1,6 @@
 package edu.mtu.tinventory.util;
 
+import edu.mtu.tinventory.data.Employee;
 import java.util.UUID;
 
 /**
@@ -37,7 +38,7 @@ public class StringUtils {
 
 	/**
 	 * Adds hyphens back into UUID string and returns the UUID object.
-	 * @param s The string of the UUID without hyphens.
+	 * @param string The string of the UUID without hyphens.
 	 * @return the UUID object for the String.
 	 */
 	public static UUID stringToUUID(String string) {
@@ -49,5 +50,17 @@ public class StringUtils {
 				'-' + string.substring(12, 16) +
 				'-' + string.substring(16, 20) +
 				'-' + string.substring(20));
+	}
+
+	/**
+	 * Returns the default password for an employee.
+	 * Format is {LASTNAME}FFF1.
+	 * @param employee The employee to get the default password for.
+	 * @return The default password for the employee.
+	 */
+	public static String getDefaultPassword(Employee employee) {
+		return employee.getLastName().toLowerCase() +
+				(employee.getFirstName().length() < 3 ? employee.getFirstName().toLowerCase() : employee.getFirstName().substring(0, 3).toLowerCase()) +
+				"1";
 	}
 }

@@ -106,6 +106,7 @@ public class Dialogs {
 
 		alert.getButtonTypes().clear();
 		alert.getButtonTypes().addAll(new ButtonType("Yes", ButtonBar.ButtonData.YES), new ButtonType("No", ButtonBar.ButtonData.NO));
+		alert.getDialogPane().setMinHeight(Region.USE_PREF_SIZE); // Fixes edge case sizing problems
 		Optional<ButtonType> result = alert.showAndWait();
 		return result.isPresent() && result.get().getText().equals("Yes");
 	}

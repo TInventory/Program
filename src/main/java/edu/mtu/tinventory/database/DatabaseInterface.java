@@ -38,6 +38,7 @@ import edu.mtu.tinventory.logging.LocalLog;
 import edu.mtu.tinventory.state.StateRegistry;
 import edu.mtu.tinventory.util.DatabaseUtils;
 
+import edu.mtu.tinventory.util.StringUtils;
 import java.util.List;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
@@ -635,7 +636,7 @@ public class DatabaseInterface {
         try {
             RegisterNewEmployee query = new RegisterNewEmployee(employee);
             sendSingleCommand(query);
-            return query.getPassword();
+            return StringUtils.getDefaultPassword(employee);
         } catch (Exception e) {
             LocalLog.exception(e);
             return null;
