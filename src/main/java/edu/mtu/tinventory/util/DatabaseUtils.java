@@ -1,6 +1,9 @@
 package edu.mtu.tinventory.util;
 
 import edu.mtu.tinventory.TInventory;
+import edu.mtu.tinventory.database.Configurations;
+import edu.mtu.tinventory.database.DatabaseConfig;
+import edu.mtu.tinventory.database.MySQL;
 import edu.mtu.tinventory.database.query.StatusUpdater;
 import edu.mtu.tinventory.database.query.queries.InfoStreams;
 import edu.mtu.tinventory.logging.LocalLog;
@@ -28,7 +31,7 @@ import java.util.regex.Pattern;
  *        easier
  */
 public class DatabaseUtils {
-
+    
     private static final Pattern COMPILE = Pattern.compile("-", Pattern.LITERAL);
     public static char[] allowed_chars = { '0', '1', '2', '3', '4', '5', '6', '7', '8', '9' };
 
@@ -287,4 +290,24 @@ public class DatabaseUtils {
         }
         return array;
     }
+    
+    /**
+     * Retrieves the data for the MySQL login and applies it
+     *
+     * @return MySQL instance
+     */
+    public static MySQL getMySQL() {
+        Configurations config;
+        // If in debug mode
+        if (TInventory.getDebugFlag()) {
+            config = DatabaseConfig.getDebugSQLConfig().getConfigurations();
+        }
+        else {
+            config = DatabaseConfig.getSQLConfig().getConfigurations();
+        }
+
+        return new MySQL(config.getUsername(), config.getPassword(), config.getDatabase(), config.getHost(),
+                config.getPort());
+    }
+
 }

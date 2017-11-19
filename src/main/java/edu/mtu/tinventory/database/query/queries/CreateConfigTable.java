@@ -1,5 +1,6 @@
 package edu.mtu.tinventory.database.query.queries;
 
+import edu.mtu.tinventory.database.Tables;
 import edu.mtu.tinventory.database.query.Query;
 
 /**
@@ -12,17 +13,17 @@ import edu.mtu.tinventory.database.query.Query;
  */
 public class CreateConfigTable implements Query {
 
-    private String table;
+    private String tableName;
 
-    public CreateConfigTable(String tableName) {
-        this.table = tableName;
+    public CreateConfigTable(Tables table) {
+        this.tableName = table.toString();
     }
 
     @Override
     public String getQuery() {
         return String.format(
                 "CREATE TABLE IF NOT EXISTS %s (parameter NVARCHAR(120) , value NVARCHAR(6000) );",
-                table);
+                tableName);
     }
 
 }

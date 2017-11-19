@@ -1,5 +1,6 @@
 package edu.mtu.tinventory.database.query.queries;
 
+import edu.mtu.tinventory.database.Tables;
 import edu.mtu.tinventory.database.query.Query;
 
 /**
@@ -20,8 +21,8 @@ public class DropTable implements Query {
      * Constructor
      * @param table Name of the table to be dropped
      */
-    public DropTable(String table) {
-        this.table = table;
+    public DropTable(Tables table) {
+        this.table = table.toString();
     }
     @Override
     public String getQuery() {

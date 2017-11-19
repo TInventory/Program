@@ -23,6 +23,7 @@ public class CheckEmployeeExists implements ExecuteQuery {
 	// SQL Executable waiting boolean 
     private boolean waiting;
 
+    private String tableName;
 	/**
 	* Constructor 
 	* Executable SQL Instance of CheckEmployeeExists
@@ -30,15 +31,16 @@ public class CheckEmployeeExists implements ExecuteQuery {
 	* @param employeeID String : Unhyphenated UUID of employee to chck for
 	*/
 	// TODO: Add table parameter
-    public CheckEmployeeExists(String employeeID) {
+    public CheckEmployeeExists(String employeeID, Tables table) {
         this.employeeID = employeeID;
         this.exists = false;
         this.waiting = true;
+        this.tableName = table.toString();
     }
 
     @Override
     public String getQuery() {
-        return String.format("SELECT * FROM %s WHERE id = '%s'", Tables.EMPLOYEES_TABLE_NAME.nameToString(), employeeID);
+        return String.format("SELECT * FROM %s WHERE id = '%s'", tableName, employeeID);
     }
 
     @Override

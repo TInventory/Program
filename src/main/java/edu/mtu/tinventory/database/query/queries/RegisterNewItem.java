@@ -1,6 +1,7 @@
 package edu.mtu.tinventory.database.query.queries;
 
 import edu.mtu.tinventory.data.Product;
+import edu.mtu.tinventory.database.Tables;
 import edu.mtu.tinventory.database.query.Query;
 
 public class RegisterNewItem implements Query {
@@ -17,13 +18,13 @@ public class RegisterNewItem implements Query {
 	 * @param product
 	 *            Product: product to be inserted into the database
 	 */
-	public RegisterNewItem(String table, Product product) {
+	public RegisterNewItem(Tables table, Product product) {
 		name = "'" + product.getName() + "'";
 		iD = "'" + product.getID() + "'";
 		price = "'" + product.getPrice().toPlainString() + "'";
 		quantity = "'" + product.getQuanity() + "'";
 
-		this.table = table;
+		this.table = table.toString();
 	}
 
 	@Override

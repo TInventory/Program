@@ -25,20 +25,22 @@ public class GetProduct implements ExecuteQuery {
 	// Waiting boolean for SQL execution
 	private boolean waiting;
 
+	private String tableName;
 	/**
 	* Constructor
 	* Instance of Executable GetProduct
 	*
 	* @param productID String: ID of product to retrieve
 	*/
-	public GetProduct(String productID) {
+	public GetProduct(String productID, Tables table) {
 		this.productID = productID;
 		this.waiting = true;
+		this.tableName = table.toString();
 	}
 
 	@Override
 	public String getQuery() {
-		return String.format("SELECT * FROM %s WHERE id = '%s'", Tables.INVENTORY_TABLE_NAME.nameToString(), productID);
+		return String.format("SELECT * FROM %s WHERE id = '%s'", tableName, productID);
 	}
 
 	@Override

@@ -7,15 +7,17 @@ import edu.mtu.tinventory.util.StringUtils;
 
 public class RegisterNewEmployee implements Query {
     private Employee employee;
+    private String tableName;
 
-    public RegisterNewEmployee(Employee employee) {
+    public RegisterNewEmployee(Employee employee, Tables table) {
         this.employee = employee;
+        this.tableName = table.toString();
     }
 
     @Override
     public String getQuery() {
         return String.format("INSERT INTO %s VALUES ('%s', '%s', '%s', '%s', '%s', '')",
-                Tables.EMPLOYEES_TABLE_NAME.nameToString(), employee.getID(), employee.getFirstName(),
+                tableName, employee.getID(), employee.getFirstName(),
                 employee.getLastName(), StringUtils.getDefaultPassword(employee), employee.getAccess().getLevel().toString());
     }
 }

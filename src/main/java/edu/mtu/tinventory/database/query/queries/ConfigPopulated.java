@@ -13,10 +13,16 @@ public class ConfigPopulated implements ExecuteQuery{
 
     private boolean waiting = true;
     private boolean isPopulated = false;
+    private String tableName;
+    
+    public ConfigPopulated(Tables table) {
+        this.tableName = table.toString();
+    }
+    
     
     @Override
     public String getQuery() {
-        return String.format("SELECT NULL FROM %s LIMIT 1;", Tables.CONFIGURATION_TABLE_NAME.toString());
+        return String.format("SELECT NULL FROM %s LIMIT 1;", tableName);
     }
 
     @Override

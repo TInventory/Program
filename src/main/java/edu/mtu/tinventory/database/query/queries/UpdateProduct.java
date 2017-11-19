@@ -15,6 +15,7 @@ public class UpdateProduct implements Query {
 	// Instance of product to update
 	private Product product;
 
+	private String tableName;
 	/**
 	* Constructor
 	* Executable instance of UpdateProduct
@@ -23,14 +24,15 @@ public class UpdateProduct implements Query {
 	*
 	*/
 	//TODO: incorperate table specification
-	public UpdateProduct(Product product) {
+	public UpdateProduct(Product product, Tables table) {
 		this.product = product;
+		this.tableName = table.toString();
 	}
 
 	@Override
 	public String getQuery() {
 		return String.format("UPDATE %s SET name = '%s', price = '%s', quantity = '%s' WHERE id = '%s'",
-				Tables.INVENTORY_TABLE_NAME.nameToString(), product.getName(), product.getPrice().toPlainString(),
+				tableName, product.getName(), product.getPrice().toPlainString(),
 				product.getQuanity(), product.getID());
 	}
 }

@@ -15,7 +15,7 @@ public class RemoveInvoice implements Query {
 	// Invoice object to be removed
     private Invoice invoice;
 	// Table to remove the invoice from
-    private Tables table;
+    private String tableName;
 
 	/**
 	* Constructor
@@ -24,15 +24,15 @@ public class RemoveInvoice implements Query {
 	* @param invoice Invoice: The invoice to be removed
 	*/
 	// TODO: Add table specification
-    public RemoveInvoice(Invoice invoice) {
+    public RemoveInvoice(Invoice invoice, Tables table) {
         this.invoice = invoice;
-        this.table = Tables.INVOICE_TABLE_NAME;
+        this.tableName =  table.toString();
 
     }
 
     @Override
     public String getQuery() {
-        return String.format("DELETE FROM %s WHERE id=%s;", table.toString(), "'" + invoice.getId() + "'");
+        return String.format("DELETE FROM %s WHERE id=%s;", tableName, "'" + invoice.getId() + "'");
     }
 
 }

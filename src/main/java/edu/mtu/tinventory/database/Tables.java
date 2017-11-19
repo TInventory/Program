@@ -18,7 +18,8 @@ public enum Tables {
     TESTING_INVENTORY_TABLE("test_inventory"),
     TESTING_CUSTOMER_TABLE("test_customers"),
     TESTING_CONFIGURATION_TABLE("test_configurations"),
-    TESTING_INVOICES_TABLE("test_invoices");
+    TESTING_INVOICES_TABLE("test_invoices"),
+    TESTING_EMPLOYEE_TABLE("test_employees");
 
     private String nameToString;
 

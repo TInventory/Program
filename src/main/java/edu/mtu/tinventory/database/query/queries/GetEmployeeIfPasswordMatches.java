@@ -16,17 +16,19 @@ public class GetEmployeeIfPasswordMatches implements ExecuteQuery {
 	private String passwdToMatch;
 	private Employee employee;
 	private boolean waiting;
+	private String tableName;
 
-	public GetEmployeeIfPasswordMatches(String employeeID, String passwdToMatch) {
+	public GetEmployeeIfPasswordMatches(String employeeID, String passwdToMatch, Tables table) {
 		this.employeeID = employeeID;
 		this.passwdToMatch = passwdToMatch;
 		this.employee = null;
 		this.waiting = true;
+		this.tableName = table.toString();
 	}
 
 	@Override
 	public String getQuery() {
-		return String.format("SELECT * FROM %s WHERE id='%s'", Tables.EMPLOYEES_TABLE_NAME.nameToString(), employeeID);
+		return String.format("SELECT * FROM %s WHERE id='%s'", tableName, employeeID);
 	}
 
 	@Override

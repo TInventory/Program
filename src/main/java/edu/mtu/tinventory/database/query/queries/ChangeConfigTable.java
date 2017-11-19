@@ -7,15 +7,17 @@ public class ChangeConfigTable implements Query{
 
     private String parameter;
     private String value;
+    private String tableName;
     
-    public ChangeConfigTable(String parameter, String value) {
+    public ChangeConfigTable(String parameter, String value, Tables table) {
         this.parameter = "'" + parameter + "'";
         this.value = "'" + value + "'";
+        this.tableName = table.toString();
     }
 
     @Override
     public String getQuery() {
-        return String.format("UPDATE %s SET value=%s WHERE parameter=%s;", Tables.CONFIGURATION_TABLE_NAME ,value ,parameter);
+        return String.format("UPDATE %s SET value=%s WHERE parameter=%s;", tableName ,value ,parameter);
     }
 
 }

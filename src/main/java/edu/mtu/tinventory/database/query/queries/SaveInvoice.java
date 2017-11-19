@@ -14,6 +14,8 @@ import edu.mtu.tinventory.database.query.Query;
 public class SaveInvoice implements Query {
 	// Invoice to save to the database
 	private Invoice invoice;
+	
+	private String tableName;
 
 	/**
 	* Constructor
@@ -22,13 +24,14 @@ public class SaveInvoice implements Query {
 	* @param invoice Invoice: The invoice to be saved from the database
 	*/
 	//TODO: Add table specification
-	public SaveInvoice(Invoice invoice) {
+	public SaveInvoice(Invoice invoice, Tables table) {
 		this.invoice = invoice;
+		this.tableName = table.toString();
 	}
 
 	@Override
 	public String getQuery() {
-		return String.format("INSERT INTO %s VALUES (%d, '%s', '%s', '%s')", Tables.INVOICE_TABLE_NAME.nameToString(),
+		return String.format("INSERT INTO %s VALUES (%d, '%s', '%s', '%s')", tableName,
 				invoice.getId(), invoice.getDate().toString(), invoice.getCustomer().getIDString(), invoice.getProductsString());
 	}
 }

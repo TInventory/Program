@@ -16,15 +16,17 @@ public class GetInvoicesForCustomer implements ExecuteQuery {
 	private Customer customer;
 	private List<Invoice> invoices;
 	private boolean waiting;
+	private String tableName;
 
-	public GetInvoicesForCustomer(Customer customer) {
+	public GetInvoicesForCustomer(Customer customer, Tables table) {
 		this.customer = customer;
 		this.waiting = true;
+		this.tableName = table.toString();
 	}
 
 	@Override
 	public String getQuery() {
-		return String.format("SELECT * FROM %s WHERE customer = '%s'", Tables.INVOICE_TABLE_NAME.nameToString(), customer.getIDString());
+		return String.format("SELECT * FROM %s WHERE customer = '%s'", tableName, customer.getIDString());
 	}
 
 	@Override

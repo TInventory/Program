@@ -1,5 +1,6 @@
 package edu.mtu.tinventory.database.query.queries;
 
+import edu.mtu.tinventory.database.Tables;
 import edu.mtu.tinventory.database.query.Query;
 
 /**
@@ -14,8 +15,8 @@ public class CreateDataTable implements Query {
 
     private String table;
 
-    public CreateDataTable(String tableName) {
-        this.table = tableName;
+    public CreateDataTable(Tables table) {
+        this.table = table.toString();
     }
 
     @Override

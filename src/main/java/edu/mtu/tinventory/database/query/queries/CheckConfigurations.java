@@ -14,15 +14,17 @@ public class CheckConfigurations implements ExecuteQuery{
     private String parameter;
     private boolean waiting;
     private String value;
+    private String tableName;
     
-    public CheckConfigurations(String parameter) {
+    public CheckConfigurations(String parameter, Tables table) {
         this.parameter = "'" + parameter + "'";
         this.value = "";
         this.waiting = true;
+        this.tableName = table.toString();
     }
     @Override
     public String getQuery() {
-        return String.format("SELECT DISTINCT value FROM %s WHERE parameter=%s;", Tables.CONFIGURATION_TABLE_NAME, parameter);
+        return String.format("SELECT DISTINCT value FROM %s WHERE parameter=%s;", tableName, parameter);
     }
 
     @Override

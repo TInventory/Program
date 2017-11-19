@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import edu.mtu.tinventory.data.Product;
+import edu.mtu.tinventory.database.Tables;
 import edu.mtu.tinventory.database.query.ExecuteQuery;
 
 /**
@@ -30,8 +31,8 @@ public class GrabAllItems implements ExecuteQuery {
      * 
      * @param table Name of the table to grab from
      */
-    public GrabAllItems(String table) {
-        this.table = table;
+    public GrabAllItems(Tables table) {
+        this.table = table.toString();
         data = null;
         waiting = true;
     }

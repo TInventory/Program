@@ -15,16 +15,18 @@ public class GetCustomer implements ExecuteQuery {
 	private String customerID;
 	private Customer customer;
 	private boolean waiting;
-
-	public GetCustomer(String customerID) {
+	private String tableName;
+	
+	public GetCustomer(String customerID, Tables table) {
 		this.customerID = customerID;
 		this.waiting = true;
+		this.tableName = table.toString();
 	}
 
 	@Override
 	public String getQuery() {
 		
-		String s = String.format("SELECT * FROM %s WHERE id = '%s'", Tables.CUSTOMER_TABLE_NAME.nameToString(),
+		String s = String.format("SELECT * FROM %s WHERE id = '%s'", tableName,
 				customerID);
 		return s;
 	}

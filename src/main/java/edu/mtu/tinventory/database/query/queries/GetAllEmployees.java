@@ -26,10 +26,14 @@ public class GetAllEmployees implements ExecuteQuery {
 	// waiting value of SQL completion
 	private boolean waiting = true;
 	//TODO: Constructor for table
-
+	private String tableName;
+	
+	public GetAllEmployees(Tables table) {
+	    this.tableName = table.toString();
+	}
 	@Override
 	public String getQuery() {
-		return String.format("SELECT * FROM %s", Tables.EMPLOYEES_TABLE_NAME.nameToString());
+		return String.format("SELECT * FROM %s", tableName);
 	}
 
 	@Override

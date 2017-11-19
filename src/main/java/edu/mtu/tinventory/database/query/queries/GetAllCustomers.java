@@ -15,10 +15,20 @@ import java.util.List;
 public class GetAllCustomers implements ExecuteQuery {
 	private List<Customer> customers;
 	private boolean waiting = true;
-
+	private String tableName;
+	/**
+	 * Constructor
+	 * Instance of Executable to retrieve all customers
+	 * 
+	 * @param table Tables: Table to execute query to
+	 */
+	public GetAllCustomers(Tables table) {
+	 this.tableName = table.toString();
+	}
+	
 	@Override
 	public String getQuery() {
-		return String.format("SELECT * FROM %s", Tables.CUSTOMER_TABLE_NAME.nameToString());
+		return String.format("SELECT * FROM %s", tableName);
 	}
 
 	@Override
