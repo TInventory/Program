@@ -12,10 +12,18 @@ import edu.mtu.tinventory.database.query.Query;
  *        Query to remove a single invoice from the database.
  */
 public class RemoveInvoice implements Query {
-
+	// Invoice object to be removed
     private Invoice invoice;
+	// Table to remove the invoice from
     private Tables table;
 
+	/**
+	* Constructor
+	* Executable instance of RemoveInoice
+	*
+	* @param invoice Invoice: The invoice to be removed
+	*/
+	// TODO: Add table specification
     public RemoveInvoice(Invoice invoice) {
         this.invoice = invoice;
         this.table = Tables.INVOICE_TABLE_NAME;

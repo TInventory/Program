@@ -275,6 +275,9 @@ public class DatabaseConfig {
      */
     public boolean write(String text) {
         try {
+		// No write access in /usr/
+		// Or user.dir
+		// Check for way to ask for permissions by default?
             BufferedWriter writer = new BufferedWriter(new FileWriter(file));
             writer.write(text);
             // Maybe there is a more efficient way to do this for log, maybe
