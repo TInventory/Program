@@ -3,12 +3,23 @@ package edu.mtu.tinventory.database;
 import java.util.HashMap;
 import edu.mtu.tinventory.logging.LocalLog;
 
+/**
+ * 
+ * @author JC Helm <jchelm@mtu.edu>
+ * @since 11/11/17
+ *
+ */
 public class Configurations {
 
+    /** Username for SQL Login*/
     private String username;
+    /** Password for SQL Login*/
     private String password;
+    /** Name of the database to connect to*/
     private String database;
+    /** URL of host to connect to*/
     private String host;
+    /** Port to connect to for SQL */
     private int port;
 
     /**
