@@ -2,11 +2,11 @@
 To begin using the program, you must first acquire the binary file.
 
 ## Method 1: Downloading from GitHub
-You can download the pre-compiled binaries for specific versions from the [releases
- section of our GitHub page][1]. You will likely want the `all` version of the
- binary, as that has all the dependencies shadowed into a single JAR file. If you
- will be providing your own copy of our dependencies and link them yourself, you
- may use the `bin` version of the binary.
+You can download the pre-compiled binaries for specific versions from the
+ [releases section of our GitHub page][1]. You will likely want the `all` version
+ of the binary, as that has all the dependencies shadowed into a single JAR file.
+ If you will be providing your own copy of our dependencies and link them yourself,
+ you may use the `bin` version of the binary.
 
 After downloading the necessary file, run it like you would run any Java JAR file.
  TInventory requires Java 8 or later to run.
