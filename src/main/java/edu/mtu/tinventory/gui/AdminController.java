@@ -68,7 +68,24 @@ public class AdminController extends Controller {
 
 	@FXML
 	private void changeAccess() {
-		//TODO: Going to need to pass selected employee into the controller
+		try {
+			FXMLLoader loader = new FXMLLoader(TInventory.class.getResource("fxml/changeAccessLevel.fxml"));
+			GridPane pane = loader.load();
+			AdminSubController c = loader.getController();
+			Stage stage = new Stage();
+			c.setMainApp(mainApp);
+			c.setStage(stage);
+			c.setSelectedEmployee(table.getSelectionModel().getSelectedItem());
+			stage.initOwner(this.stage);
+			stage.initModality(Modality.WINDOW_MODAL);
+			stage.setScene(new Scene(pane));
+			stage.setTitle(String.format("Change Access Level - %s - TInventory", table.getSelectionModel().getSelectedItem().getFullName()));
+			stage.getIcons().add(mainApp.getIcon());
+			stage.showAndWait();
+		} catch (IOException e) {
+			LocalLog.exception("Failed to open changeAccessLevel dialog.", e);
+			Dialogs.showDialogWithException("Couldn't open window", "Failed to open Change Access Level window.", e);
+		}
 	}
 
 	@FXML

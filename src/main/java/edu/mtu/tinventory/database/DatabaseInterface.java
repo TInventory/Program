@@ -1,5 +1,6 @@
 package edu.mtu.tinventory.database;
 
+import edu.mtu.tinventory.data.Access;
 import edu.mtu.tinventory.data.Customer;
 import edu.mtu.tinventory.data.Employee;
 import edu.mtu.tinventory.data.Invoice;
@@ -289,6 +290,16 @@ public class DatabaseInterface {
 
     public String registerNewEmployee(Employee employee) {
         return api.registerNewEmployee(employee, Tables.EMPLOYEES_TABLE_NAME);
+    }
+
+    /**
+     * Update the access on the specified employee.
+     * @param employee The employee to be updated
+     * @param newAccess The new access to be assigned to the employee
+     * @return The employee with the new access if successful, null if unsuccessful
+     */
+    public Employee updateAccess(Employee employee, Access newAccess) {
+        return api.updateAccess(employee, newAccess, Tables.EMPLOYEES_TABLE_NAME);
     }
 
     public boolean changePassword(Employee employee, String newPassword) {

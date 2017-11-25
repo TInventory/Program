@@ -46,6 +46,11 @@ public class Employee {
 		return access;
 	}
 
+	public Employee updateAccess(Access newAccess) {
+		this.access = newAccess;
+		return this;
+	}
+
 	@Override
 	public boolean equals(Object o) {
 		return o instanceof Employee && id.equalsIgnoreCase(((Employee)o).getID());

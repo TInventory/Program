@@ -4,6 +4,7 @@ import static edu.mtu.tinventory.gui.View.*;
 import edu.mtu.tinventory.gui.View;
 import edu.mtu.tinventory.util.StringUtils;
 import java.util.Arrays;
+import java.util.Collection;
 import java.util.EnumSet;
 import java.util.Set;
 
@@ -61,6 +62,11 @@ public class Access {
 		}
 	}
 
+	public Access(Level level, Collection<View> views) {
+		this.level = level;
+		this.additional = EnumSet.copyOf(views);
+	}
+
 	public Level getLevel() {
 		return level;
 	}
@@ -87,6 +93,10 @@ public class Access {
 		return !level.hasAccess(view) && additional.contains(view) && additional.remove(view);
 	}
 
+	public Set<View> getOverrides() {
+		return EnumSet.copyOf(additional); // To prevent direct alteration
+	}
+
 	public String getOverridesString() {
 		if(!additional.isEmpty()) {
 			StringBuilder sb = new StringBuilder();
@@ -97,5 +107,9 @@ public class Access {
 		} else {
 			return "";
 		}
+	}
+
+	public Access duplicate() {
+		return new Access(level, additional);
 	}
 }

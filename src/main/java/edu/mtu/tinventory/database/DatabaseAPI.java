@@ -1,5 +1,6 @@
 package edu.mtu.tinventory.database;
 
+import edu.mtu.tinventory.data.Access;
 import edu.mtu.tinventory.data.Customer;
 import edu.mtu.tinventory.data.Employee;
 import edu.mtu.tinventory.data.Invoice;
@@ -31,6 +32,7 @@ import edu.mtu.tinventory.database.query.queries.RegisterNewEmployee;
 import edu.mtu.tinventory.database.query.queries.RegisterNewItem;
 import edu.mtu.tinventory.database.query.queries.RemoveInvoice;
 import edu.mtu.tinventory.database.query.queries.SaveInvoice;
+import edu.mtu.tinventory.database.query.queries.UpdateEmployeeAccess;
 import edu.mtu.tinventory.database.query.queries.UpdateProduct;
 import edu.mtu.tinventory.gui.Dialogs;
 import edu.mtu.tinventory.logging.LocalLog;
@@ -631,9 +633,25 @@ public class DatabaseAPI {
 
     public String registerNewEmployee(Employee employee, Tables table) {
         try {
-            RegisterNewEmployee query = new RegisterNewEmployee(employee, table);
-            sendSingleCommand(query);
+            sendSingleCommand(new RegisterNewEmployee(employee, table));
             return StringUtils.getDefaultPassword(employee);
+        } catch (Exception e) {
+            LocalLog.exception(e);
+            return null;
+        }
+    }
+
+    /**
+     * Update the access on the specified employee.
+     * @param employee The employee to be updated
+     * @param newAccess The new access to be assigned to the employee
+     * @param table The table to be updated in the database
+     * @return The employee with the new access if successful, null if unsuccessful
+     */
+    public Employee updateAccess(Employee employee, Access newAccess, Tables table) {
+        try {
+            sendSingleCommand(new UpdateEmployeeAccess(employee, newAccess, table));
+            return employee.updateAccess(newAccess);
         } catch (Exception e) {
             LocalLog.exception(e);
             return null;
