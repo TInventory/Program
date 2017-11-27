@@ -18,6 +18,7 @@ pages:
         - View Customers: 'views/viewcust.md'
         - View Sales: 'views/viewsales.md'
         - Admin: 'views/admin.md'
+        - Reports: 'views/reports.md'
 
 # Everything below this line should not need to be changed
 site_name: TInventory User Manual
