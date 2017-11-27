@@ -47,7 +47,9 @@ public class Invoice {
 		//TODO: Get the next unique Invoice # from a user-specified format. Probably from the database?
 		//		Date should always be today. Maybe include a initializer for other dates, but would need a use case for it.
 		Invoice i = new Invoice((int)(Math.random() * 100000), LocalDate.now(), products, customer);
-		if(!testing && DatabaseInterface.getInstance().saveInvoice(i)) {
+		if (testing) {
+			return i;
+		} else if(DatabaseInterface.getInstance().saveInvoice(i)) {
 			return i;
 		} else {
 			return null;

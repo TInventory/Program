@@ -16,7 +16,6 @@ public class ConsumerTest {
         consumer = new Consumer(sql, null);
     }
 
-    @Ignore
     @Test
     public void queue() {
         

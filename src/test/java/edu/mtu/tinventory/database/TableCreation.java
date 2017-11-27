@@ -49,6 +49,5 @@ public class TableCreation {
         api.quit();
         // erase from memory
         api = null;
-        System.exit(0);
     }
 }
