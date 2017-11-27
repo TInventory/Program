@@ -9,12 +9,15 @@ pages:
     - Home: 'index.md'
     - Getting Started: 'gettingstarted.md'
     - Basic Usage: 'basicuse.md'
+    - Changing Your Password: 'changepass.md'
     - Views:
         - View Inventory: 'views/viewinv.md'
         - Create New Products: 'views/createproducts.md'
         - Sell Inventory: 'views/sellinv.md'
         - Update Products: 'views/receiveinv.md'
         - View Customers: 'views/viewcust.md'
+        - View Sales: 'views/viewsales.md'
+        - Admin: 'views/admin.md'
 
 # Everything below this line should not need to be changed
 site_name: TInventory User Manual
