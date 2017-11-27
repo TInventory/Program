@@ -60,6 +60,7 @@ public class AdminController extends Controller {
 			stage.setTitle("Create Employee - TInventory");
 			stage.getIcons().add(mainApp.getIcon());
 			stage.showAndWait();
+			initialize();
 		} catch (IOException e) {
 			LocalLog.exception("Failed to open createEmployee dialog.", e);
 			Dialogs.showDialogWithException("Couldn't open window", "Failed to open Add Employee window.", e);
@@ -82,6 +83,8 @@ public class AdminController extends Controller {
 			stage.setTitle(String.format("Change Access Level - %s - TInventory", table.getSelectionModel().getSelectedItem().getFullName()));
 			stage.getIcons().add(mainApp.getIcon());
 			stage.showAndWait();
+			DatabaseInterface.getInstance().forceUpdateCache();
+			initialize();
 		} catch (IOException e) {
 			LocalLog.exception("Failed to open changeAccessLevel dialog.", e);
 			Dialogs.showDialogWithException("Couldn't open window", "Failed to open Change Access Level window.", e);

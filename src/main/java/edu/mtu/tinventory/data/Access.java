@@ -11,8 +11,9 @@ import java.util.Set;
 public class Access {
 	//TODO: Maybe change/expand on these...or make them dynamically defined? Something...
 	public enum Level {
-		SALESMAN(VIEW_INV, SELL_INV, VIEW_CUSTOMERS, VIEW_INVOICES),
-		MANAGER(SALESMAN, CREATE_PRODUCT, UPDATE_PRODUCT, REPORTSCONTROLLER),
+		SALESMAN(VIEW_INV, SELL_INV, VIEW_CUSTOMERS),
+		STOCKER(SALESMAN, UPDATE_PRODUCT),
+		MANAGER(SALESMAN, CREATE_PRODUCT, UPDATE_PRODUCT, REPORTSCONTROLLER, VIEW_INVOICES),
 		ADMINISTRATOR(MANAGER, ADMIN); // TODO: Probably some stuff later
 
 		private Set<View> views;
