@@ -30,7 +30,6 @@ public class CheckEmployeeExists implements ExecuteQuery {
 	*
 	* @param employeeID String : Unhyphenated UUID of employee to chck for
 	*/
-	// TODO: Add table parameter
     public CheckEmployeeExists(String employeeID, Tables table) {
         this.employeeID = employeeID;
         this.exists = false;

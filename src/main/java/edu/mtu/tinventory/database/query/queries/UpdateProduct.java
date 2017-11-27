@@ -23,7 +23,6 @@ public class UpdateProduct implements Query {
 	* @param product Product: product to be updated
 	*
 	*/
-	//TODO: incorperate table specification
 	public UpdateProduct(Product product, Tables table) {
 		this.product = product;
 		this.tableName = table.toString();

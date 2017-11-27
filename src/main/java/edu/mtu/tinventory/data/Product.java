@@ -10,15 +10,12 @@ import java.util.Locale;
 public class Product {
     // We only need one instance of this for all Products. May want to move to
     // some other class...
-    public static final NumberFormat PRICE_FORMAT = NumberFormat.getCurrencyInstance(Locale.US); // TODO:
-                                                                                                 // Maybe
-                                                                                                 // localization?
+    public static final NumberFormat PRICE_FORMAT = NumberFormat.getCurrencyInstance(Locale.US);
     // The Model # / SKU / Unique Identifier
     private String id;
     // The human-friendly name
     private String name;
     // The quantity of items in each state
-    // TODO: Create proxy methods in this class? Something to get qtys.
     private StateQtyMap quantities;
     // The cost of this item. Using BigDecimal to avoid imprecision of floating
     // point.

@@ -203,22 +203,6 @@ public class DatabaseAPI {
     }
 
     /**
-     * Completely removes an item type from the database
-     *
-     *
-     * @param product
-     *            Product: The product to be permanently removed form the
-     *            database
-     *
-     * @return Returns true if the action is successful and the item is
-     *         completely removed from the database, otherwise returns false
-     */
-    public boolean deleteItem(Product product, Tables table) {
-        //TODO: Add in
-        return false;
-    }
-
-    /**
      * Updates the Product in the database with the information in this instance
      * of Product. This method takes the ProductID from the passed-in product
      * instance, and then updates the database with any new information found on

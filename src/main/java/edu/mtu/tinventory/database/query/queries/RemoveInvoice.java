@@ -23,7 +23,6 @@ public class RemoveInvoice implements Query {
 	*
 	* @param invoice Invoice: The invoice to be removed
 	*/
-	// TODO: Add table specification
     public RemoveInvoice(Invoice invoice, Tables table) {
         this.invoice = invoice;
         this.tableName =  table.toString();

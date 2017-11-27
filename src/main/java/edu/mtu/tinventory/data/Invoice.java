@@ -44,8 +44,6 @@ public class Invoice {
 	 * @return The Invoice object created from this information, or null if the Database failed to create the Invoice.
 	 */
 	public static Invoice createNewInvoice(List<PurchasedProduct> products, Customer customer, boolean testing) {
-		//TODO: Get the next unique Invoice # from a user-specified format. Probably from the database?
-		//		Date should always be today. Maybe include a initializer for other dates, but would need a use case for it.
 		Invoice i = new Invoice((int)(Math.random() * 100000), LocalDate.now(), products, customer);
 		if (testing) {
 			return i;

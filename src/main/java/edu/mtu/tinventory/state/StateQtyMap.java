@@ -7,8 +7,6 @@ import java.util.Map;
 /**
  * Wrapper around HashMap to make things more convenient.
  */
-// TODO: Update database after calling most of these methods. Probably want more
-// methods to, idk.
 public class StateQtyMap {
     private final HashMap<String, Integer> map;
 

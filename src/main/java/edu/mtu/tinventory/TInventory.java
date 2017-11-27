@@ -36,7 +36,7 @@ public class TInventory extends Application {
 		DatabaseUtils.checkStatus();
 		icon = new IconLoader().getIcon();
 
-		if (getParameters().getRaw().contains("-nologin")) { // TODO: Strip this in final program.
+		if (getParameters().getRaw().contains("-nologin")) {
 			LocalLog.info("Using Testing account.");
 			loggedIn = new Employee("TESTING", "Test", "Ing", new Access(Access.Level.ADMINISTRATOR));
 			debugFlag = true;

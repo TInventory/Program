@@ -25,7 +25,7 @@ public class GetAllEmployees implements ExecuteQuery {
 	private List<Employee> employees;
 	// waiting value of SQL completion
 	private boolean waiting = true;
-	//TODO: Constructor for table
+
 	private String tableName;
 	
 	public GetAllEmployees(Tables table) {

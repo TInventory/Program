@@ -23,7 +23,6 @@ public class SaveInvoice implements Query {
 	*
 	* @param invoice Invoice: The invoice to be saved from the database
 	*/
-	//TODO: Add table specification
 	public SaveInvoice(Invoice invoice, Tables table) {
 		this.invoice = invoice;
 		this.tableName = table.toString();

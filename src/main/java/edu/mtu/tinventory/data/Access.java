@@ -9,12 +9,11 @@ import java.util.EnumSet;
 import java.util.Set;
 
 public class Access {
-	//TODO: Maybe change/expand on these...or make them dynamically defined? Something...
 	public enum Level {
 		SALESMAN(VIEW_INV, SELL_INV, VIEW_CUSTOMERS),
 		STOCKER(SALESMAN, UPDATE_PRODUCT),
 		MANAGER(SALESMAN, CREATE_PRODUCT, UPDATE_PRODUCT, REPORTSCONTROLLER, VIEW_INVOICES),
-		ADMINISTRATOR(MANAGER, ADMIN); // TODO: Probably some stuff later
+		ADMINISTRATOR(MANAGER, ADMIN);
 
 		private Set<View> views;
 
@@ -86,7 +85,7 @@ public class Access {
 	}
 
 	/**
-	 * Revokes access to a specific view. You cannot revoke access to a view that is attached to the base level. TODO: Maybe change that?
+	 * Revokes access to a specific view. You cannot revoke access to a view that is attached to the base level.
 	 * @param view The view to revoke access to
 	 * @return true if access has been revoked, false if access was already revoked, or if the view is part of the base level.
 	 */
