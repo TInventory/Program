@@ -12,6 +12,7 @@ import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import javafx.collections.transformation.SortedList;
 import javafx.fxml.FXML;
+import javafx.scene.control.Button;
 import javafx.scene.control.TabPane;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
@@ -28,6 +29,7 @@ public class InvViewController extends Controller {
 	@FXML private TableColumn<Product, Number> qtyCol;
 	@FXML private TextField filter;
 	@FXML private TextField tagFilter;
+	@FXML private Button refresh;
 	private ObservableList<Product> list;
 	private DatabaseInterface db;
 	private ArrayList<String> tagList;
@@ -90,7 +92,12 @@ public class InvViewController extends Controller {
 	public void refresh() {
 		list = FXCollections.observableList(db.getProducts());
 	}
-
+	
+	@FXML
+	private void update() {
+		db.forceUpdateCache();
+		initialize();
+	}
 	@Override
 	protected void updateLayout(TabPane tabs) {
 		// 30 is the constant height for the tabs themselves.

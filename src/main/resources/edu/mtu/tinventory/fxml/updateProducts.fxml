@@ -8,9 +8,10 @@
 
 <VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.mtu.tinventory.gui.UpdateProductsController">
 	<children>
+	 	<Button fx:id="refresh" mnemonicParsing="false" onAction="#update" text="Refresh Products" />	
+		<Button fx:id="button" mnemonicParsing="false" onAction="#updateProduct" text="Update Product" />	
     	<TextField fx:id="productID" promptText="Product ID" />
     	<TextField fx:id="quantity" promptText="Qty to Add" />
-    	<Button fx:id="button" mnemonicParsing="false" onAction="#updateProduct" text="Update Product" />	
     	<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1">
    			<children>
    				 <TextField fx:id="filter" promptText="Enter search here..." />

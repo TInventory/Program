@@ -39,6 +39,7 @@ public class UpdateProductsController extends Controller {
 	@FXML private TextField productID;
 	@FXML private TextField quantity;
 	@FXML private Button button;
+	@FXML private Button refresh;
 		  
 	
 	@FXML
@@ -98,6 +99,12 @@ public class UpdateProductsController extends Controller {
 		list = FXCollections.observableList(db.getProducts());
 	}
 
+	@FXML
+	private void update() {
+		db.forceUpdateCache();
+		initialize();
+	}
+	
 	@Override
 	protected void updateLayout(TabPane tabs) {
 		// 30 is the constant height for the tabs themselves.
