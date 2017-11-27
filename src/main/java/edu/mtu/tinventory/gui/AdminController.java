@@ -93,7 +93,7 @@ public class AdminController extends Controller {
 
 	@FXML
 	private void changeOverrides() {
-
+		Dialogs.showDialog(Dialogs.Type.ERROR, "This feature has not been implemented.", "Our apologies, but it appears we're out of time.");
 	}
 
 	@FXML
