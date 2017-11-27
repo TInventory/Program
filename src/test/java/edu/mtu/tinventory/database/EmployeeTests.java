@@ -1,10 +1,9 @@
 package edu.mtu.tinventory.database;
 
 import java.util.List;
-
-import org.junit.After;
+import org.junit.AfterClass;
 import org.junit.Assert;
-import org.junit.Before;
+import org.junit.BeforeClass;
 import org.junit.Test;
 
 import edu.mtu.tinventory.data.Access.Level;
@@ -12,12 +11,12 @@ import edu.mtu.tinventory.data.Employee;
 
 public class EmployeeTests {
 
-    MySQL sqlConnection = new MySQL("cs3141", "taco", "tinventory", "kiro47.ddns.net", 9999);
-    DatabaseAPI api = new DatabaseAPI(sqlConnection, true);
-    boolean testing = true;
+    static MySQL sqlConnection = new MySQL("cs3141", "taco", "tinventory", "kiro47.ddns.net", 9999);
+    static DatabaseAPI api = new DatabaseAPI(sqlConnection, true);
+    static boolean testing = true;
 
-    @Before
-    public void before() {
+    @BeforeClass
+    public static void before() {
         api.setupDatabase(testing);
     }
 
@@ -59,14 +58,13 @@ public class EmployeeTests {
     }
     
     //TODO: add in checks on names, and leveling access
-    @After
-    public void close() {
+    @AfterClass
+    public static void close() {
         api.deleteDataTable(Tables.TESTING_EMPLOYEE_TABLE);
         api.deleteDataTable(Tables.TESTING_INVENTORY_TABLE);
         api.deleteDataTable(Tables.TESTING_CONFIGURATION_TABLE);
         api.deleteDataTable(Tables.TESTING_CUSTOMER_TABLE);
         api.deleteDataTable(Tables.TESTING_INVOICES_TABLE);
         api.quit();
-        System.exit(0);
     }
 }

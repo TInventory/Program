@@ -14,6 +14,7 @@ public class Employee {
 	 * @param level The starting access level for the employee
 	 */
 	public Employee(String firstName, String lastName, Access.Level level) {
+		this.id = Character.toUpperCase(firstName.charAt(0)) + (lastName.length() < 7 ? lastName.toUpperCase() : lastName.substring(0, 7).toUpperCase());
 		this.firstName = firstName;
 		this.lastName = lastName;
 		this.access = new Access(level);
