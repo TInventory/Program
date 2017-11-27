@@ -8,6 +8,7 @@ import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import javafx.collections.transformation.SortedList;
 import javafx.fxml.FXML;
+import javafx.scene.control.Button;
 import javafx.scene.control.TabPane;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableRow;
@@ -26,6 +27,7 @@ public class CustomerViewController extends Controller {
 	@FXML private TableColumn<Customer, String> faxNumberCol;
 	@FXML private TableColumn<Customer, String> pastSalesCol;
 	@FXML private TextField filter;
+	@FXML private Button refresh;
 	ObservableList<Customer> list;
 	DatabaseInterface db;
 
@@ -74,7 +76,11 @@ public class CustomerViewController extends Controller {
 			return row;
 		});
 	}
-
+	@FXML
+	private void update() {
+		db.forceUpdateCache();
+		initialize();
+	}
 	@Override
 	protected void updateLayout(TabPane tabs) {
 		// 30 is the constant height for the tabs themselves.

@@ -107,10 +107,9 @@ public class InvoiceViewController extends Controller {
 				pp.getProduct().getQuanity().moveQty(StateRegistry.SOLD_STATE, StateRegistry.AVAILABLE_STATE, pp.getQuantity());
 				DatabaseInterface.getInstance().updateItem(pp.getProduct());
 			}
+			initialize();
 		}
-		refresh();
 	}
-	
 	public void refresh() {
 		list = FXCollections.observableList(db.getInvoices());
 	}

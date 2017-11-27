@@ -79,7 +79,7 @@ public class Customer {
 		List<Invoice> pastSales = DatabaseInterface.getInstance().getCustomerInvoices(this);
 		StringBuilder result = new StringBuilder(); // Saves a little memory doing it this way.
 		for (Invoice i : pastSales)
-			result.append(i.getId()).append(" ").append(i.getDate()).append(" ").append(i.getTotal().toPlainString());
+			result.append("ID:" + i.getId()).append(" Date:").append(i.getDate()).append(" Total:").append(i.getTotal().toPlainString());
 		return result.toString();
 	}
 	public UUID getID() {
