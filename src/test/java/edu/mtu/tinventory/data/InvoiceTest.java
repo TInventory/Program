@@ -4,7 +4,6 @@ import static org.junit.Assert.assertEquals;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 import org.junit.Test;
@@ -18,7 +17,7 @@ public class InvoiceTest {
 		List<PurchasedProduct> products = new ArrayList<PurchasedProduct>();
 		products.add(testPurchasedProduct);
 		Customer customer = new Customer(null, null, null, null, null);
-		Invoice test = Invoice.createNewInvoice(products, customer);
+		Invoice test = Invoice.createNewInvoice(products, customer, true);
 		assertEquals(test.getTotal(), new BigDecimal("1466.4"));
 	}
 	@Test
@@ -31,7 +30,7 @@ public class InvoiceTest {
 		products.add(testPurchasedProduct);
 		products.add(testPurchasedProduct2);
 		Customer customer = new Customer(null, null, null, null, null);
-		Invoice test = Invoice.createNewInvoice(products, customer);
+		Invoice test = Invoice.createNewInvoice(products, customer, true);
 		assertEquals(test.getTotal(), new BigDecimal("2262.4"));
 	}
 }

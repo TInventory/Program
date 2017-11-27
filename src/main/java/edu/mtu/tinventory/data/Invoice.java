@@ -32,10 +32,22 @@ public class Invoice {
 	 * @return The Invoice object created from this information, or null if the Database failed to create the Invoice.
 	 */
 	public static Invoice createNewInvoice(List<PurchasedProduct> products, Customer customer) {
+		return createNewInvoice(products, customer, false);
+	}
+
+	/**
+	 * Creates a new Invoice and stores it in the database.
+	 * It is assumed that the Invoice is issued on the date that this method is called.
+	 * @param products The list of products to be on this Invoice
+	 * @param customer The customer that this Invoice is issued to
+	 * @param testing true if this is being called from a JUnit test.
+	 * @return The Invoice object created from this information, or null if the Database failed to create the Invoice.
+	 */
+	public static Invoice createNewInvoice(List<PurchasedProduct> products, Customer customer, boolean testing) {
 		//TODO: Get the next unique Invoice # from a user-specified format. Probably from the database?
 		//		Date should always be today. Maybe include a initializer for other dates, but would need a use case for it.
 		Invoice i = new Invoice((int)(Math.random() * 100000), LocalDate.now(), products, customer);
-		if(DatabaseInterface.getInstance().saveInvoice(i)) {
+		if(!testing && DatabaseInterface.getInstance().saveInvoice(i)) {
 			return i;
 		} else {
 			return null;
