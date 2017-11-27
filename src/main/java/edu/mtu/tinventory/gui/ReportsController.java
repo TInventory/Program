@@ -1,4 +1,5 @@
 package edu.mtu.tinventory.gui;
+
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
@@ -56,7 +57,9 @@ public class ReportsController extends Controller {
 			SimpleDateFormat sdf = new SimpleDateFormat("yyyy_MM_dd_HH_mm_ss");
 			Date now = new Date(); 
 			FileChooser fileChoose = new FileChooser();
+			fileChoose.getExtensionFilters().add(new FileChooser.ExtensionFilter("Comma-Separated Values", "csv"));
 			fileChoose.setInitialFileName("SalesReport" + sdf.format(now) + ".csv");
+			fileChoose.setInitialDirectory(new File(System.getProperty("user.dir")));
 			try {
 				File file = fileChoose.showSaveDialog(stage);
 				write = new BufferedWriter(new FileWriter(file));
@@ -87,7 +90,9 @@ public class ReportsController extends Controller {
 			SimpleDateFormat sdf = new SimpleDateFormat("yyyy_MM_dd_HH_mm_ss");
 			Date now = new Date(); 
 			FileChooser fileChoose = new FileChooser();
+			fileChoose.getExtensionFilters().add(new FileChooser.ExtensionFilter("Comma-Separated Values", "csv"));
 			fileChoose.setInitialFileName("InventoryReport" + sdf.format(now) + ".csv");
+			fileChoose.setInitialDirectory(new File(System.getProperty("user.dir")));
 			try {
 				File file = fileChoose.showSaveDialog(stage);
 				write = new BufferedWriter(new FileWriter(file));
@@ -118,7 +123,9 @@ public class ReportsController extends Controller {
 			SimpleDateFormat sdf = new SimpleDateFormat("yyyy_MM_dd_HH_mm_ss");
 			Date now = new Date(); 
 			FileChooser fileChoose = new FileChooser();
+			fileChoose.getExtensionFilters().add(new FileChooser.ExtensionFilter("Comma-Separated Values", "csv"));
 			fileChoose.setInitialFileName("CustomerReport" + sdf.format(now) + ".csv");
+			fileChoose.setInitialDirectory(new File(System.getProperty("user.dir")));
 			try {
 				File file = fileChoose.showSaveDialog(stage);
 				write = new BufferedWriter(new FileWriter(file));
