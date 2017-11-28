@@ -5,6 +5,8 @@ import edu.mtu.tinventory.data.Customer;
 import edu.mtu.tinventory.data.Employee;
 import edu.mtu.tinventory.data.Invoice;
 import edu.mtu.tinventory.data.Product;
+import edu.mtu.tinventory.util.DatabaseUtils;
+
 import java.util.List;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
@@ -54,8 +56,8 @@ public class DatabaseInterface {
      */
     private DatabaseInterface() {
         // TODO: Change to actual config, currently is hard coded
-        sqlConnection = new MySQL("cs3141", "taco", "tinventory", "kiro47.ddns.net", 9999);
-         //sqlConnection = DatabaseUtils.getMySQL();
+        //sqlConnection = new MySQL("cs3141", "taco", "tinventory", "kiro47.ddns.net", 9999);
+         sqlConnection = DatabaseUtils.getMySQL();
         this.api = new DatabaseAPI(sqlConnection, false);
     }
 

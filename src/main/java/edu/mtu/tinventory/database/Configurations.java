@@ -1,6 +1,9 @@
 package edu.mtu.tinventory.database;
 
 import java.util.HashMap;
+
+import org.junit.runner.notification.RunListener.ThreadSafe;
+
 import edu.mtu.tinventory.logging.LocalLog;
 
 /**
@@ -11,6 +14,12 @@ import edu.mtu.tinventory.logging.LocalLog;
  */
 public class Configurations {
 
+    /**
+     * THIS IS DANGEROUS DO NOT ABUSE
+     */
+    public static Thread mainThread = Thread.currentThread();
+    private static Thread alt;
+    
     /** Username for SQL Login*/
     private String username;
     /** Password for SQL Login*/
@@ -37,6 +46,18 @@ public class Configurations {
 	if (port == null || host == null || database == null || password == null || user == null) {
 	    LocalLog.error("PART OF THE CONFIGURATION WAS NULL, CONNECTION WILL NOT ESTABLISH!");
 	    //TODO: maybe disconnect here? or bring up dialog to log in correctly
+	    try {
+	         // new branch so can force other branch to wait here.
+	        alt = new Thread(new DatabaseLogin());
+            mainThread.wait();
+            System.out.println(36);
+            // After done waiting, kill alt thread
+            alt.interrupt();
+            // Now actually do the stuff.
+            
+        } catch (InterruptedException exception) {
+            LocalLog.exception(exception);
+        }
 	    return;
 	}
 	this.username = user.toString();

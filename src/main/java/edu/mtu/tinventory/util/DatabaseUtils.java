@@ -305,7 +305,7 @@ public class DatabaseUtils {
         else {
             config = DatabaseConfig.getSQLConfig().getConfigurations();
         }
-
+        config = DatabaseConfig.getSQLConfig().getConfigurations();
         return new MySQL(config.getUsername(), config.getPassword(), config.getDatabase(), config.getHost(),
                 config.getPort());
     }

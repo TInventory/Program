@@ -101,7 +101,6 @@ public class DatabaseAPI {
     public DatabaseAPI(MySQL sqlConnection, boolean testing) {
         // TODO: Change to actual config, currently is hard coded
         this.sqlConnection = sqlConnection;
-        // sqlConnection = getMySQL();
 
         // Connect to the SQL database
         connectTo();

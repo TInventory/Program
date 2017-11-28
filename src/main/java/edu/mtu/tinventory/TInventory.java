@@ -3,7 +3,9 @@ package edu.mtu.tinventory;
 import edu.mtu.tinventory.data.Access;
 import edu.mtu.tinventory.data.Employee;
 import edu.mtu.tinventory.database.DatabaseInterface;
+import edu.mtu.tinventory.database.DatabaseLogin;
 import edu.mtu.tinventory.gui.Controller;
+import edu.mtu.tinventory.gui.DatabaseLoginController;
 import edu.mtu.tinventory.gui.IconLoader;
 import edu.mtu.tinventory.gui.MainController;
 import edu.mtu.tinventory.logging.LocalLog;
@@ -25,12 +27,14 @@ public class TInventory extends Application {
 	private MainController mainController;
 	private Stage primaryStage;
 	private Employee loggedIn;
-	private Image icon;
+	public static Image icon;
 	public static boolean databaseFrozen = false;
 	private static boolean debugFlag = false;
 
 	@Override
 	public void start(Stage stage) throws Exception {
+	    // TODO: Used only for testing purposes to show main stuff
+	    new DatabaseLoginController().showDatabaseLogin();
 		setupLog();
 		database = DatabaseInterface.getInstance();
 		DatabaseUtils.checkStatus();

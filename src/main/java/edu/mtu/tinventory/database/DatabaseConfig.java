@@ -8,6 +8,9 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -38,7 +41,7 @@ public class DatabaseConfig {
     /**
      * Directory inside of TInventory(directoryName) folder
      */
-    private String executableDirectory;
+    private Path executableDirectory;
     /**
      * Version of the current running JVM
      */
@@ -59,8 +62,10 @@ public class DatabaseConfig {
      */
     private enum FileName {
 
-        SQL_CONNECTION_FILE("SQLConnections"), LOCAL_LOG("LocalLog"), TESTING_LOCAL_LOG(
-                "TESTING_LocalLog"), TESTING_SQL_CONNECTION_FILE("TESTING_SQLConnections");
+        SQL_CONNECTION_FILE("SQLConnections"),
+        LOCAL_LOG("LocalLog"),
+        TESTING_LOCAL_LOG("TESTING_LocalLog"),
+        TESTING_SQL_CONNECTION_FILE("TESTING_SQLConnections");
 
         private String fileName;
 
@@ -128,7 +133,8 @@ public class DatabaseConfig {
      */
     private DatabaseConfig(FileName filename) {
         // Assign global variables
-        this.executableDirectory = System.getProperty("user.dir");
+        // no go this.executableDirectory = System.getProperty("user.dir");
+        this.executableDirectory = Paths.get("config");
         this.jvmVersion = System.getProperty("java.version");
         this.user = System.getProperty("user.name");
         this.directoryName = "TInventory";
@@ -275,9 +281,9 @@ public class DatabaseConfig {
      */
     public boolean write(String text) {
         try {
-		// No write access in /usr/
-		// Or user.dir
-		// Check for way to ask for permissions by default?
+            // No write access in /usr/
+            // Or user.dir
+            // Check for way to ask for permissions by default?
             BufferedWriter writer = new BufferedWriter(new FileWriter(file));
             writer.write(text);
             // Maybe there is a more efficient way to do this for log, maybe
@@ -314,8 +320,8 @@ public class DatabaseConfig {
         File priorDirectory = new File(uri);
         // Name of the directory we are trying to make / ensure exists
         // global variable initialized here
-        this.directory = new File(uri.toString().substring(5) + directoryName);
-        
+        this.directory = new File(this.executableDirectory.toString());
+
         // Ensure the File (Really FilePath) is a directory , should always be.
         if (priorDirectory.isDirectory()) {
 
@@ -323,16 +329,18 @@ public class DatabaseConfig {
             // method handles both creation and check
             if (!directory.exists()) {
                 try {
-                    if (!directory.canWrite()) {
-                        // TODO: Use default under home?
-                        directory = new File(System.getProperty("user.home") + "/" + directoryName);
-                    }
-                    if (directory.mkdirs()) {
-                        LocalLog.info("Local storage directory successfully created at \"" + directory + "\"!");
+                    if (Files.notExists(directory.toPath())) {
+                        try {
+                            Files.createDirectory(directory.toPath());
+                            LocalLog.info("Local storage directory successfully created at \"" + directory + "\"!");
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                            LocalLog.error("Local storage directory failed to be created at \"" + directory + "\"!");
+                        }
+                        
                         // Directory now exists
                         return true;
-                    }
-                    else {
+                    } else {
                         LocalLog.error("Local storage directory failed to be created at \"" + directory + "\"!");
                         // Directory still does not exist
                         return false;
@@ -354,9 +362,16 @@ public class DatabaseConfig {
      * @return The URI parent of the TInventory folder
      * 
      */
+    @SuppressWarnings("unused")
     private URI getDirectoryPath() {
-        String uri;
-        switch (utils.getOperatingSystem()) {
+
+        if (true) {
+            return this.executableDirectory.toUri();
+            // meh
+            // it wasn't working right anyhow
+        } else {
+            String uri;
+            switch (utils.getOperatingSystem()) {
             case WINDOWS:
                 uri = String.format(System.getenv("ProgramFiles"), user);
                 break;
@@ -370,15 +385,16 @@ public class DatabaseConfig {
                 uri = String.format("file:/usr/share/", user);
                 break;
             default:
-                uri = executableDirectory;
+                uri = executableDirectory.toUri().toString();
                 break;
-        }
-        // Convert string to URI
-        try {
-            return new URI(uri);
-        } catch (URISyntaxException exception) {
-            LocalLog.exception(exception);
-            return null;
+            }
+            // Convert string to URI
+            try {
+                return new URI(uri);
+            } catch (URISyntaxException exception) {
+                LocalLog.exception(exception);
+                return null;
+            }
         }
     }
 }
